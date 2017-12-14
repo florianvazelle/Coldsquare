@@ -15,12 +15,14 @@ class Jeu{
 
     AfficherPersonnage af;
     MaFenetreJeu frame;
+    private int nombreEnnemi=2;
+
     Jeu(){
         this.frame = new MaFenetreJeu();
         this.af = new AfficherPersonnage();
         frame.add(af);
         initSteve();
-
+	initEnnemi();
     }
 
     void initSteve(){
@@ -32,5 +34,16 @@ class Jeu{
 	frame.addMouseListener(new ControlerSouris(Steve));
 	af.repaint();
         frame.revalidate();
+    }
+
+     void initEnnemi(){
+	for(int i=0;i<nombreEnnemi;i++){
+	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.jpg",30*i,30*i);
+	    Ennemi.addListeDeSprite(new Sprite(0,0,50,100,Ennemi));
+	    af.addPersonnageVisible(Ennemi);
+	    af.repaint();
+	    frame.revalidate();
+	   
+	}
     }
 }

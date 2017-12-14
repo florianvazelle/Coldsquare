@@ -37,7 +37,9 @@ class AfficherPersonnage extends JPanel {
 	g2d.rotate(Math.toRadians(30), 50, 50);
 		
 	if(!personnageVisible.isEmpty()){
-            g2d.drawImage(personnageVisible.get(0).listeDeSprite.get(0).getImage(), personnageVisible.get(0).getCoordonneX(), personnageVisible.get(0).getCoordonneY(), this);
+         	for(int i=0;i< personnageVisible.size();i++){
+	    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(0).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);      
+	}
 	}
     }
 
