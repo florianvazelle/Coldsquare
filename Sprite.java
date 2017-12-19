@@ -16,6 +16,7 @@ class Sprite {
     private int y;
     private int hauteur;
     private int longueur;
+    ImageIcon i;
     private Image image;
 
     public Sprite(int x, int y, int hauteur, int longueur, Personnage perso){
@@ -23,11 +24,18 @@ class Sprite {
         this.y=y;
         this.hauteur=hauteur;
         this.longueur=longueur;
-        ImageIcon i = new ImageIcon(perso.getSkin());
-        image = i.getImage();
+        this.i = new ImageIcon(perso.getSkin());
+        this.image = i.getImage();
     }
 
     Image getImage(){
         return this.image;
+    }
+
+    MonPoint getCentre(){
+	double x = i.getIconHeight()/2;
+	double y = i.getIconWidth()/2;
+	MonPoint p = new MonPoint(x,y);
+	return p;
     }
 }

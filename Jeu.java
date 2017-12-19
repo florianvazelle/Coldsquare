@@ -31,9 +31,10 @@ class Jeu{
         af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
         frame.addKeyListener(new DeplacementControler(deplacement,af,frame));
-	frame.addMouseListener(new ControlerSouris(Steve));
+	//frame.addMouseListener(new ControlerSouris(Steve));
 	af.repaint();
         frame.revalidate();
+	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
     }
 
      void initEnnemi(){

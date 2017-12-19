@@ -16,6 +16,7 @@ class DeplacementControler extends KeyAdapter {
     Deplacement d;
     AfficherPersonnage af;
     MaFenetreJeu frame;
+
     DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame){
         this.d=d;
 	this.af=af;

@@ -33,14 +33,28 @@ class AfficherPersonnage extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 	
 	//Changement
+	int i = 0;
 
-	g2d.rotate(Math.toRadians(30), 50, 50);
+	// Calcul Vecteur
+	// Coordonnée centre image
+	double Xa = personnageVisible.get(i).listeDeSprite.get(0).getCentre().getX(); 
+	double Ya = personnageVisible.get(i).listeDeSprite.get(0).getCentre().getY();
+
+	// Coordonnée Souris
+	double Xb = personnageVisible.get(i).getRotationX();
+	double Yb = personnageVisible.get(i).getRotationY();
+
+	double pi = 4* Math.atan(1);
+		
+	double degree = (Math.atan2((Yb-Ya),(Xb-Xa))+pi/2)*(180/pi);//personnageVisible.get(i).getRotationX() - personnageVisible.get(i).getRotationY();
+	System.out.println(""+degree);
+	g2d.rotate(Math.toRadians(degree),personnageVisible.get(i).listeDeSprite.get(0).getCentre().getX(), personnageVisible.get(i).listeDeSprite.get(0).getCentre().getY());// a changer en fonction du sprite courant
 		
 	if(!personnageVisible.isEmpty()){
-         	for(int i=0;i< personnageVisible.size();i++){
-	    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(0).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);      
-	}
+	    for(i=0;i< personnageVisible.size();i++){
+		g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(0).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);      
+	    }
 	}
     }
-
+    
 }

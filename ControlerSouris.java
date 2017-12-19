@@ -12,27 +12,31 @@ import java.awt.event.KeyEvent;
 import java.awt.EventQueue;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class ControlerSouris implements MouseListener {
+public class ControlerSouris implements MouseMotionListener {
 
+    AfficherPersonnage af;
+    JFrame frame;
     Personnage perso;
-	
-    public ControlerSouris(Personnage perso){
+    private int mX, mY;
+    
+    public ControlerSouris(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame){
 	this.perso=perso;
+	this.af=af;
+	this.frame=frame;
     }
     
-    public void	mouseClicked(MouseEvent e){}
-    public void mouseDragged(MouseEvent e){}
-    public void mouseEntered(MouseEvent e){
-	int sourisX = e.getX();
-	int sourisY = e.getY();
-
-	perso.setRotationX(sourisX);
-	perso.setRotationY(sourisY);
-	
+    public void mouseMoved(MouseEvent me) {
+	mX = (int) me.getPoint().getX();
+	mY = (int) me.getPoint().getY();
+	perso.setRotationX(mX);
+	perso.setRotationY(mY);
     }
-    public void mouseExited(MouseEvent e){}
-    public void mouseMoved(MouseEvent e){}
-    public void mousePressed(MouseEvent e){}
-    public void mouseReleased(MouseEvent e){}
+    
+    public void mouseDragged(MouseEvent me) {
+	mouseMoved(me);
+	af.repaint();
+        frame.revalidate();
+    }
 }
