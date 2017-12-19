@@ -37,7 +37,7 @@ public class ControlerSouris implements MouseMotionListener {
     }
     
     public void mouseDragged(MouseEvent me) {
-	
+	mouseMoved(me);
 	af.repaint();
         frame.revalidate();
     }

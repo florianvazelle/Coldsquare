@@ -33,7 +33,7 @@ class Jeu{
     }
 
     void initSteve(){
-        Personnage Steve = new Personnage("Steve",5,"./assets/sprite.jpg",50,50);
+        Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50);
         Steve.addListeDeSprite(new Sprite(0,0,50,100,Steve));
         af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
@@ -46,7 +46,7 @@ class Jeu{
 
      void initEnnemi(){
 	for(int i=0;i<nombreEnnemi;i++){
-	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.jpg",40*i,40*i);
+	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.png",40*i,40*i);
 	    Ennemi.addListeDeSprite(new Sprite(0,0,50,100,Ennemi));
 	    af.addPersonnageVisible(Ennemi);
 	    af.repaint();
