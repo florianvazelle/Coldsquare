@@ -32,10 +32,12 @@ public class ControlerSouris implements MouseMotionListener {
 	mY = (int) me.getPoint().getY();
 	perso.setRotationX(mX);
 	perso.setRotationY(mY);
+	af.repaint();
+	frame.revalidate();
     }
     
     public void mouseDragged(MouseEvent me) {
-	mouseMoved(me);
+	
 	af.repaint();
         frame.revalidate();
     }

@@ -21,8 +21,15 @@ class Jeu{
         this.frame = new MaFenetreJeu();
         this.af = new AfficherPersonnage();
         frame.add(af);
+	initFond();
         initSteve();
 	initEnnemi();
+    }
+
+    void initFond(){
+	
+	af.repaint();
+	frame.revalidate();
     }
 
     void initSteve(){
@@ -39,7 +46,7 @@ class Jeu{
 
      void initEnnemi(){
 	for(int i=0;i<nombreEnnemi;i++){
-	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.jpg",30*i,30*i);
+	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.jpg",40*i,40*i);
 	    Ennemi.addListeDeSprite(new Sprite(0,0,50,100,Ennemi));
 	    af.addPersonnageVisible(Ennemi);
 	    af.repaint();

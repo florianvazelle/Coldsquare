@@ -25,6 +25,7 @@ class AfficherPersonnage extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+	drawFond(g);
 	doDrawing(g);
         Toolkit.getDefaultToolkit().sync();
     }
@@ -56,5 +57,14 @@ class AfficherPersonnage extends JPanel {
 	    }
 	}
     }
+    
+    private void drawFond(Graphics g) {
+	Graphics2D g2d = (Graphics2D) g;
+	ImageIcon i = new ImageIcon("./assets/fond.jpg");
+	Image imagefond= i.getImage();
+	g2d.drawImage(imagefond,0,0,this);      
+	
+    }
+
     
 }
