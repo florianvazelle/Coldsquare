@@ -8,7 +8,7 @@ public class Arme {
 	this.cadence = 1;
 	this.dispersion = 1;
     }
-    
+
     int getMunition(){
 	return this.munition;
     }

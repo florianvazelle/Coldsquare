@@ -33,7 +33,8 @@ class Jeu{
     }
 
     void initSteve(){
-        Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50);
+	Arme gunSteve = new Arme();
+        Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
         Steve.addListeDeSprite(new Sprite(0,0,50,100,Steve));
         af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
@@ -42,6 +43,7 @@ class Jeu{
 	af.repaint();
         frame.revalidate();
 	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
+	frame.addMouseListener(new ControlerClique(Steve));
     }
 
      void initEnnemi(){
