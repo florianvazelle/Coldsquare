@@ -67,7 +67,7 @@ class AfficherPersonnage extends JPanel {
     
     private void drawFond(Graphics g) {
 	Graphics2D g2d = (Graphics2D) g;
-	ImageIcon i = new ImageIcon("./assets/fond.jpg");
+	ImageIcon i = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1040,Image.SCALE_DEFAULT));
 	Image imagefond= i.getImage();
 	g2d.drawImage(imagefond,0,0,this);      
 	

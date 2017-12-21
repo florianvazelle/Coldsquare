@@ -36,18 +36,6 @@ class Personnage {
         this.rotationY = 0;
     }
 
-    public Personnage(String nom, int vie, String skin, int x_de_base, int y_de_base, Arme arme){
-	this.nom=nom;
-        this.vie=vie;
-        this.arme=arme;
-        this.skin=skin;
-        this.coordonneX=x_de_base;
-        this.coordonneY=y_de_base;
-        this.listeDeSprite = new ArrayList<Sprite>();
-	this.rotationX = 0;
-        this.rotationY = 0;
-    }
-
     void addListeDeSprite(Sprite sp){
         this.listeDeSprite.add(sp);
     }

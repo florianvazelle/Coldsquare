@@ -13,8 +13,8 @@ import java.awt.EventQueue;
 
 class MaFenetreJeu extends JFrame {
     public MaFenetreJeu(){
-	this.setSize(1000,500);
-        setLocation(10,10);
+	this.setSize(1920,1040);
+        setLocation(0,0);
         setBackground(Color.BLACK);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
