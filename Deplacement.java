@@ -38,19 +38,19 @@ class Deplacement {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            direction_x = -2;
+            direction_x = -3;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            direction_x = 2;
+            direction_x = 3;
         }
 
         if (key == KeyEvent.VK_UP) {
-            direction_y = -2;
+            direction_y = -3;
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            direction_y = 2;
+            direction_y = 3;
         }
     }
  public void keyReleased(KeyEvent e) {

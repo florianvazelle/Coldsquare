@@ -36,7 +36,7 @@ class Jeu{
 	i.setBounds(0,500,250,450);
 
 	jlp.add(af,JLayeredPane.DEFAULT_LAYER);
-	jlp.add(i,JLayeredPane.PALETTE_LAYER);
+	jlp.add(i,JLayeredPane.MODAL_LAYER);
         
 	
 	frame.revalidate();
@@ -49,7 +49,9 @@ class Jeu{
     }
 
     void initSteve(){
-        Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",960,500);
+
+	Arme gunSteve = new Arme();
+	Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
         Steve.addListeDeSprite(new Sprite(0,0,50,100,Steve));
         af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
@@ -60,6 +62,8 @@ class Jeu{
 	af.repaint();
         frame.revalidate();
 	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
+	frame.addMouseListener(new ControlerClique(Steve,af,frame));	   
+
     }
 
      void initEnnemi(){
@@ -72,7 +76,6 @@ class Jeu{
 	    af.addPersonnageVisible(Ennemi);
 	    af.repaint();
 	    frame.revalidate();
-	   
 	}
     }
 }

@@ -15,15 +15,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class ControlerClique implements MouseListener {
-
+    MaFenetreJeu frame;
     Personnage perso;
-    ControlerClique(Personnage perso){
+    AfficherPersonnage af;
+    
+    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame){
 	this.perso = perso;
+	this.af = af;
+        this.frame=frame;
     }
     
     public void mouseClicked(MouseEvent e){
-	System.out.println("here");
-	(new Tirer(perso)).start();
+	(new Tirer(perso, frame)).start();
+	af.repaint();
+	frame.revalidate();
     }
     public void mouseEntered(MouseEvent e){}
     public void mouseExited(MouseEvent e){}
