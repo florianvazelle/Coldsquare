@@ -28,7 +28,7 @@ public class Balle extends Thread {
     @Override
     public void run(){
 	BalleAnimation ba = new BalleAnimation(x,y,souris);
-	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconHeight(), ba.getImage().getImageIcon().getIconWidth());
+	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 	frame.getLayeredPane().add(ba, JLayeredPane.PALETTE_LAYER);
         animationTirer(ba);
 	//frame.getLayeredPane().remove(ba);
