@@ -31,32 +31,96 @@ public class Balle extends Thread {
 	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 	frame.getLayeredPane().add(ba, JLayeredPane.PALETTE_LAYER);
         animationTirer(ba);
-	//frame.getLayeredPane().remove(ba);
+	frame.getLayeredPane().remove(ba);
     }
     
     void animationTirer(BalleAnimation ba){
-	Point i = new Point(x,y);
-	while(i.getX()!=souris.getX() && i.getY()!=souris.getY()){
-	    if(i.getX()>souris.getX())
-		ba.setX(x--);
-	    if(i.getX()<souris.getX())
-		ba.setX(x++);
-	    if(i.getY()>souris.getY())
-		ba.setY(y--);
-	    if(i.getY()<souris.getY())
-		ba.setY(y++);
-	    i = new Point(x,y);
-	    try{
-		sleep(10);
-	    }catch(InterruptedException e){
+	Point i = new Point(x, y);
+	
+	// Changement
+	// Calcul equation de droite
+
+	if(i.getX() == souris.getX()){
+	    while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0 ){
+		if(i.getY()>souris.getY())
+		    ba.setY(y--);
+		if(i.getY()<souris.getY())
+		    ba.setY(y++);
+	    	i = new Point(x,y);	
+		try{
+		    sleep(5);
+		}catch(InterruptedException e){
+		}
+		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
+		ba.repaint();
+		frame.revalidate();
 	    }
-	    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconHeight(), ba.getImage().getImageIcon().getIconWidth());
-	    ba.repaint();
-	    frame.revalidate();
 	}
+	
+	else if(i.getY() == souris.getY()){
+	    while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
+		if(i.getX()>souris.getX())
+		    ba.setX(x--);
+		if(i.getX()<souris.getX())
+		    ba.setX(x++);
+	    	i = new Point(x,y);	
+		try{
+		    sleep(5);
+		}catch(InterruptedException e){
+		}
+		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
+		ba.repaint();
+		frame.revalidate();
+	    }
+	}	
+	else{
+	    // coefficient directeur
+	    double m = ((double) (souris.getY() - i.getY()) / (double) (souris.getX() - i.getX()));
+	    
+	    // ordonnée a l'origine
+	    int p = (int) i.getY() - (int) ( m * i.getX() );
+
+	    System.out.println("m : "+m+" & p : "+p);
+
+
+	    if(i.getX()<souris.getX()){	    
+		while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
+		    ba.setX(x++);			
+		    y = ((int) (m*x) )+  p;
+		    
+		    i = new Point(x,y);
+		    try{
+			sleep(5);
+		    }catch(InterruptedException e){
+		    }
+		    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
+		    ba.repaint();
+		    frame.revalidate();
+		}
+	    }
+	    
+	    
+	    if(i.getX()>souris.getX()){
+		while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
+		    ba.setX(x--);
+		    y = ((int) (m*x) )+  p;
+		    
+		    i = new Point(x,y);
+		    try{
+			sleep(5);
+		    }catch(InterruptedException e){
+		    }
+		    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
+		    ba.repaint();
+		    frame.revalidate();
+		}
+	    }
+	}
+	frame.remove(ba);
+	frame.revalidate();
     }
 }
-
+    
 class BalleAnimation extends JPanel {
 
     private int x, y;
@@ -67,6 +131,7 @@ class BalleAnimation extends JPanel {
         this.x = x;
         this.y = y;
         this.souris = souris;
+	//setOpaque(true);	
     }
 
     @Override
