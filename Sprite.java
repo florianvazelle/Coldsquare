@@ -16,7 +16,7 @@ class Sprite {
     private int y;
     private int hauteur;
     private int longueur;
-    ImageIcon i;
+    private ImageIcon i;
     private Image image;
 
     public Sprite(String s){
@@ -46,5 +46,10 @@ class Sprite {
 	double y = i.getIconWidth()/2;
 	MonPoint p = new MonPoint(x,y);
 	return p;
+    }
+
+    void redimensionnerSprite(int height, int width, int heightOriginel, int widthOriginel, int heightVoulu, int widthVoulu){
+	this.i = new ImageIcon(image.getScaledInstance((heightVoulu*height)/heightOriginel, (widthVoulu*height)/widthOriginel, Image.SCALE_DEFAULT)); 
+	this.image = i.getImage();
     }
 }

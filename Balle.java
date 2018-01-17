@@ -28,6 +28,8 @@ public class Balle extends Thread {
     @Override
     public void run(){
 	BalleAnimation ba = new BalleAnimation(x,y,souris);
+	ba.getImage().redimensionnerSprite(frame.getHeight(), frame.getWidth(), 283, 283, 20, 20);
+	
 	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 	frame.getLayeredPane().add(ba, JLayeredPane.PALETTE_LAYER);
         animationTirer(ba);
@@ -50,6 +52,7 @@ public class Balle extends Thread {
 		try{
 		    sleep(5);
 		}catch(InterruptedException e){
+		    e.printStackTrace();
 		}
 		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		ba.repaint();
@@ -67,6 +70,7 @@ public class Balle extends Thread {
 		try{
 		    sleep(5);
 		}catch(InterruptedException e){
+		    e.printStackTrace();
 		}
 		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		ba.repaint();
@@ -90,8 +94,9 @@ public class Balle extends Thread {
 		    
 		    i = new Point(x,y);
 		    try{
-			sleep(5);
+			sleep(0);
 		    }catch(InterruptedException e){
+			e.printStackTrace();
 		    }
 		    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		    ba.repaint();
@@ -107,8 +112,9 @@ public class Balle extends Thread {
 		    
 		    i = new Point(x,y);
 		    try{
-			sleep(5);
+			sleep(0);
 		    }catch(InterruptedException e){
+			e.printStackTrace();
 		    }
 		    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		    ba.repaint();
@@ -132,6 +138,7 @@ class BalleAnimation extends JPanel {
         this.y = y;
         this.souris = souris;
 	//setOpaque(true);	
+	setBackground(new Color(0,0,0,0));
     }
 
     @Override
