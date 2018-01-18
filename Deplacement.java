@@ -21,7 +21,6 @@ class Deplacement {
         this.perso=perso;
     }
 
-
     public void move() {
         int x = this.perso.getCoordonneX();
         int y = this.perso.getCoordonneY();
@@ -33,6 +32,11 @@ class Deplacement {
         this.perso.setCoordonneY(y);
     }
 
+    public void annulerMove(Point p){
+	this.perso.setCoordonneX((int) p.getX());
+        this.perso.setCoordonneY((int) p.getY());
+    }
+    
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();

@@ -33,7 +33,13 @@ class DeplacementControler extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         d.keyPressed(e);
+	Point p = new Point(af.personnageVisible.get(0).getCoordonneX(), af.personnageVisible.get(0).getCoordonneY());
 	d.move();
+	for(int i = 1 ; i!=af.personnageVisible.size();i++){
+	    if(Hitbox.collision(af.personnageVisible.get(0).getHitbox()/*Forcement Steve*/,af.personnageVisible.get(i).getHitbox())){
+		d.annulerMove(p);
+	    }
+	}
 	af.repaint();
 	frame.revalidate();
     }

@@ -20,6 +20,7 @@ class Personnage {
     private int coordonneY;
     private int rotationX;
     private int rotationY;
+    private Hitbox hb;
     ArrayList<Sprite> listeDeSprite;
 
     // Faire plusieur constructeur pour l'arme
@@ -50,6 +51,8 @@ class Personnage {
     
     void addListeDeSprite(Sprite sp){
         this.listeDeSprite.add(sp);
+	if(this.listeDeSprite.size() == 1)
+	    hb = new Hitbox(this);
     }
 
     String getNom(){
@@ -82,6 +85,7 @@ class Personnage {
 
     void setCoordonneX(int newX){
 	this.coordonneX=newX;
+	hb.setX(newX);
     }
 
     int getCoordonneY(){
@@ -90,6 +94,7 @@ class Personnage {
 
     void setCoordonneY(int newY){
 	this.coordonneY=newY;
+	hb.setY(newY);
     }
 
     int getRotationX(){
@@ -106,5 +111,9 @@ class Personnage {
 
     void setRotationY(int rotationY){
         this.rotationY = rotationY;
+    }
+
+    Hitbox getHitbox(){
+	return this.hb;
     }
 }

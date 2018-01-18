@@ -12,10 +12,6 @@ import java.awt.event.KeyEvent;
 import java.awt.EventQueue;
 
 class Sprite {
-    private int x;
-    private int y;
-    private int hauteur;
-    private int longueur;
     private ImageIcon i;
     private Image image;
 
@@ -24,11 +20,7 @@ class Sprite {
         this.image = i.getImage();
     }
     
-    public Sprite(int x, int y, int hauteur, int longueur, Personnage perso){
-        this.x=x;
-        this.y=y;
-        this.hauteur=hauteur;
-        this.longueur=longueur;
+    public Sprite(Personnage perso){
         this.i = new ImageIcon(perso.getSkin());
         this.image = i.getImage();
     }
