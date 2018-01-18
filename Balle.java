@@ -31,7 +31,7 @@ public class Balle extends Thread {
 	ba.getImage().redimensionnerSprite(frame.getHeight(), frame.getWidth(), 283, 283, 20, 20);
 	
 	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
-	frame.getLayeredPane().add(ba, JLayeredPane.PALETTE_LAYER);
+	frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
         animationTirer(ba);
 	frame.getLayeredPane().remove(ba);
     }
@@ -56,7 +56,7 @@ public class Balle extends Thread {
 		}
 		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		ba.repaint();
-		frame.revalidate();
+		//frame.revalidate();
 	    }
 	}
 	
@@ -74,7 +74,7 @@ public class Balle extends Thread {
 		}
 		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		ba.repaint();
-		frame.revalidate();
+		//frame.revalidate();
 	    }
 	}	
 	else{
@@ -118,12 +118,12 @@ public class Balle extends Thread {
 		    }
 		    ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		    ba.repaint();
-		    frame.revalidate();
+		    // frame.revalidate();
 		}
 	    }
 	}
 	frame.remove(ba);
-	frame.revalidate();
+	//frame.revalidate();
     }
 }
     

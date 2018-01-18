@@ -41,6 +41,6 @@ class DeplacementControler extends KeyAdapter {
 	    }
 	}
 	af.repaint();
-	frame.revalidate();
+	//frame.revalidate();
     }
 }

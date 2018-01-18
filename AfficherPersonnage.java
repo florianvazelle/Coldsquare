@@ -26,7 +26,6 @@ class AfficherPersonnage extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-	drawFond(g);
 	doDrawing(g);
         Toolkit.getDefaultToolkit().sync();
     }
@@ -64,14 +63,6 @@ class AfficherPersonnage extends JPanel {
     }
 
     // Je pense qu'il faudra généraliser la boucle for(i=0;i< personnageVisible.size();i++){ car par la suite il faudra calculer la rotation des ennemie
-    
-    private void drawFond(Graphics g) {
-	Graphics2D g2d = (Graphics2D) g;
-	ImageIcon i = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1040,Image.SCALE_DEFAULT));
-	Image imagefond= i.getImage();
-	g2d.drawImage(imagefond,0,0,this);      
-	
-    }
-
+   
     
 }

@@ -16,6 +16,7 @@ class Jeu{
     AfficherPersonnage af;
     MaFenetreJeu frame;
     Info i;
+    FondPanel fond;
     private int nombreEnnemi=3;
 
     public Jeu(){
@@ -25,6 +26,8 @@ class Jeu{
 	frame.setLayeredPane(jlp);
 	
 	jlp.setOpaque(true);
+
+	this.fond=  new FondPanel();
 	this.af = new AfficherPersonnage();
 	
 	frame.setLayout(null);
@@ -32,11 +35,15 @@ class Jeu{
 	initFond();
 	initSteve();
 	initEnnemi();
+	fond.setBounds(0,0,1920,1040);
 	af.setBounds(0,0,1920,1040);
+	
+	af.setOpaque(false);
 	i.setBounds(0,500,250,450);
 
-	jlp.add(af,JLayeredPane.DEFAULT_LAYER);
-	jlp.add(i,JLayeredPane.MODAL_LAYER);
+	jlp.add(fond,JLayeredPane.DEFAULT_LAYER);
+	jlp.add(af,JLayeredPane.PALETTE_LAYER);
+	jlp.add(i,JLayeredPane.POPUP_LAYER);
         
 	
 	frame.revalidate();
@@ -44,8 +51,7 @@ class Jeu{
 
     void initFond(){
 	
-	af.repaint();
-	frame.revalidate();
+	fond.repaint();
     }
 
     void initSteve(){
@@ -78,4 +84,31 @@ class Jeu{
 	    frame.revalidate();
 	}
     }
+}
+
+class FondPanel extends JPanel{
+
+    ImageIcon fond;
+    public FondPanel()
+    {
+	fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1040,Image.SCALE_DEFAULT));
+	System.out.println("fond1");
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+	drawFond(g);
+        Toolkit.getDefaultToolkit().sync();
+	System.out.println("fond2");
+    }
+    
+    public void drawFond(Graphics g) {
+	Graphics2D g2d = (Graphics2D) g;
+       System.out.println("fond3");
+	Image imagefond= fond.getImage();
+	System.out.println("fond4");
+	g2d.drawImage(imagefond,0,0,this);      
+	System.out.println("fond5");
+	}
 }

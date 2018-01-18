@@ -28,7 +28,7 @@ public class ControlerClique implements MouseListener {
     public void mouseClicked(MouseEvent e){
 	(new Tirer(perso, frame)).start();
 	af.repaint();
-	frame.revalidate();
+	//frame.revalidate();
     }
     public void mouseEntered(MouseEvent e){}
     public void mouseExited(MouseEvent e){}
