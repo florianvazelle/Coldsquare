@@ -93,6 +93,7 @@ public class Balle extends Thread {
 		while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
 		    ba.setX(x++);			
 		    y = ((int) (m*x) )+  p;
+		    ba.setY(y);
 		    
 		    i = new Point(x,y);
 		    try{
@@ -111,6 +112,7 @@ public class Balle extends Thread {
 		while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
 		    ba.setX(x--);
 		    y = ((int) (m*x) )+  p;
+		    ba.setY(y);
 		    
 		    i = new Point(x,y);
 		    try{
@@ -152,7 +154,7 @@ class BalleAnimation extends JPanel {
     public void paintComponent(Graphics g){
 	super.paintComponent(g);
 	Graphics2D g2d = (Graphics2D) g;
-
+		System.out.println("X: "+balleHB.getX()+" | Y: "+balleHB.getY());
 	for(int i = 0 ; i!=af.personnageVisible.size();i++){
             if(Hitbox.collision(balleHB, af.personnageVisible.get(i).getHitbox())){
 	        af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
@@ -187,7 +189,6 @@ class BalleAnimation extends JPanel {
     void setX(int x){
 	this.x = x;
 	this.balleHB.setX(x);
-	System.out.println("Balle : "+balleHB.getX());
     }
 
     
