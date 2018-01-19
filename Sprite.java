@@ -43,5 +43,6 @@ class Sprite {
     void redimensionnerSprite(int height, int width, int heightOriginel, int widthOriginel, int heightVoulu, int widthVoulu){
 	this.i = new ImageIcon(image.getScaledInstance((heightVoulu*height)/heightOriginel, (widthVoulu*height)/widthOriginel, Image.SCALE_DEFAULT)); 
 	this.image = i.getImage();
+	System.out.println("X : "+(heightVoulu*height)/heightOriginel); 
     }
 }

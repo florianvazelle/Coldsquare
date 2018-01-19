@@ -55,6 +55,10 @@ class Deplacement {
 
         if (key == KeyEvent.VK_DOWN) {
             direction_y = 3;
+	}
+
+	if(key == KeyEvent.VK_R) {
+            perso.getArme().setMunition(perso.getArme().getMunition()+2);
         }
     }
  public void keyReleased(KeyEvent e) {

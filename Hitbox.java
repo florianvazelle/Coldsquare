@@ -13,8 +13,16 @@ public class Hitbox {
 	this.y = p.getCoordonneY()+1;
     }
 
+    Hitbox(BalleAnimation ba){
+	Sprite s = ba.getImage();
+	this.h = s.getImageIcon().getIconHeight()+2;
+	this.w = s.getImageIcon().getIconWidth()+2;
+	System.out.println(" lol "+h);
+	this.x = ba.getCoordonneX()+1;
+	this.y = ba.getCoordonneY()+1;
+    }
+
     static boolean collision(Hitbox element1, Hitbox element2){	
-	System.out.println(element1.getX());
 	if(element2.getX() >= element1.getX()+element1.getWidth() || (element2.getX() + element2.getWidth() <= element1.getX()) || (element2.getY() >= element1.getY() + element1.getHeight()) || (element2.getY() + element2.getHeight() <= element1.getY()))
 	    return false;
 	else

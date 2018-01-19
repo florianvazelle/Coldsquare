@@ -6,11 +6,12 @@ import javax.sound.sampled.*;
 public class Tirer extends Thread {
     Personnage perso;
     MaFenetreJeu frame;
+    AfficherPersonnage af;
     
-    public Tirer(Personnage perso, MaFenetreJeu frame){
+    public Tirer(Personnage perso, MaFenetreJeu frame, AfficherPersonnage af){
 	this.perso = perso;
 	this.frame = frame;
-	    
+	this.af=af;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class Tirer extends Thread {
 	int nbMun = this.perso.getArme().getMunition();
 	if(nbMun>0){
 	    this.perso.getArme().setMunition(nbMun-1);
-	    Balle b = new Balle(perso.getCoordonneX(),perso.getCoordonneY(),new Point(perso.getRotationX(),perso.getRotationY()), frame);
+	    Balle b = new Balle(perso.getCoordonneX(),perso.getCoordonneY(),new Point(perso.getRotationX(),perso.getRotationY()), frame, af);
             b.start();
 	    
 	    //Son du tire

@@ -17,16 +17,14 @@ class Jeu{
     MaFenetreJeu frame;
     Info i;
     FondPanel fond;
-    private int nombreEnnemi=3;
+    private int nombreEnnemi=15;
 
     public Jeu(){
-
 	this.frame = new MaFenetreJeu();
 	JLayeredPane jlp = new JLayeredPane();
 	frame.setLayeredPane(jlp);
 	
 	jlp.setOpaque(true);
-
 	this.fond=  new FondPanel();
 	this.af = new AfficherPersonnage();
 	
@@ -37,20 +35,17 @@ class Jeu{
 	initEnnemi();
 	fond.setBounds(0,0,1920,1040);
 	af.setBounds(0,0,1920,1040);
-	
 	af.setOpaque(false);
 	i.setBounds(0,500,250,450);
 
 	jlp.add(fond,JLayeredPane.DEFAULT_LAYER);
 	jlp.add(af,JLayeredPane.PALETTE_LAYER);
 	jlp.add(i,JLayeredPane.POPUP_LAYER);
-        
-	
+
 	frame.revalidate();
     }
 
     void initFond(){
-	
 	fond.repaint();
     }
 
@@ -59,6 +54,8 @@ class Jeu{
 	Arme gunSteve = new Arme();
 	Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
 	Steve.addListeDeSprite(new Sprite(Steve));
+	Steve.addListeDeSprite(new Sprite("./assets/ennemi.png"));
+
 	af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
         frame.addKeyListener(new DeplacementControler(deplacement,af,frame));
@@ -77,8 +74,9 @@ class Jeu{
 	    Random r = new Random();
 	    int nb = r.nextInt(1890) + 10 ; 
 	    int nb2 = r.nextInt(1000) + 10 ; 
-	    Personnage Ennemi = new Personnage("Ennemi"+i,5,"./assets/ennemi.png",nb,nb2);
+	    Personnage Ennemi = new Personnage("Ennemi"+i,1,"./assets/ennemi.png",nb,nb2);
 	    Ennemi.addListeDeSprite(new Sprite(Ennemi));
+	    Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
 	    af.addPersonnageVisible(Ennemi);
 	    af.repaint();
 	    frame.revalidate();
@@ -87,12 +85,10 @@ class Jeu{
 }
 
 class FondPanel extends JPanel{
-
+    
     ImageIcon fond;
-    public FondPanel()
-    {
+    public FondPanel(){
 	fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1040,Image.SCALE_DEFAULT));
-	System.out.println("fond1");
     }
     
     @Override
@@ -100,15 +96,11 @@ class FondPanel extends JPanel{
         super.paintComponent(g);
 	drawFond(g);
         Toolkit.getDefaultToolkit().sync();
-	System.out.println("fond2");
     }
     
     public void drawFond(Graphics g) {
 	Graphics2D g2d = (Graphics2D) g;
-       System.out.println("fond3");
 	Image imagefond= fond.getImage();
-	System.out.println("fond4");
 	g2d.drawImage(imagefond,0,0,this);      
-	System.out.println("fond5");
-	}
+    }
 }
