@@ -20,10 +20,13 @@ public class Balle extends Thread {
     private AfficherPersonnage af;
     MaFenetreJeu frame;
     BalleAnimation ba;
-
-    Balle(int x, int y, Point souris,  MaFenetreJeu frame, AfficherPersonnage af){
-	this.x = x;
-	this.y = y;
+    private Personnage perso;
+    
+    Balle(Personnage perso, Point souris,  MaFenetreJeu frame, AfficherPersonnage af){
+	this.perso = perso;
+	//Penser a enlver x et y des attribut car seul les x et y de balle animation sont utile
+	this.x = perso.getCoordonneX();
+	this.y = perso.getCoordonneY();
 	this.souris = souris;
 	this.frame = frame;
 	this.af=af;
@@ -31,7 +34,7 @@ public class Balle extends Thread {
     
     @Override
     public void run(){
-	BalleAnimation ba = new BalleAnimation(x,y,souris, af, frame);
+	BalleAnimation ba = new BalleAnimation(x,y,souris, af, frame, this);
 	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 	frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
         animationTirer(ba);
@@ -58,7 +61,7 @@ public class Balle extends Thread {
 		}
 		ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 		ba.repaint();
-		//		frame.revalidate();
+		//frame.revalidate();
 	    }
 	}
 	
@@ -97,7 +100,7 @@ public class Balle extends Thread {
 		    
 		    i = new Point(x,y);
 		    try{
-			sleep(0);
+			sleep(5);
 		    }catch(InterruptedException e){
 			e.printStackTrace();
 		    }
@@ -116,7 +119,7 @@ public class Balle extends Thread {
 		    
 		    i = new Point(x,y);
 		    try{
-			sleep(0);
+			sleep(5);
 		    }catch(InterruptedException e){
 			e.printStackTrace();
 		    }
@@ -126,8 +129,22 @@ public class Balle extends Thread {
 		}
 	    }
 	}
-	frame.remove(ba);
+	frame.getLayeredPane().remove(ba);
 	//frame.revalidate();
+	this.stop2();
+    }
+
+    @SuppressWarnings(value={"unchecked", "deprecation"})
+    void stop2(){
+	try{
+	    this.stop();
+	}catch(Exception e){
+	    System.out.println("Erreur : mauvaise fermeture du Thread balle");
+	}
+    }
+    
+    Personnage getPerso(){
+	return this.perso;
     }
 }
 
@@ -138,27 +155,31 @@ class BalleAnimation extends JPanel {
     private Sprite image = new Sprite("./assets/balle.png");
     private Hitbox balleHB;
     private AfficherPersonnage af;
+    private Balle balle;
+    private MaFenetreJeu frame;
     
-    BalleAnimation(int x, int y, Point souris,  AfficherPersonnage af, MaFenetreJeu frame){
+    BalleAnimation(int x, int y, Point souris,  AfficherPersonnage af, MaFenetreJeu frame, Balle balle){
         this.x = x;
         this.y = y;
         this.souris = souris;
 	this.af = af;
 	this.image.redimensionnerSprite(frame.getHeight(), frame.getWidth(), 283, 283, 20, 20);
 	this.balleHB = new Hitbox(this);
+	this.balle=balle;
+	this.frame = frame;
 	//setOpaque(true);	
 	setBackground(new Color(0,0,0,0));
     }
     
-    @Override
     public void paintComponent(Graphics g){
 	super.paintComponent(g);
 	Graphics2D g2d = (Graphics2D) g;
-		System.out.println("X: "+balleHB.getX()+" | Y: "+balleHB.getY());
 	for(int i = 0 ; i!=af.personnageVisible.size();i++){
-            if(Hitbox.collision(balleHB, af.personnageVisible.get(i).getHitbox())){
-	        af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
-		//DIRE QUE LA BALLE DISPARAIT
+            if(Hitbox.collision(balleHB, af.personnageVisible.get(i).getHitbox()) && balle.getPerso()!=af.personnageVisible.get(i)){
+		//af.personnageVisible.get(i).setHitbox(new Hitbox());  Cette ligne a été deplacer dans AfficherPersonnage car sinon les sprites de mort ne s'affichait plus
+		af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
+		frame.getLayeredPane().remove(this);
+		balle.stop2();
 	    }
     	}
 	

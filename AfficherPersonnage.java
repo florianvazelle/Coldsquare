@@ -56,9 +56,9 @@ class AfficherPersonnage extends JPanel {
 		
 	if(!personnageVisible.isEmpty()){
 	    for(i=0;i< personnageVisible.size();i++){
-		if(personnageVisible.get(i).getVie()<0){
+		if(personnageVisible.get(i).getVie()<=0){
+		    personnageVisible.get(i).setHitbox(new Hitbox());
 		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(1).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);
-
 		}
 		else
 		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(0).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);      
@@ -66,7 +66,7 @@ class AfficherPersonnage extends JPanel {
 	    }
 	}
     }
-
+    
     // Je pense qu'il faudra généraliser la boucle for(i=0;i< personnageVisible.size();i++){ car par la suite il faudra calculer la rotation des ennemie
     
 }

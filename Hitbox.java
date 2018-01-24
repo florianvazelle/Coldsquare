@@ -5,21 +5,22 @@ public class Hitbox {
     private int w;
     private int h;
 
+    Hitbox(){}
+    
     Hitbox(Personnage p){
 	Sprite s = p.listeDeSprite.get(0);
-	this.h = s.getImageIcon().getIconHeight()+2;
-	this.w = s.getImageIcon().getIconWidth()+2;
-	this.x = p.getCoordonneX()+1;
-	this.y = p.getCoordonneY()+1;
+	this.h = s.getImageIcon().getIconHeight();
+	this.w = s.getImageIcon().getIconWidth();
+	this.x = p.getCoordonneX();
+	this.y = p.getCoordonneY();
     }
 
     Hitbox(BalleAnimation ba){
 	Sprite s = ba.getImage();
-	this.h = s.getImageIcon().getIconHeight()+2;
-	this.w = s.getImageIcon().getIconWidth()+2;
-	System.out.println(" lol "+h);
-	this.x = ba.getCoordonneX()+1;
-	this.y = ba.getCoordonneY()+1;
+	this.h = s.getImageIcon().getIconHeight();
+	this.w = s.getImageIcon().getIconWidth();
+	this.x = ba.getCoordonneX();
+	this.y = ba.getCoordonneY();
     }
 
     static boolean collision(Hitbox element1, Hitbox element2){	
@@ -49,7 +50,16 @@ public class Hitbox {
 	return this.h;
     }
 
+    void setHeight(int h){
+	this.h = h;
+    }
+
     int	getWidth(){
         return this.w;
     }
+
+    void setWidth(int w){
+	this.w = w;
+    }
+
 }

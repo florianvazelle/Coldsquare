@@ -52,7 +52,7 @@ class Personnage {
     void addListeDeSprite(Sprite sp){
         this.listeDeSprite.add(sp);
 	if(this.listeDeSprite.size() == 1)
-	    hb = new Hitbox(this);
+	    this.hb = new Hitbox(this);
     }
 
     String getNom(){
@@ -65,6 +65,7 @@ class Personnage {
 
     void setVie(int newVie){
         this.vie=newVie;
+	System.out.println("here1 "+newVie);
     }
 
     Arme getArme(){
@@ -115,5 +116,9 @@ class Personnage {
 
     Hitbox getHitbox(){
 	return this.hb;
+    }
+
+    void setHitbox(Hitbox h){
+	this.hb = h;
     }
 }

@@ -23,7 +23,7 @@ public class Tirer extends Thread {
 	int nbMun = this.perso.getArme().getMunition();
 	if(nbMun>0){
 	    this.perso.getArme().setMunition(nbMun-1);
-	    Balle b = new Balle(perso.getCoordonneX(),perso.getCoordonneY(),new Point(perso.getRotationX(),perso.getRotationY()), frame, af);
+	    Balle b = new Balle(perso, new Point(perso.getRotationX(),perso.getRotationY()), frame, af);
             b.start();
 	    
 	    //Son du tire
