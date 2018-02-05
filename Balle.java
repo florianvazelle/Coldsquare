@@ -21,8 +21,10 @@ public class Balle extends Thread {
     MaFenetreJeu frame;
     BalleAnimation ba;
     private Personnage perso;
+    private Jeu j;
+
     
-    Balle(Personnage perso, Point souris,  MaFenetreJeu frame, AfficherPersonnage af){
+    Balle(Personnage perso, Point souris,  MaFenetreJeu frame, AfficherPersonnage af,Jeu j){
 	this.perso = perso;
 	//Penser a enlver x et y des attribut car seul les x et y de balle animation sont utile
 	this.x = perso.getCoordonneX();
@@ -30,11 +32,12 @@ public class Balle extends Thread {
 	this.souris = souris;
 	this.frame = frame;
 	this.af=af;
+	this.j=j;
     }
     
     @Override
     public void run(){
-	BalleAnimation ba = new BalleAnimation(x,y,souris, af, frame, this);
+	BalleAnimation ba = new BalleAnimation(x,y,souris, af, frame, this,j);
 	ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
 	frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
         animationTirer(ba);
@@ -157,8 +160,8 @@ class BalleAnimation extends JPanel {
     private AfficherPersonnage af;
     private Balle balle;
     private MaFenetreJeu frame;
-    
-    BalleAnimation(int x, int y, Point souris,  AfficherPersonnage af, MaFenetreJeu frame, Balle balle){
+    private Jeu j;
+    BalleAnimation(int x, int y, Point souris,  AfficherPersonnage af, MaFenetreJeu frame, Balle balle, Jeu j){
         this.x = x;
         this.y = y;
         this.souris = souris;
@@ -167,6 +170,7 @@ class BalleAnimation extends JPanel {
 	this.balleHB = new Hitbox(this);
 	this.balle=balle;
 	this.frame = frame;
+	this.j=j;
 	//setOpaque(true);	
 	setBackground(new Color(0,0,0,0));
     }
@@ -179,7 +183,11 @@ class BalleAnimation extends JPanel {
 		//af.personnageVisible.get(i).setHitbox(new Hitbox());  Cette ligne a été deplacer dans AfficherPersonnage car sinon les sprites de mort ne s'affichait plus
 		af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
 		frame.getLayeredPane().remove(this);
+		af.repaint();
 		balle.stop2();
+		if(j.verifWin()) {
+			j.changerNiveau();
+		}
 	    }
     	}
 	
@@ -202,7 +210,7 @@ class BalleAnimation extends JPanel {
 	g2d.drawImage(image.getImage(),0,0, this);
 	
     }
-
+    
     int getCoordonneX(){
 	return this.x;
     }
@@ -225,5 +233,9 @@ class BalleAnimation extends JPanel {
     Sprite getImage(){
 	return this.image;
     }
+ 
+   
+    
+    
     
 }
