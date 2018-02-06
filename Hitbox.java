@@ -5,7 +5,7 @@ public class Hitbox {
     private int w;
     private int h;
 
-    Hitbox(){}
+    Hitbox(){} //Hitbox null
     
     Hitbox(Personnage p){
 	Sprite s = p.listeDeSprite.get(0);
@@ -15,12 +15,12 @@ public class Hitbox {
 	this.y = p.getCoordonneY();
     }
 
-    Hitbox(BalleAnimation ba){
-	Sprite s = ba.getImage();
+    Hitbox(Balle b){
+	Sprite s = b.getSprite();
 	this.h = s.getImageIcon().getIconHeight();
 	this.w = s.getImageIcon().getIconWidth();
-	this.x = ba.getCoordonneX();
-	this.y = ba.getCoordonneY();
+	this.x = b.getX();
+	this.y = b.getY();
     }
 
     static boolean collision(Hitbox element1, Hitbox element2){	

@@ -32,7 +32,7 @@ class DeplacementControler extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        d.keyPressed(e);
+	d.keyPressed(e);
 	Point p = new Point(af.personnageVisible.get(0).getCoordonneX(), af.personnageVisible.get(0).getCoordonneY());
 	d.move();
 	for(int i = 1 ; i!=af.personnageVisible.size();i++){

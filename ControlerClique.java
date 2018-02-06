@@ -18,16 +18,18 @@ public class ControlerClique implements MouseListener {
     MaFenetreJeu frame;
     Personnage perso;
     AfficherPersonnage af;
+    JBalle ba;
     
-    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame){
+    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame, JBalle ba){
 	this.perso = perso;
 	this.af = af;
         this.frame=frame;
+	this.ba = ba;
     }
     
     public void mouseClicked(MouseEvent e){
-	(new Tirer(perso, frame, af)).start();
-	af.repaint();
+	(new Tirer(perso, frame, af, ba)).start();
+	//af.repaint();
 	//frame.revalidate();
     }
     public void mouseEntered(MouseEvent e){}

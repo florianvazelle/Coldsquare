@@ -57,20 +57,20 @@ public class Niveau extends JPanel{
     	plusjb4.setBounds(1050,410,50,50);
     	suivant.setBounds(1050,620,250,50);
 
-    	BoutonListener b= new BoutonListener(this);
+	BoutonListener b = new BoutonListener(this);
     	plusjb.addActionListener(b);
-    	plusjb2.addActionListener(b);
+	plusjb2.addActionListener(b);
     	plusjb3.addActionListener(b);
     	plusjb4.addActionListener(b);
     	suivant.addActionListener(b);
-
+	
     	this.setLayout(null);
     	this.add(plusjb);    
     	this.add(plusjb2);
     	this.add(plusjb3);
     	this.add(plusjb4);
     	this.add(suivant);
-
+	
     	nbAmelioration=1;
     }
 
@@ -96,7 +96,7 @@ public class Niveau extends JPanel{
 	g2d.drawString("Munitions : "+nbBalle, 870, 315);
 	g2d.drawString("Cadence : "+nbCadence, 870, 375);
 	g2d.drawString("Dispersion : "+nbDispersion, 870, 435);
-//	g2d.drawImage(plus.getImage(), 1050,230, this);      
+	//g2d.drawImage(plus.getImage(), 1050,230, this);      
 	//g2d.drawImage(plus.getImage(), 1050,290, this);      
 	//g2d.drawImage(plus.getImage(), 1050,350, this);      
 	//g2d.drawImage(plus.getImage(), 1050,410, this);  
@@ -106,61 +106,63 @@ public class Niveau extends JPanel{
  
     public void setPerso(Personnage p) {
     	this.perso=p;
-    
     }
     
     public void setNbAmelioration(int nb) {
     	this.nbAmelioration=nb;
-    
     }
     
     public int getVie() {
-     return this.nbVie;
+	return this.nbVie;
     }
+    
     public int getCadence() {
         return this.nbCadence;
     }
+    
     public int getBalle() {
     	     return this.nbBalle;
-       }
+    }
+    
     public int getDispersion() {
     	     return this.nbDispersion;
-       }
+    }
+    
     public int getEnnemis() {
 	     return this.nbEnnemi;
-  }
-
+    }
+    
     class BoutonListener implements ActionListener{
-    	
+	
     	Niveau n;
     	
     	public BoutonListener(Niveau n) {
-    		this.n=n;
+	    this.n=n;
     	}
     	
     	public void actionPerformed(ActionEvent e) {
-        	Object o= e.getSource();
-    		if(nbAmelioration >0) {
-
-        	if(o == plusjb) {
-        		nbVie+=1;
+	    Object o= e.getSource();
+	    if(nbAmelioration >0) {
+		if(o == plusjb) {
+		    nbVie+=1;
         	}else if(o == plusjb2) {
-        		nbBalle+=1;
+		    nbBalle+=1;
         	}else if(o == plusjb3) {
-        		nbCadence+=1;
+		    nbCadence+=1;
         	}else if(o == plusjb4) {
-        		nbDispersion+=1;
+		    nbDispersion+=1;
         	}
         	nbAmelioration-=1;
-    		}
-    		if(o == suivant) {
-        		level+=1;
-        		nbEnnemi+=1;
-        		n.j.setNext();
-        		n.j.jouer();
-        	}
-        	n.repaint();
-        }
-    	
-      }
+	    }
+	    if(o == suivant) {
+		level+=1;
+		nbEnnemi+=1;
+		n.j.setNext();
+		nbAmelioration++;
+		n.j.jouer();
+	    }
+	    n.repaint();
+	    j.frame.setFocusable(true);
+	}
+    }
 }
