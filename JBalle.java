@@ -31,8 +31,14 @@ public class JBalle extends JPanel {
 		    af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
 		    deleteBalle(currentBalle);
 		    if(this.j.verifWin()){
-			this.j.changerNiveau();
-		    }
+		    	Personnage Steve= af.personnageVisible.get(0);
+		    	Niveau n = this.j.getNiveau();
+		    	Steve.setVie(n.getVie());
+		    	Steve.getArme().setCadence(n.getCadence());
+		    	Steve.getArme().setDispersion(n.getDispersion());
+		    	Steve.getArme().setMunition(n.getBalle());
+		    	this.j.changerNiveau();
+			}
 		}
 	    }
 	}

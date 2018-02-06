@@ -141,6 +141,10 @@ class Jeu{
 	this.enCours=1;
 	jlp.remove(n);
     }
+    
+    public Niveau getNiveau() {
+    	return this.n;
+    }
 }
 
 class FondPanel extends JPanel{
