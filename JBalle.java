@@ -22,7 +22,8 @@ public class JBalle extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-	for(int j = 0 ; j != listeBalle.size() ; j++){
+        for(int j = 0 ; j < tailleInit ; j++){
+            //if(tailleInit != listeBalle.size()) break; 
 	    Balle currentBalle = listeBalle.get(j);
 	    for(int i = 0 ; i != af.personnageVisible.size();i++){
 		Personnage currentPerso = af.personnageVisible.get(i);
