@@ -45,15 +45,15 @@ public class Menu {
 		Font font = new Font("Courier",Font.BOLD,20);
 		titre.setFont(font);		
 		titre.setForeground(Color.blue);
-		/* Implémentation de toutes les contraintes pour chaque composant et ajout au GridBagLayout, les contraintes sont les suivantes :
+		/* Implementation de toutes les contraintes pour chaque composant et ajout au GridBagLayout, les contraintes sont les suivantes :
 		   
 		   gridx : choix de la colonne d'affichage
 		   gridy : choix de la ligne d'affichage
-		   ipady : choix de la hauteur de l'élément
-		   fill : agrandissement de l'élément pour qu'il remplisse la case (peut remplir de manière : Horizontal, Vertical, Aucune, ou les deux
+		   ipady : choix de la hauteur de l'element
+		   fill : agrandissement de l'element pour qu'il remplisse la case (peut remplir de maniÃ¨re : Horizontal, Vertical, Aucune, ou les deux
 		   anchor : pour placer le composant dans la case quand il est plus petit que la case
-		   insets : modifie l'espace entre chaque case, 4 paramètres : en bas, à gauche, en haut, à droite
-		   weightx : valeur qui va gérer l'espace restant horizontal
+		   insets : modifie l'espace entre chaque case, 4 parametres : en bas, a gauche, en haut, Ã  droite
+		   weightx : valeur qui va gerer l'espace restant horizontal
 		   gridwidth : taille de la case (peut faire la taille d'1 case, de 2 cases, ect ...)
 		*/
 		
