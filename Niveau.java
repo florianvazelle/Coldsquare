@@ -231,17 +231,17 @@ public class Niveau extends JPanel{
 	    	}
 	    
 	    if(o == suivant) {
-	    	if(nbAmelioration==0) {
 	    	n.remove(moinsjb);  
 	    	n.remove(moinsjb2);  
 	    	n.remove(moinsjb3);  
 	    	n.remove(moinsjb4);  
-	    	}else {
-	    		n.add(plusjb);  
-	        	n.add(plusjb2);    
-	        	n.add(plusjb3);    
-	        	n.add(plusjb4);  
-	    	}
+	    	n.add(plusjb);  
+        	n.add(plusjb2);    
+        	n.add(plusjb3);    
+        	n.add(plusjb4); 
+	    	
+	    		 
+	    	
 		level+=1;
 		nbEnnemi+=1;
 		n.j.setNext();
