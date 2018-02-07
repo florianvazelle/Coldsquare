@@ -14,7 +14,7 @@ public class MenuController implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (id == 1) {
-			//new Jeu();
+			new Jeu();
 			menu.f.setVisible(false);
 			menu.f.dispose();
 		}
