@@ -18,7 +18,9 @@ class Jeu{
     Info i;
     FondPanel fond;
     JBalle ba;
-
+    Deplacement d;
+    
+    Personnage p;
     Niveau n;
     JLayeredPane jlp;
     private int nombreEnnemi=1;
@@ -35,6 +37,7 @@ class Jeu{
 	this.fond=  new FondPanel();
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
+	this.d = new Deplacement(p);
 	
 	frame.setLayout(null);
 
@@ -46,16 +49,19 @@ class Jeu{
 	fond.setBounds(0,0,1920,1040);
 	af.setBounds(0,0,1920,1040);
 	ba.setBounds(0,0,1920,1040);
+	d.setBounds(0,0,1920,1040);
 	i.setBounds(0,500,250,450);
 	n.setBounds(150, 150, 1600, 700);
 
 	af.setOpaque(false);
 	ba.setOpaque(false);
+	d.setOpaque(false);
 	
 	jlp.add(fond, new Integer(0));
 	jlp.add(af,  new Integer(1));
 	jlp.add(i,  new Integer(2));
 	jlp.add(ba,  new Integer(3));
+	jlp.add(d, new Integer(4));
 	
 	frame.revalidate();
     }

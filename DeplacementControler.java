@@ -20,34 +20,7 @@ class DeplacementControler extends KeyAdapter {
         this.frame=frame;
     }
 
-    public void keyTyped(KeyEvent e){
-    	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-    		JPanel panneau = new JPanel();
-    		JButton reprendre = new JButton("Reprendre");
-    		JButton sauvegarder = new JButton("Sauvegarder");
-    		JButton quitter = new JButton("Quitter");
-    		panneau.setLayout(new GridBagLayout());
-    		GridBagConstraints contraintes = new GridBagConstraints();
-    		
-    		contraintes.gridx = 1;
-    		contraintes.gridy = 0;
-    		contraintes.ipady = 100;
-    		contraintes.fill = GridBagConstraints.HORIZONTAL;
-    		contraintes.anchor = GridBagConstraints.CENTER;
-    		contraintes.insets = new Insets(10,30,30,10);
-    		panneau.add(reprendre, contraintes);
-    		
-    		contraintes.gridx = 1;
-    		contraintes.gridy = 1;
-    		panneau.add(sauvegarder,contraintes);
-    		
-    		contraintes.gridx = 1;
-    		contraintes.gridy = 2;
-    		panneau.add(quitter,contraintes);
-    		
-    		frame.add(panneau);
-    	}
-    }
+    public void keyTyped(KeyEvent e){    }
 
     @Override
     public void keyReleased(KeyEvent e) {
