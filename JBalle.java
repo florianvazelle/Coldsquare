@@ -21,6 +21,7 @@ public class JBalle extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+	    int tailleInit = listeBalle.size();
 
         for(int j = 0 ; j < tailleInit ; j++){
             if(tailleInit != listeBalle.size()) break; 
