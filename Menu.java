@@ -20,7 +20,7 @@ public class Menu {
 	public FondMenu fm;
 	public ButtonGroup bg = new ButtonGroup();
 
-	public Menu() {
+	public Menu() throws IOException {
 		f.setSize(800,600);
 		f.setLocationRelativeTo(null);
 		f.setTitle("ColdSquare");
@@ -28,8 +28,8 @@ public class Menu {
 		initFond();
 		fm.setBounds(0,0,800,600);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(cards);
 		ecranMenu();
+		f.add(cards);
 		f.setVisible(true);
 	}
 	
@@ -127,27 +127,25 @@ public class Menu {
 		fm.repaint();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		m = new Menu();
 	}
 }
 class FondMenu extends JPanel {
-	 	ImageIcon fond;
+	 	Image fond;
 	    
-	 	public FondMenu(){
-		fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(800,600,Image.SCALE_DEFAULT));
+	 	public FondMenu() throws IOException{
+	 		
 	    }
 	    
 	    @Override
 	    public void paintComponent(Graphics g) {
-	        super.paintComponent(g);
-		drawFond(g);
-	        Toolkit.getDefaultToolkit().sync();
+	    	try {
+	    		fond = ImageIO.read(new File("./assets/fond.png"));
+	    		g.drawImage(fond, 0, 0, this.getWidth(), this.getHeight(), this);
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
 	    }
 	    
-	    public void drawFond(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		Image imagefond= fond.getImage();
-		g2d.drawImage(imagefond,0,0,this);      
-	    }
 }
