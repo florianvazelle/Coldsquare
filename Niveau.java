@@ -250,6 +250,7 @@ public class Niveau extends JPanel{
 	    }
 	    n.repaint();
 	    j.frame.setFocusable(true);
+	    j.frame.requestFocus();
 	}
     }
 }
