@@ -72,6 +72,7 @@ class Jeu{
 	    af.personnageVisible.get(i).setHitbox(new Hitbox(af.personnageVisible.get(i)));
 	}
     	jlp.repaint();
+    	af.boiteMunition.clear();
 	Personnage Steve = af.personnageVisible.get(0);
     	Steve.setVie(n.getVie());
     	Steve.getArme().setCadence(n.getCadence());

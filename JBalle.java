@@ -30,6 +30,8 @@ public class JBalle extends JPanel {
 		Personnage currentPerso = af.personnageVisible.get(i);
 		if(Hitbox.collision(currentBalle.getHitbox(), currentPerso.getHitbox()) && currentBalle.getTireur() != currentPerso){
 		    currentPerso.setVie(currentPerso.getVie()-1);
+		    Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50,i);
+		    af.addMunition(b);
 		    af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
 		    deleteBalle(currentBalle);
 		    if(this.j.verifWin()){

@@ -33,6 +33,13 @@ class Sprite {
         return this.i;
     }
     
+    void setImageIcon(ImageIcon i){
+        this.i=i;
+    }
+    void setImage(ImageIcon i){
+        this.image=i.getImage();
+    }
+    
     MonPoint getCentre(){
 	double x = i.getIconHeight()/2;
 	double y = i.getIconWidth()/2;
