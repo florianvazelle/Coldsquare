@@ -16,6 +16,8 @@ public class ControlerPause implements ActionListener {
 	if(mp.reprendre == o){ 
 	    mp.setEnPause(false);
 	    frame.getLayeredPane().remove(mp);
+	    frame.setFocusable(true);                                                                                                                                                      
+            frame.requestFocus();
 	}
     }
 }
