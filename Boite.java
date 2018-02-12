@@ -34,7 +34,7 @@ class Boite {
     	this.coordonneX= x_de_base;
     	this.coordonneY= y_de_base;
     	this.hb= new Hitbox(this);
-    	this.id=id; // Numéro du perso tué dans l'arraylist AfficherPersonnage
+    	this.id=id; // Numero du perso tue dans l'arraylist AfficherPersonnage
     	afficher=0;
 	}
 
