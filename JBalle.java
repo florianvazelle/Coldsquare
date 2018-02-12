@@ -21,28 +21,18 @@ public class JBalle extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-	    int tailleInit = listeBalle.size();
 
-        for(int j = 0 ; j < tailleInit ; j++){
-            if(tailleInit != listeBalle.size()) break; 
+	for(int j = 0 ; j != listeBalle.size() ; j++){
 	    Balle currentBalle = listeBalle.get(j);
 	    for(int i = 0 ; i != af.personnageVisible.size();i++){
 		Personnage currentPerso = af.personnageVisible.get(i);
 		if(Hitbox.collision(currentBalle.getHitbox(), currentPerso.getHitbox()) && currentBalle.getTireur() != currentPerso){
 		    currentPerso.setVie(currentPerso.getVie()-1);
-		    Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50,i);
-		    af.addMunition(b);
 		    af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
 		    deleteBalle(currentBalle);
 		    if(this.j.verifWin()){
-		    	Personnage Steve= af.personnageVisible.get(0);
-		    	Niveau n = this.j.getNiveau();
-		    	Steve.setVie(n.getVie());
-		    	Steve.getArme().setCadence(n.getCadence());
-		    	Steve.getArme().setDispersion(n.getDispersion());
-		    	Steve.getArme().setMunition(n.getBalle());
-		    	this.j.changerNiveau();
-			}
+			this.j.changerNiveau();
+		    }
 		}
 	    }
 	}

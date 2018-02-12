@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.awt.Image;
 
 public class Menu {
 	public CardLayout card = new CardLayout();
@@ -12,31 +11,24 @@ public class Menu {
 	public String[] listContent = {"card1","card2","card3"};
 	public JPanel jeu = new JPanel();
 	public JPanel options = new JPanel();
-	public JPanel charger = new JPanel();
 	public JFrame f = new JFrame();
 	private JLabel title;
 	private JLabel test;
 	private static Menu m;
-	public FondMenu fm;
-	public ButtonGroup bg = new ButtonGroup();
 
-	public Menu() throws IOException {
+	public Menu() {
 		f.setSize(800,600);
 		f.setLocationRelativeTo(null);
 		f.setTitle("ColdSquare");
-		this.fm=  new FondMenu();
-		initFond();
-		fm.setBounds(0,0,800,600);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ecranMenu();
 		f.add(cards);
+		ecranMenu();
 		f.setVisible(true);
 	}
 	
 	public void ecranMenu() {
 		JLabel titre = new JLabel("ColdSquare");
 		JButton jouer = new JButton("Nouvelle Partie");
-		JButton charger = new JButton("Charger Partie");
 		JButton options = new JButton("Options");
 		JButton quitter = new JButton("Quitter");
 		menu.setLayout(new GridBagLayout());
@@ -45,15 +37,15 @@ public class Menu {
 		Font font = new Font("Courier",Font.BOLD,20);
 		titre.setFont(font);		
 		titre.setForeground(Color.blue);
-		/* Implementation de toutes les contraintes pour chaque composant et ajout au GridBagLayout, les contraintes sont les suivantes :
+		/* Implémentation de toutes les contraintes pour chaque composant et ajout au GridBagLayout, les contraintes sont les suivantes :
 		   
 		   gridx : choix de la colonne d'affichage
 		   gridy : choix de la ligne d'affichage
-		   ipady : choix de la hauteur de l'element
-		   fill : agrandissement de l'element pour qu'il remplisse la case (peut remplir de manière : Horizontal, Vertical, Aucune, ou les deux
+		   ipady : choix de la hauteur de l'élément
+		   fill : agrandissement de l'élément pour qu'il remplisse la case (peut remplir de manière : Horizontal, Vertical, Aucune, ou les deux
 		   anchor : pour placer le composant dans la case quand il est plus petit que la case
-		   insets : modifie l'espace entre chaque case, 4 parametres : en bas, a gauche, en haut, à droite
-		   weightx : valeur qui va gerer l'espace restant horizontal
+		   insets : modifie l'espace entre chaque case, 4 paramètres : en bas, à gauche, en haut, à droite
+		   weightx : valeur qui va gérer l'espace restant horizontal
 		   gridwidth : taille de la case (peut faire la taille d'1 case, de 2 cases, ect ...)
 		*/
 		
@@ -62,7 +54,7 @@ public class Menu {
 		contraintes.ipady = 50;
 		contraintes.fill = GridBagConstraints.HORIZONTAL;
 		contraintes.anchor = GridBagConstraints.CENTER;
-		contraintes.insets = new Insets(10,30,30,10);
+		contraintes.insets = new Insets(10,50,50,10);
 		menu.add(titre, contraintes);
 		
 		contraintes.gridx = 1;
@@ -71,14 +63,10 @@ public class Menu {
 		
 		contraintes.gridx = 1;
 		contraintes.gridy = 2;
-		menu.add(charger,contraintes);
+		menu.add(options,contraintes);
 		
 		contraintes.gridx = 1;
 		contraintes.gridy = 3;
-		menu.add(options, contraintes);
-		
-		contraintes.gridx = 1;
-		contraintes.gridy = 4;
 		menu.add(quitter, contraintes);
 		
 		cards.add(menu,listContent[0]);
@@ -86,66 +74,28 @@ public class Menu {
 		MenuController c1 = new MenuController(1,menu);
 		MenuController c2 = new MenuController(2,menu);
 		MenuController c3 = new MenuController(3,menu);
-		MenuController c4 = new MenuController(4,menu);
 		c1.setMenu(this);
 		c2.setMenu(this);
 		c3.setMenu(this);
-		c4.setMenu(this);
 		jouer.addActionListener((ActionListener) c1);
-		charger.addActionListener((ActionListener) c2);
-		options.addActionListener((ActionListener) c3);
-		quitter.addActionListener((ActionListener) c4);
+		options.addActionListener((ActionListener) c2);
+		quitter.addActionListener((ActionListener) c3);
+	}
+	
+	public void affichageJeu() {
+		title = new JLabel("JEU");
+		jeu.add(title);
+		cards.add(jeu,listContent[1]);
 	}
 	
 	public void affichageOptions() {
-		
-		JRadioButton easy = new JRadioButton("Facile");
-		JRadioButton medium = new JRadioButton("Moyen");
-		JRadioButton hard = new JRadioButton("Difficile");
-		
-		easy.setSelected(true);
-		bg.add(easy);
-		bg.add(medium);
-		bg.add(hard);
-		
-		test = new JLabel("Easy : 5 coeurs, 5mun/ennemis! Medium : 3 coeurs, 3mun/ennemis! Hard : 2 coeurs, 2mun/ennemis!");
-		
-		options.add(easy);
-		options.add(medium);
-		options.add(hard);
+		test = new JLabel("OPTIONS");
 		options.add(test);
 		cards.add(options,listContent[2]);
 	}
+		
 	
-	public void affichageCharger() {
-		test = new JLabel("CHARGER");
-		charger.add(test);
-		cards.add(charger,listContent[1]);
-	}
-	
-	void initFond() {
-		fm.repaint();
-	}
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		m = new Menu();
 	}
-}
-class FondMenu extends JPanel {
-	 	Image fond;
-	    
-	 	public FondMenu() throws IOException{
-	 		
-	    }
-	    
-	    @Override
-	    public void paintComponent(Graphics g) {
-	    	try {
-	    		fond = ImageIO.read(new File("./assets/fond.png"));
-	    		g.drawImage(fond, 0, 0, this.getWidth(), this.getHeight(), this);
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	}
-	    }
-	    
 }

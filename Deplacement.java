@@ -1,14 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.Event;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.EventQueue;
 
-class Deplacement extends JPanel {
+class Deplacement {
 
     private int direction_x;
     private int direction_y;
@@ -52,37 +55,7 @@ class Deplacement extends JPanel {
 
         if (key == KeyEvent.VK_DOWN) {
             direction_y = 3;
-        }
-        
-        if(key == KeyEvent.VK_ESCAPE) {
-	    JPanel panneau = new JPanel();
-	    JButton reprendre = new JButton("Reprendre");
-	    JButton sauvegarder = new JButton("Sauvegarder");
-	    JButton quitter = new JButton("Quitter");
-	    panneau.setLayout(new GridBagLayout());
-	    GridBagConstraints contraintes = new GridBagConstraints();
-    		
-	    contraintes.gridx = 1;
-	    contraintes.gridy = 0;
-	    contraintes.ipady = 100;
-	    contraintes.fill = GridBagConstraints.HORIZONTAL;
-	    contraintes.anchor = GridBagConstraints.CENTER;
-	    contraintes.insets = new Insets(10,30,30,10);
-	    panneau.add(reprendre, contraintes);
-	    
-	    contraintes.gridx = 1;
-	    contraintes.gridy = 1;
-	    panneau.add(sauvegarder,contraintes);
-	    
-	    contraintes.gridx = 1;
-	    contraintes.gridy = 2;
-	    panneau.add(quitter,contraintes);
-
-	    Sauvegarde s = new Sauvegarde();
-	    
-	    System.out.println("Echap appuyé");
-		
-    	}
+	}
 
 	if(key == KeyEvent.VK_R) {
             perso.getArme().setMunition(perso.getArme().getMunition()+2);

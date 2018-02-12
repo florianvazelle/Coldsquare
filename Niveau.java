@@ -24,15 +24,10 @@ public class Niveau extends JPanel{
     private ImageIcon balle;
     private ImageIcon dispersion;
     private ImageIcon plus;
-    private ImageIcon moins;
     private JButton plusjb;
     private JButton plusjb2;
     private JButton plusjb3;
     private JButton plusjb4;
-    private JButton moinsjb;
-    private JButton moinsjb2;
-    private JButton moinsjb3;
-    private JButton moinsjb4;
     private JButton suivant;
     private Personnage perso;
     private int nbAmelioration;
@@ -50,26 +45,16 @@ public class Niveau extends JPanel{
     	dispersion = new ImageIcon(new ImageIcon("./assets/dispersion.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	balle = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	plus = new ImageIcon(new ImageIcon("./assets/plus.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    	moins = new ImageIcon(new ImageIcon("./assets/moins.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-
     	plusjb= new JButton(plus);
     	plusjb2= new JButton(plus);
     	plusjb3= new JButton(plus);
     	plusjb4= new JButton(plus);
-    	moinsjb= new JButton(moins);
-    	moinsjb2= new JButton(moins);
-    	moinsjb3= new JButton(moins);
-    	moinsjb4= new JButton(moins);
     	suivant= new JButton("suivant");
 
     	plusjb.setBounds(1050,230,50,50);
     	plusjb2.setBounds(1050,290,50,50);
     	plusjb3.setBounds(1050,350,50,50);
     	plusjb4.setBounds(1050,410,50,50);
-    	moinsjb.setBounds(1120,230,50,50);
-    	moinsjb2.setBounds(1120,290,50,50);
-    	moinsjb3.setBounds(1120,350,50,50);
-    	moinsjb4.setBounds(1120,410,50,50);
     	suivant.setBounds(1050,620,250,50);
 
 	BoutonListener b = new BoutonListener(this);
@@ -77,11 +62,6 @@ public class Niveau extends JPanel{
 	plusjb2.addActionListener(b);
     	plusjb3.addActionListener(b);
     	plusjb4.addActionListener(b);
-    	moinsjb.addActionListener(b);
-    	moinsjb2.addActionListener(b);
-    	moinsjb3.addActionListener(b);
-    	moinsjb4.addActionListener(b);
-
     	suivant.addActionListener(b);
 	
     	this.setLayout(null);
@@ -89,7 +69,6 @@ public class Niveau extends JPanel{
     	this.add(plusjb2);
     	this.add(plusjb3);
     	this.add(plusjb4);
-    	  
     	this.add(suivant);
 	
     	nbAmelioration=1;
@@ -153,10 +132,6 @@ public class Niveau extends JPanel{
 	     return this.nbEnnemi;
     }
     
-    public int getLevel() {
-	return this.level;
-    }
-    
     class BoutonListener implements ActionListener{
 	
     	Niveau n;
@@ -164,88 +139,22 @@ public class Niveau extends JPanel{
     	public BoutonListener(Niveau n) {
 	    this.n=n;
     	}
-    	 
+    	
     	public void actionPerformed(ActionEvent e) {
 	    Object o= e.getSource();
 	    if(nbAmelioration >0) {
-	    	if(o == plusjb) {
-	    		nbVie+=1;
-	    		nbAmelioration-=1;  
-	        	n.add(moinsjb);    
-	    	}else if(o == plusjb2) {
-	    		nbBalle+=1;        
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb2);    
-
-	    	}else if(o == plusjb3) {
-	    		nbCadence+=1;
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb3);    
-
-	    	}else if(o == plusjb4) {
-	    		nbDispersion+=1;
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb4);  
-
-	    	}
-	    	if(nbAmelioration == 0) {
-	    	n.remove(plusjb);  
-        	n.remove(plusjb2);    
-        	n.remove(plusjb3);    
-        	n.remove(plusjb4);  
-	    	}
+		if(o == plusjb) {
+		    nbVie+=1;
+        	}else if(o == plusjb2) {
+		    nbBalle+=1;
+        	}else if(o == plusjb3) {
+		    nbCadence+=1;
+        	}else if(o == plusjb4) {
+		    nbDispersion+=1;
+        	}
+        	nbAmelioration-=1;
 	    }
-	    	if(o == moinsjb) {
-	    		if(nbVie > perso.getVie()) {
-	    			nbVie-=1;
-	    			nbAmelioration+=1;
-	    			if(nbVie==perso.getVie())
-	    	    	n.remove(moinsjb);  
-	    		}
-	    	}else if(o == moinsjb2) {
-	    		if(nbBalle > perso.getArme().getMunition()) {
-	    			nbBalle-=1;
-	    			nbAmelioration+=1;
-	    			if(nbBalle==perso.getArme().getMunition())
-	    	    	n.remove(moinsjb2);  
-
-	    		}
-	    	}else if(o == moinsjb3) {
-	    		if(nbCadence > perso.getArme().getCadence()) {
-	    			nbCadence-=1;
-	    			nbAmelioration+=1;
-	    			if(nbCadence==perso.getArme().getCadence())
-	    	    	n.remove(moinsjb3);  
-
-	    		}
-	    	}else if(o == moinsjb4) {
-	    		if(nbDispersion > perso.getArme().getDispersion()) {
-	    			nbDispersion-=1;
-	    			nbAmelioration+=1;
-	    			if(nbDispersion==perso.getArme().getDispersion())
-	    	    	n.remove(moinsjb4);  
-
-	    		}
-	    	}
-	    	if(nbAmelioration > 0) {
-	    	n.add(plusjb);  
-        	n.add(plusjb2);    
-        	n.add(plusjb3);    
-        	n.add(plusjb4);  
-	    	}
-	    
 	    if(o == suivant) {
-	    	n.remove(moinsjb);  
-	    	n.remove(moinsjb2);  
-	    	n.remove(moinsjb3);  
-	    	n.remove(moinsjb4);  
-	    	n.add(plusjb);  
-        	n.add(plusjb2);    
-        	n.add(plusjb3);    
-        	n.add(plusjb4); 
-	    	
-	    		 
-	    	
 		level+=1;
 		nbEnnemi+=1;
 		n.j.setNext();
@@ -254,7 +163,6 @@ public class Niveau extends JPanel{
 	    }
 	    n.repaint();
 	    j.frame.setFocusable(true);
-	    j.frame.requestFocus();
 	}
     }
 }

@@ -14,21 +14,15 @@ import java.awt.geom.AffineTransform;
 
 class AfficherPersonnage extends JPanel {
     ArrayList<Personnage> personnageVisible;
-    ArrayList<Boite> boiteMunition;
-
+    
     public AfficherPersonnage(){
 	this.personnageVisible = new ArrayList<Personnage>();
-	this.boiteMunition = new ArrayList<Boite>();
-
     }
 
     void addPersonnageVisible(Personnage perso){
 	this.personnageVisible.add(perso);
     }
-    
-    void addMunition(Boite b){
-    	this.boiteMunition.add(b);
-    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,21 +58,6 @@ class AfficherPersonnage extends JPanel {
 	    for(i=0;i< personnageVisible.size();i++){
 		if(personnageVisible.get(i).getVie()<=0){
 		    personnageVisible.get(i).setHitbox(new Hitbox());
-		    int val=0;
-		    for(int tmp=0;tmp<boiteMunition.size();tmp++) {
-		    	if(i==boiteMunition.get(tmp).getId()) {
-		    		val=tmp;
-		    	}
-		    }
-		    
-		    if(boiteMunition.get(val).getAfficher()== 0) {
-				   System.out.println("BOITE MUNITION:0"+boiteMunition.get(val).getValue());
-				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
-				   boiteMunition.get(val).setAfficher(1);
-			}else if(boiteMunition.get(val).getAfficher()== 1) {
-				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
-			}
-		    
 		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(1).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);
 		}
 		else

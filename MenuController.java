@@ -14,19 +14,14 @@ public class MenuController implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (id == 1) {
-			new Jeu();
-			menu.f.setVisible(false);
-			menu.f.dispose();
-		}
-		else if (id == 2) {
-			menu.affichageCharger();
+			menu.affichageJeu();
 			menu.card.next(menu.cards);
 		}
-		else if (id == 3) {
+		else if (id == 2) {
 			menu.affichageOptions();
 			menu.card.next(menu.cards);
 		}
-		else if (id == 4) {
+		else if (id == 3) {
 			menu.f.setVisible(false);
 			menu.f.dispose();
 		}
