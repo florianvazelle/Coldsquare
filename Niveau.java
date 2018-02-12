@@ -153,6 +153,10 @@ public class Niveau extends JPanel{
 	     return this.nbEnnemi;
     }
     
+    public int getLevel() {
+    	return this.level;
+    }
+    
     class BoutonListener implements ActionListener{
 	
     	Niveau n;

@@ -64,13 +64,13 @@ class AfficherPersonnage extends JPanel {
 	    for(i=0;i< personnageVisible.size();i++){
 		if(personnageVisible.get(i).getVie()<=0){
 		    personnageVisible.get(i).setHitbox(new Hitbox());
-		    int val=0;
+		    int val=-1;
 		    for(int tmp=0;tmp<boiteMunition.size();tmp++) {
 		    	if(i==boiteMunition.get(tmp).getId()) {
 		    		val=tmp;
 		    	}
 		    }
-		    
+		    if(val != -1) {
 		    if(boiteMunition.get(val).getAfficher()== 0) {
 				   System.out.println("BOITE MUNITION:0"+boiteMunition.get(val).getValue());
 				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
@@ -78,7 +78,7 @@ class AfficherPersonnage extends JPanel {
 			}else if(boiteMunition.get(val).getAfficher()== 1) {
 				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
 			}
-		    
+		    }
 		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(1).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);
 		}
 		else
