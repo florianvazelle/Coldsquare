@@ -37,7 +37,7 @@ class Jeu{
 	this.fond=  new FondPanel();
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
-	this.mp = new MenuPause();
+	this.mp = new MenuPause(frame);
 	
 	frame.setLayout(null);
 
@@ -105,7 +105,7 @@ class Jeu{
 	af.repaint();
         frame.revalidate();
 	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
-	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba));	   
+	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp));	   
 	
     }
     

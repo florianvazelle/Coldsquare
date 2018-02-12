@@ -8,12 +8,14 @@ public class ControlerBalle extends Thread {
     Point souris;
     JBalle ba;
     MaFenetreJeu frame;
-
-    ControlerBalle(Balle b, Point souris, JBalle ba, MaFenetreJeu frame){
+    MenuPause mp;
+    
+    ControlerBalle(Balle b, Point souris, JBalle ba, MaFenetreJeu frame, MenuPause mp){
 	this.b = b;
 	this.souris = souris;
 	this.ba = ba;
 	this.frame = frame;
+	this.mp = mp;
     }
 
     @Override
@@ -75,7 +77,7 @@ public class ControlerBalle extends Thread {
 
             if(i.getX()<souris.getX()){
                 while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
-                    b.setX(x++);
+		    b.setX(x++);
                     y = ((int) (m*x) )+  p;
                     b.setY(y);
 
@@ -86,14 +88,21 @@ public class ControlerBalle extends Thread {
                         e.printStackTrace();
                     }
 		    ba.repaint(x-50, y-50, 200, 200);
+		    while(mp.getEnPause()){
+			try{
+			    this.sleep(2000);
+			}catch(InterruptedException e){
+			    e.printStackTrace();
+			}
+		    }
 		}
-            }
+	    }
             if(i.getX()>souris.getX()){
                 while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
                     b.setX(x--);
                     y = ((int) (m*x) )+  p;
                     b.setY(y);
-
+		    
                     i = new Point(x,y);
                     try{
                          TimeUnit.MILLISECONDS.sleep(5);
@@ -101,9 +110,16 @@ public class ControlerBalle extends Thread {
                         e.printStackTrace();
 		    }
 		    ba.repaint(x-50, y-50, 200, 200);
+		    while(mp.getEnPause()){
+			try{
+                            this.sleep(2000);
+                        }catch(InterruptedException e){
+                            e.printStackTrace();
+                        }
+		    }
 		}
             }
 	    //}
-	ba.deleteBalle(b);
+	    ba.deleteBalle(b);
     }
 }

@@ -11,13 +11,26 @@ import java.awt.event.KeyEvent;
 
 public class MenuPause extends JPanel {
 
-    boolean enPause = false;
+    private boolean enPause;
+    JButton reprendre;
+    JButton sauvegarder;
+    JButton quitter;
+    ControlerPause cp;
+    MaFenetreJeu frame;
     
-    MenuPause(){
-	System.out.println("Echap appuye");
-	JButton reprendre = new JButton("Reprendre");
-	JButton sauvegarder = new JButton("Sauvegarder");
-	JButton quitter = new JButton("Quitter");
+    MenuPause(MaFenetreJeu frame){
+	this.frame = frame;
+	this.enPause = false;
+	this.cp = new ControlerPause(this, frame);
+	
+	this.reprendre = new JButton("Reprendre");
+	this.sauvegarder = new JButton("Sauvegarder");
+	this.quitter = new JButton("Quitter");
+
+	this.reprendre.addActionListener(cp);
+	this.sauvegarder.addActionListener(cp);
+	this.quitter.addActionListener(cp);
+	
 	this.setLayout(new GridBagLayout());
 	GridBagConstraints contraintes = new GridBagConstraints();
 	
