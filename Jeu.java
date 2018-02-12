@@ -18,7 +18,9 @@ class Jeu{
     Info i;
     FondPanel fond;
     JBalle ba;
-
+    MenuPause mp;
+    
+    Personnage p;
     Niveau n;
     JLayeredPane jlp;
     private int nombreEnnemi=1;
@@ -35,6 +37,7 @@ class Jeu{
 	this.fond=  new FondPanel();
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
+	this.mp = new MenuPause();
 	
 	frame.setLayout(null);
 
@@ -46,17 +49,19 @@ class Jeu{
 	fond.setBounds(0,0,1920,1040);
 	af.setBounds(0,0,1920,1040);
 	ba.setBounds(0,0,1920,1040);
+	mp.setBounds(0,0,1920,1040);
 	i.setBounds(0,500,250,450);
 	n.setBounds(150, 150, 1600, 700);
 
 	af.setOpaque(false);
 	ba.setOpaque(false);
+	mp.setOpaque(false);
 	
 	jlp.add(fond, new Integer(0));
 	jlp.add(af,  new Integer(1));
 	jlp.add(i,  new Integer(2));
 	jlp.add(ba,  new Integer(3));
-	
+		
 	frame.revalidate();
     }
     
@@ -66,6 +71,7 @@ class Jeu{
 	    af.personnageVisible.get(i).setHitbox(new Hitbox(af.personnageVisible.get(i)));
 	}
     	jlp.repaint();
+    	af.boiteMunition.clear();
 	Personnage Steve = af.personnageVisible.get(0);
     	Steve.setVie(n.getVie());
     	Steve.getArme().setCadence(n.getCadence());
@@ -92,7 +98,7 @@ class Jeu{
 	n.setPerso(Steve);
 	af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
-        frame.addKeyListener(new DeplacementControler(deplacement,af,frame));
+        frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp));
 	//frame.addMouseListener(new ControlerSouris(Steve));
         this.i = new Info(Steve);
 	i.repaint();
@@ -140,6 +146,10 @@ class Jeu{
     void setNext() {
 	this.enCours=1;
 	jlp.remove(n);
+    }
+    
+    public Niveau getNiveau() {
+    	return this.n;
     }
 }
 

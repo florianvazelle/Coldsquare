@@ -23,6 +23,14 @@ public class Hitbox {
 	this.y = b.getY();
     }
 
+    Hitbox(Boite b){
+    	Sprite s = b.getSprite();
+    	this.h = s.getImageIcon().getIconHeight();
+    	this.w = s.getImageIcon().getIconWidth();
+    	this.x = b.getCoordonneX();
+    	this.y = b.getCoordonneY();
+    }
+    
     static boolean collision(Hitbox element1, Hitbox element2){	
 	if(element2.getX() >= element1.getX()+element1.getWidth() || (element2.getX() + element2.getWidth() <= element1.getX()) || (element2.getY() >= element1.getY() + element1.getHeight()) || (element2.getY() + element2.getHeight() <= element1.getY()))
 	    return false;

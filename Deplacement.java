@@ -1,15 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.awt.Event;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 
 class Deplacement {
 
@@ -55,12 +52,13 @@ class Deplacement {
 
         if (key == KeyEvent.VK_DOWN) {
             direction_y = 3;
-	}
-
+        }
+        
 	if(key == KeyEvent.VK_R) {
             perso.getArme().setMunition(perso.getArme().getMunition()+2);
         }
     }
+    
  public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
