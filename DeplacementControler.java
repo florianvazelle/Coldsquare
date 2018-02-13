@@ -14,12 +14,14 @@ class DeplacementControler extends KeyAdapter {
     AfficherPersonnage af;
     MaFenetreJeu frame;
     MenuPause mp;
+    Terrain t;
     
-    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp){
+    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t){
         this.d=d;
         this.af=af;
         this.frame=frame;
 	this.mp = mp;
+	this.t = t;
     }
 
     public void keyTyped(KeyEvent e){    }
@@ -49,6 +51,12 @@ class DeplacementControler extends KeyAdapter {
 		    d.annulerMove(p);
 		}
 	    }
+
+	    for(int i = 0 ; i!=t.listeMur.size();i++){
+	    if(Hitbox.collision(af.personnageVisible.get(0).getHitbox(), t.listeMur.get(i).getHitbox())){
+                d.annulerMove(p);
+            }
+	}
 	    
 	    for(int i = 0 ; i!=af.boiteMunition.size();i++){
 		if(Hitbox.collision(Steve.getHitbox(),af.boiteMunition.get(i).getHitbox())){

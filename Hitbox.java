@@ -30,7 +30,14 @@ public class Hitbox {
     	this.x = b.getCoordonneX();
     	this.y = b.getCoordonneY();
     }
-    
+
+    Hitbox(Mur m ){
+        this.h = m.getLargeur();
+        this.w = m.getLongueur();
+	this.x = m.getX();
+        this.y = m.getY();
+    }
+
     static boolean collision(Hitbox element1, Hitbox element2){	
 	if(element2.getX() >= element1.getX()+element1.getWidth() || (element2.getX() + element2.getWidth() <= element1.getX()) || (element2.getY() >= element1.getY() + element1.getHeight()) || (element2.getY() + element2.getHeight() <= element1.getY()))
 	    return false;

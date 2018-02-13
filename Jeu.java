@@ -16,7 +16,7 @@ class Jeu{
     AfficherPersonnage af;
     MaFenetreJeu frame;
     Info i;
-    FondPanel fond;
+    Terrain fond;
     JBalle ba;
     MenuPause mp;
     
@@ -35,7 +35,7 @@ class Jeu{
 	frame.setLayeredPane(jlp);
 	
 	jlp.setOpaque(true);
-	this.fond=  new FondPanel();
+	this.fond=  new Terrain(frame);
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
 	this.mp = new MenuPause(frame);
@@ -101,7 +101,7 @@ class Jeu{
 	n.setPerso(Steve);
 	af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
-        frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp));
+        frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond));
 	//frame.addMouseListener(new ControlerSouris(Steve));
         this.i = new Info(Steve, this);
 	i.repaint();
