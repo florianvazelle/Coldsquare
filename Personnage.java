@@ -21,9 +21,10 @@ class Personnage {
     private int rotationX;
     private int rotationY;
     private Hitbox hb;
+    private Hitbox hbcc; // Corps a corps
     ArrayList<Sprite> listeDeSprite;
 
-    // Faire plusieur constructeur pour l'arme
+    // Faire plusieurs constructeurs pour l'arme
     
     public Personnage(String nom, int vie, String skin, int x_de_base, int y_de_base){
         this.nom=nom;
@@ -51,8 +52,14 @@ class Personnage {
     
     void addListeDeSprite(Sprite sp){
         this.listeDeSprite.add(sp);
-	if(this.listeDeSprite.size() == 1)
+	if(this.listeDeSprite.size() == 1){
 	    this.hb = new Hitbox(this);
+	    this.hbcc= new Hitbox(this);
+	    this.hbcc.setHeight(this.hbcc.getHeight()+4);
+	    this.hbcc.setWidth(this.hbcc.getWidth()+4);
+	    this.hbcc.setX(this.hbcc.getX()-2);
+	    this.hbcc.setY(this.hbcc.getY()-2);
+	}
     }
 
     String getNom(){
@@ -87,6 +94,7 @@ class Personnage {
     void setCoordonneX(int newX){
 	this.coordonneX=newX;
 	hb.setX(newX);
+	hbcc.setX(newX-2);
     }
 
     int getCoordonneY(){
@@ -96,6 +104,7 @@ class Personnage {
     void setCoordonneY(int newY){
 	this.coordonneY=newY;
 	hb.setY(newY);
+	hbcc.setY(newY-2);
     }
 
     int getRotationX(){
@@ -120,5 +129,13 @@ class Personnage {
 
     void setHitbox(Hitbox h){
 	this.hb = h;
+    }
+    
+    Hitbox getHitboxCC(){
+	return this.hbcc;
+    }
+
+    void setHitboxCC(Hitbox h){
+	this.hbcc = h;
     }
 }

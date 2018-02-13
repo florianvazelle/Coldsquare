@@ -20,18 +20,38 @@ public class ControlerClique implements MouseListener {
     AfficherPersonnage af;
     JBalle ba;
     MenuPause mp;
+    Jeu j;
     
-    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame, JBalle ba, MenuPause mp){
+    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame, JBalle ba, MenuPause mp, Jeu j){
 	this.perso = perso;
 	this.af = af;
         this.frame=frame;
 	this.ba = ba;
 	this.mp = mp;
+	this.j=j;
     }
     
     public void mouseClicked(MouseEvent e){
+	if(e.getButton() == MouseEvent.BUTTON1){
 	if(!(mp.getEnPause()))
 	    (new Tirer(perso, frame, af, ba, mp)).start();
+	}else if(e.getButton() == MouseEvent.BUTTON3){
+	    System.out.println("DROIT");
+	    Personnage Steve = af.personnageVisible.get(0);
+	     for(int i = 1 ; i!=af.personnageVisible.size();i++){
+		 if(af.personnageVisible.get(i).getVie()>0){
+		     if(Hitbox.collision(Steve.getHitboxCC()/*Forcement Steve*/,af.personnageVisible.get(i).getHitbox())){
+			 System.out.println("DANS LA COLLISION");
+			 af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
+			 af.repaint();
+			 if(this.j.verifWin())
+			     this.j.levelComplete();
+			 
+		     }
+		 }
+	     }
+	     
+	}
 	//af.repaint();
 	//frame.revalidate();
     }

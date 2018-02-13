@@ -108,7 +108,7 @@ class Jeu{
 	af.repaint();
         frame.revalidate();
 	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
-	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp));	   
+	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp,this));	   
 	
     }
     
@@ -122,6 +122,18 @@ class Jeu{
 	af.addPersonnageVisible(Ennemi);
 	af.repaint();
 	frame.revalidate();
+    }
+
+    public void levelComplete()
+    {
+	Personnage Steve= af.personnageVisible.get(0);
+	Niveau n = this.getNiveau();
+	Steve.setVie(n.getVie());
+	Steve.getArme().setCadence(n.getCadence());
+	Steve.getArme().setDispersion(n.getDispersion());
+	Steve.getArme().setMunition(n.getBalle());
+	this.changerNiveau();
+	
     }
     
     boolean verifWin() {
@@ -162,6 +174,7 @@ class Jeu{
     public void setScore(int s) {
     	this.score=s;
     }
+    
 }
 
 class FondPanel extends JPanel{
