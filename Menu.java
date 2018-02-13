@@ -88,6 +88,8 @@ public class Menu {
 	charger.addActionListener((ActionListener) c2);
 	options.addActionListener((ActionListener) c3);
 	quitter.addActionListener((ActionListener) c4);
+    affichageCharger();
+    affichageOptions();
     }
     
     public void affichageOptions() {

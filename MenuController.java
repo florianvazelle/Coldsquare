@@ -19,12 +19,11 @@ public class MenuController implements ActionListener {
 			menu.f.dispose();
 		}
 		else if (id == 2) {
-		    menu.affichageCharger();
-		    menu.card.next(menu.cards);
+		    menu.card.show(menu.cards, menu.listContent[2]);
 		}
 		else if (id == 3) {
-		    menu.affichageOptions();
-		    menu.card.next(menu.cards);
+		    menu.card.show(menu.cards, menu.listContent[1]);
+
 		}
 		else if (id == 4) {
 		    menu.f.setVisible(false);
