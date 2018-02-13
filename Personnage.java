@@ -55,10 +55,10 @@ class Personnage {
 	if(this.listeDeSprite.size() == 1){
 	    this.hb = new Hitbox(this);
 	    this.hbcc= new Hitbox(this);
-	    this.hbcc.setHeight(this.hbcc.getHeight()+4);
-	    this.hbcc.setWidth(this.hbcc.getWidth()+4);
-	    this.hbcc.setX(this.hbcc.getX()-2);
-	    this.hbcc.setY(this.hbcc.getY()-2);
+	    this.hbcc.setHeight(this.hbcc.getHeight()+6);
+	    this.hbcc.setWidth(this.hbcc.getWidth()+6);
+	    this.hbcc.setX(this.hbcc.getX()-3);
+	    this.hbcc.setY(this.hbcc.getY()-3);
 	}
     }
 
@@ -94,7 +94,7 @@ class Personnage {
     void setCoordonneX(int newX){
 	this.coordonneX=newX;
 	hb.setX(newX);
-	hbcc.setX(newX-2);
+	hbcc.setX(newX-3);
     }
 
     int getCoordonneY(){
@@ -104,7 +104,7 @@ class Personnage {
     void setCoordonneY(int newY){
 	this.coordonneY=newY;
 	hb.setY(newY);
-	hbcc.setY(newY-2);
+	hbcc.setY(newY-3);
     }
 
     int getRotationX(){
