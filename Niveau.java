@@ -40,7 +40,7 @@ public class Niveau extends JPanel{
     public Niveau(Jeu j){
     	this.j=j;
     	this.level=1;
-    	this.nbEnnemi=1;
+    	this.nbEnnemi=10;
     	this.nbCadence=1;
     	this.nbBalle=5;
     	this.nbVie=5;

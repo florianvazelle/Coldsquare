@@ -67,5 +67,10 @@ public class Terrain extends JPanel {
 		    g2d.drawImage(this.arbre.getImage(), i*25, j*25, this);
 	    }
 	    }*/
-    }    
+    }
+    
+    public ArrayList<Mur> getMur(){
+	return this.listeMur;
+    }
+    
 }

@@ -44,7 +44,7 @@ class Jeu{
 
 	initFond();
 	initSteve();
-	for(int e=0;e<nombreEnnemi;e++) {
+	for(int e=0;e<n.getEnnemis();e++) {
 	    initEnnemi();
 	}
 	fond.setBounds(0,0,1920,1040);
@@ -68,13 +68,13 @@ class Jeu{
 	frame.revalidate();
     }
     
-    void jouer() {
-	for(int i=0;i<af.personnageVisible.size();i++) {
-	    af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()+1);
-	    af.personnageVisible.get(i).setHitbox(new Hitbox(af.personnageVisible.get(i)));
-	}
+   void jouer() {
+	
     	jlp.repaint();
     	af.boiteMunition.clear();
+	for(int i=af.personnageVisible.size()-1;i>0;i--){
+	    af.personnageVisible.remove(af.personnageVisible.get(i));
+	}
 	Personnage Steve = af.personnageVisible.get(0);
     	Steve.setVie(n.getVie());
     	Steve.getArme().setCadence(n.getCadence());
@@ -82,7 +82,7 @@ class Jeu{
     	Steve.getArme().setMunition(n.getBalle());
 	
     	int nbEnnemi=n.getEnnemis();
-    	for(int e=0;e<nbEnnemi-nombreEnnemi;e++) {
+    	for(int e=0;e<nbEnnemi;e++) {
 	    initEnnemi();
 	}
     }
@@ -112,13 +112,43 @@ class Jeu{
 	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp,this, fond));	   
     }
     
-    void initEnnemi(){
+      void initEnnemi(){
+	  
 	Random r = new Random();
 	int nb = r.nextInt(1890) + 10 ; 
-	int nb2 = r.nextInt(1000) + 10 ; 
+	int nb2 = r.nextInt(1000) + 10 ;
+
 	Personnage Ennemi = new Personnage("Ennemi"+i,1,"./assets/ennemi.png",nb,nb2);
 	Ennemi.addListeDeSprite(new Sprite(Ennemi));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
+
+	for(int i=0;i<fond.getMur().size();i++){
+	    if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
+		System.out.println("collisionMur");
+	         nb = r.nextInt(1890) + 10 ; 
+		 nb2 = r.nextInt(1000) + 10 ;
+		 Ennemi.setCoordonneX(nb);
+		 Ennemi.setCoordonneY(nb2);
+		 i=0;
+	    }
+	    
+	   for(int j = 0 ; j!=af.personnageVisible.size();j++){
+	       System.out.println("collisionPerso1"+af.personnageVisible.size());
+	       if(af.personnageVisible.get(j).getVie()>0){
+		    System.out.println("collisionPerso2");
+		   if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())){
+		    System.out.println("collisionPerso3");
+		    nb = r.nextInt(1890) + 10 ; 
+		    nb2 = r.nextInt(1000) + 10 ;
+		    Ennemi.setCoordonneX(nb);
+		    Ennemi.setCoordonneY(nb2);
+		    i=0; 
+		   }
+	    }   
+	     
+	   }
+	}
+	
 	af.addPersonnageVisible(Ennemi);
 	af.repaint();
 	frame.revalidate();
@@ -177,23 +207,3 @@ class Jeu{
     
 }
 
-class FondPanel extends JPanel{
-    
-    ImageIcon fond;
-    public FondPanel(){
-	fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1040,Image.SCALE_DEFAULT));
-    }
-    
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-	drawFond(g);
-        Toolkit.getDefaultToolkit().sync();
-    }
-    
-    public void drawFond(Graphics g) {
-	Graphics2D g2d = (Graphics2D) g;
-	Image imagefond= fond.getImage();
-	g2d.drawImage(imagefond,0,0,this);      
-    }
-}
