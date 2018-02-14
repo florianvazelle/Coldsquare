@@ -9,13 +9,15 @@ public class ControlerBalle extends Thread {
     JBalle ba;
     MaFenetreJeu frame;
     MenuPause mp;
+    Terrain t;
     
-    ControlerBalle(Balle b, Point souris, JBalle ba, MaFenetreJeu frame, MenuPause mp){
+    ControlerBalle(Balle b, Point souris, JBalle ba, MaFenetreJeu frame, MenuPause mp, Terrain t){
 	this.b = b;
 	this.souris = souris;
 	this.ba = ba;
 	this.frame = frame;
 	this.mp = mp;
+	this.t = t;
     }
 
     @Override
@@ -88,6 +90,11 @@ public class ControlerBalle extends Thread {
                         e.printStackTrace();
                     }
 		    ba.repaint(x-50, y-50, 200, 200);
+		    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
+			if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
+			    ba.deleteBalle(b);
+			}
+			}*/
 		    while(mp.getEnPause()){
 			try{
 			    this.sleep(2000);
@@ -110,6 +117,11 @@ public class ControlerBalle extends Thread {
                         e.printStackTrace();
 		    }
 		    ba.repaint(x-50, y-50, 200, 200);
+		    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
+                        if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
+                            ba.deleteBalle(b);
+                        }
+			}*/
 		    while(mp.getEnPause()){
 			try{
                             this.sleep(2000);

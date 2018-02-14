@@ -14,13 +14,15 @@ public class Tirer extends Thread {
     JBalle ba;
     ControlerBalle controlerBalle;
     MenuPause mp;
+    Terrain t;
     
-    public Tirer(Personnage perso, MaFenetreJeu frame, AfficherPersonnage af, JBalle ba, MenuPause mp){
+    public Tirer(Personnage perso, MaFenetreJeu frame, AfficherPersonnage af, JBalle ba, MenuPause mp, Terrain t){
 	this.perso = perso;
 	this.frame = frame;
 	this.af = af;
 	this.ba = ba;
 	this.mp = mp;
+	this.t = t;
     }
 
     public void run(){
@@ -37,7 +39,7 @@ public class Tirer extends Thread {
 	    Balle b = new Balle(perso, souris, frame);
 	    frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
 	    ba.listeBalle.add(b);
-	    controlerBalle = new ControlerBalle(b, souris, ba, frame, mp);
+	    controlerBalle = new ControlerBalle(b, souris, ba, frame, mp, t);
 	    controlerBalle.start();
 	    	    
 	    //Son du tire

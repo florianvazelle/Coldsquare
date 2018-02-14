@@ -54,7 +54,7 @@ class Personnage {
         this.listeDeSprite.add(sp);
 	if(this.listeDeSprite.size() == 1){
 	    this.hb = new Hitbox(this);
-	    this.hbcc= new Hitbox(this);
+	    this.hbcc = new Hitbox(this);
 	    this.hbcc.setHeight(this.hbcc.getHeight()+6);
 	    this.hbcc.setWidth(this.hbcc.getWidth()+6);
 	    this.hbcc.setX(this.hbcc.getX()-3);
@@ -103,7 +103,7 @@ class Personnage {
 
     void setCoordonneY(int newY){
 	this.coordonneY=newY;
-	hb.setY(newY);
+	hb.setY(newY+24);
 	hbcc.setY(newY-3);
     }
 

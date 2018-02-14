@@ -21,20 +21,22 @@ public class ControlerClique implements MouseListener {
     JBalle ba;
     MenuPause mp;
     Jeu j;
+    Terrain t;
     
-    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame, JBalle ba, MenuPause mp, Jeu j){
+    ControlerClique(Personnage perso, AfficherPersonnage af, MaFenetreJeu frame, JBalle ba, MenuPause mp, Jeu j, Terrain t){
 	this.perso = perso;
 	this.af = af;
         this.frame=frame;
 	this.ba = ba;
 	this.mp = mp;
 	this.j=j;
+	this.t = t;
     }
     
     public void mouseClicked(MouseEvent e){
 	if(e.getButton() == MouseEvent.BUTTON1){
 	if(!(mp.getEnPause()))
-	    (new Tirer(perso, frame, af, ba, mp)).start();
+	    (new Tirer(perso, frame, af, ba, mp, t)).start();
 	}else if(e.getButton() == MouseEvent.BUTTON3){
 	    System.out.println("DROIT");
 	    Personnage Steve = af.personnageVisible.get(0);

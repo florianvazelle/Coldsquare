@@ -67,16 +67,16 @@ class AfficherPersonnage extends JPanel {
 		    int val=-1;
 		    for(int tmp=0;tmp<boiteMunition.size();tmp++) {
 		    	if(i==boiteMunition.get(tmp).getId()) {
-		    		val=tmp;
+			    val=tmp;
 		    	}
 		    }
 		    if(val != -1) {
-		    if(boiteMunition.get(val).getAfficher()== 0) {
-				   System.out.println("BOITE MUNITION:0"+boiteMunition.get(val).getValue());
-				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
-				   boiteMunition.get(val).setAfficher(1);
+			if(boiteMunition.get(val).getAfficher()== 0) {
+			    System.out.println("BOITE MUNITION:0"+boiteMunition.get(val).getValue());
+			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
+			    boiteMunition.get(val).setAfficher(1);
 			}else if(boiteMunition.get(val).getAfficher()== 1) {
-				   g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
+			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
 			}
 		    }
 		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(1).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);

@@ -9,7 +9,7 @@ public class Hitbox {
     
     Hitbox(Personnage p){
 	Sprite s = p.listeDeSprite.get(0);
-	this.h = s.getImageIcon().getIconHeight();
+       	this.h = s.getImageIcon().getIconHeight();
 	this.w = s.getImageIcon().getIconWidth();
 	this.x = p.getCoordonneX();
 	this.y = p.getCoordonneY();

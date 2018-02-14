@@ -16,7 +16,7 @@ class Jeu{
     AfficherPersonnage af;
     MaFenetreJeu frame;
     Info i;
-    FondPanel fond;
+    Terrain fond;
     JBalle ba;
     MenuPause mp;
     
@@ -25,6 +25,7 @@ class Jeu{
     JLayeredPane jlp;
     private int nombreEnnemi=1;
     private int enCours=1;
+    private int score = 0;
     
     public Jeu(){
 	this.n= new Niveau(this);
@@ -34,10 +35,10 @@ class Jeu{
 	frame.setLayeredPane(jlp);
 	
 	jlp.setOpaque(true);
-	this.fond=  new FondPanel();
+	this.fond=  new Terrain(frame);
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
-	this.mp = new MenuPause();
+	this.mp = new MenuPause(frame);
 	
 	frame.setLayout(null);
 
@@ -56,6 +57,8 @@ class Jeu{
 	af.setOpaque(false);
 	ba.setOpaque(false);
 	mp.setOpaque(false);
+
+	i.setBackground(new Color(0, 0, 0, 50));
 	
 	jlp.add(fond, new Integer(0));
 	jlp.add(af,  new Integer(1));
@@ -94,19 +97,19 @@ class Jeu{
 	Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
 	Steve.addListeDeSprite(new Sprite(Steve));
 	Steve.addListeDeSprite(new Sprite("./assets/ennemi.png"));
+	Steve.getHitbox().setHeight(Steve.getHitbox().getHeight()-24);
 	
 	n.setPerso(Steve);
 	af.addPersonnageVisible(Steve);
         Deplacement deplacement = new Deplacement(Steve);
-        frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp));
+        frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond));
 	//frame.addMouseListener(new ControlerSouris(Steve));
-        this.i = new Info(Steve);
+        this.i = new Info(Steve, this);
 	i.repaint();
 	af.repaint();
         frame.revalidate();
 	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
-	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba));	   
-	
+	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp,this, fond));	   
     }
     
     void initEnnemi(){
@@ -119,6 +122,18 @@ class Jeu{
 	af.addPersonnageVisible(Ennemi);
 	af.repaint();
 	frame.revalidate();
+    }
+
+    public void levelComplete()
+    {
+	Personnage Steve= af.personnageVisible.get(0);
+	Niveau n = this.getNiveau();
+	Steve.setVie(n.getVie());
+	Steve.getArme().setCadence(n.getCadence());
+	Steve.getArme().setDispersion(n.getDispersion());
+	Steve.getArme().setMunition(n.getBalle());
+	this.changerNiveau();
+	
     }
     
     boolean verifWin() {
@@ -151,6 +166,15 @@ class Jeu{
     public Niveau getNiveau() {
     	return this.n;
     }
+    
+    public int getScore() {
+	return this.score;
+    }
+    
+    public void setScore(int s) {
+    	this.score=s;
+    }
+    
 }
 
 class FondPanel extends JPanel{

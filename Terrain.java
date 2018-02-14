@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Terrain extends JPanel {
 
+    private Boolean map[][];
     MaFenetreJeu frame;
     ArrayList<Mur> listeMur;
     ImageIcon arbre;
@@ -24,6 +25,16 @@ public class Terrain extends JPanel {
 	listeMur.add(droit);
 	listeMur.add(bas);
 
+	this.map = new Boolean[frame.getWidth()/25][frame.getHeight()/25];
+	
+	for(int i = 0 ; i!=frame.getWidth()/25 ; i++){
+	    for(int j = 0 ; j!=frame.getHeight()/25 ; j++){
+		this.map[i][j] = (Math.random() > 0.95) ? true : false;
+		if(this.map[i][j])
+		    listeMur.add(new Mur(i*25, j*25, 25, 25));
+	    }
+	}
+	
 	this.arbre = new ImageIcon(new ImageIcon("./assets/arbre.png").getImage().getScaledInstance(25,25,Image.SCALE_DEFAULT));
 	this.fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1920,Image.SCALE_DEFAULT));
     }
@@ -48,7 +59,13 @@ public class Terrain extends JPanel {
 		for(int j = 0 ; j<currentMur.getLargeur() ; j+=25)
                     g2d.drawImage(this.arbre.getImage(), currentMur.getX(), currentMur.getY()+j, this);
 	    }
-	    //g2d.fillRect(currentMur.getX(), currentMur.getY(), currentMur.getLongueur(), currentMur.getLargeur());
 	}
+	/*
+	for(int i = 0 ; i!=frame.getWidth()/25 ; i++){
+            for(int j = 0 ; j!=frame.getHeight()/25 ; j++){
+		if(this.map[i][j])
+		    g2d.drawImage(this.arbre.getImage(), i*25, j*25, this);
+	    }
+	    }*/
     }    
 }
