@@ -9,7 +9,7 @@ public class Menu {
     public CardLayout card = new CardLayout();
     public JPanel cards = new JPanel(card);
     public JPanel menu = new JPanel();
-    public String[] listContent = {"card1","card2","card3"};
+    public String[] listContent = {"card1","card2","card3","card4"};
     public JPanel jeu = new JPanel();
     public JPanel options = new JPanel();
     public JPanel charger = new JPanel();
@@ -18,8 +18,9 @@ public class Menu {
     private JLabel test;
     private static Menu m;
     public ButtonGroup bg = new ButtonGroup();
+    public JTextField pseudo = new JTextField();
     
-    public Menu() throws IOException {
+    public Menu() {
 	f.setSize(800,600);
 	f.setLocationRelativeTo(null);
 	f.setTitle("ColdSquare");
@@ -88,8 +89,9 @@ public class Menu {
 	charger.addActionListener((ActionListener) c2);
 	options.addActionListener((ActionListener) c3);
 	quitter.addActionListener((ActionListener) c4);
-    affichageCharger();
-    affichageOptions();
+	affichageCharger();
+	affichageOptions();
+	affichagePseudo();
     }
     
     public void affichageOptions() {
@@ -97,18 +99,41 @@ public class Menu {
 	JRadioButton easy = new JRadioButton("Facile");
 	JRadioButton medium = new JRadioButton("Moyen");
 	JRadioButton hard = new JRadioButton("Difficile");
+	options.setLayout(new GridBagLayout());
+	GridBagConstraints contrainte = new GridBagConstraints();
+	JButton retour = new JButton(new ImageIcon("./assets/maison.png"));
+
 	
 	easy.setSelected(true);
+	
 	bg.add(easy);
 	bg.add(medium);
 	bg.add(hard);
 	
-	test = new JLabel("Easy : 5 coeurs, 5mun/ennemis! Medium : 3 coeurs, 3mun/ennemis! Hard : 2 coeurs, 2mun/ennemis!");
+	contrainte.gridx = 0;
+        contrainte.gridy = 0;
+        contrainte.fill = GridBagConstraints.HORIZONTAL;
+        contrainte.anchor = GridBagConstraints.CENTER;
+	contrainte.insets = new Insets(10,30,30,10);
+	options.add(easy, contrainte);
+
+	contrainte.gridx = 1;
+	contrainte.gridy = 0;
+	options.add(medium, contrainte);
+
+	contrainte.gridx = 2;
+	contrainte.gridy = 0;
+	options.add(hard, contrainte);
+      
+	contrainte.gridx = 2;
+	contrainte.gridy = 1;
+	contrainte.insets = new Insets(350,0,0,500);
+	options.add(retour, contrainte);
 	
-	options.add(easy);
-	options.add(medium);
-	options.add(hard);
-	options.add(test);
+	MenuController c1 = new MenuController(5,menu);
+	c1.setMenu(this);
+	retour.addActionListener((ActionListener) c1);
+
 	cards.add(options,listContent[1]);
     }
     
@@ -116,35 +141,73 @@ public class Menu {
 	JTextField recherche = new JTextField();
 	JButton chercher = new JButton("Jouer");
 	JLabel aide = new JLabel("Entrez votre pseudo :");
-	JButton retour = new JButton(new ImageIcon("./assets/maison.png"));
 	charger.setLayout(new GridBagLayout());
 	GridBagConstraints contraintes = new GridBagConstraints();
+	JButton home = new JButton(new ImageIcon("./assets/maison.png"));
 	
 	contraintes.gridx = 0;
 	contraintes.gridy = 0;
-	charger.add(aide,contraintes);
-	
-	contraintes.gridx = 0;
-	contraintes.gridy = 2;
-	contraintes.insets = new Insets(350,0,0,500);
 	contraintes.fill = GridBagConstraints.HORIZONTAL;
-	contraintes.anchor = GridBagConstraints.CENTER;
-	charger.add(retour,contraintes);
+        contraintes.anchor = GridBagConstraints.CENTER;
+	charger.add(aide,contraintes);
 	
 	contraintes.gridx = 0;
 	contraintes.gridy = 1;
 	contraintes.insets = new Insets(10,30,30,10);
 	charger.add(recherche, contraintes);
-	
+
 	contraintes.gridx = 1;
 	contraintes.gridy = 1;
 	charger.add(chercher, contraintes);
+
+	contraintes.gridx = 0;
+        contraintes.gridy = 2;
+	contraintes.insets = new Insets(350,0,0,500);
+	charger.add(home,contraintes);
 	
 	MenuController c1 = new MenuController(5,menu);
 	c1.setMenu(this);
-	retour.addActionListener((ActionListener) c1);
+	home.addActionListener((ActionListener) c1);
 	
 	cards.add(charger,listContent[2]);
+    }
+
+    public void affichagePseudo() {
+	JButton valider = new JButton("Valider");
+	JLabel nom = new JLabel("Entrez votre pseudo :");
+	JButton maison = new JButton(new ImageIcon("./assets/maison.png"));
+	jeu.setLayout(new GridBagLayout());
+	GridBagConstraints contraintes = new GridBagConstraints();
+
+	contraintes.gridx = 0;
+	contraintes.gridy = 0;
+	contraintes.fill = GridBagConstraints.HORIZONTAL;
+	contraintes.anchor = GridBagConstraints.CENTER;
+	contraintes.insets = new Insets(5,10,10,5);
+	jeu.add(nom,contraintes);
+
+	contraintes.gridx = 0;
+	contraintes.gridy = 1;
+	jeu.add(pseudo,contraintes);
+
+	contraintes.gridx = 1;
+	contraintes.gridy = 1;
+	jeu.add(valider,contraintes);
+
+	contraintes.gridx = 0;
+        contraintes.gridy = 2;
+        contraintes.insets = new Insets(350,0,0,500);
+        jeu.add(maison,contraintes);
+	
+	MenuController c = new MenuController(6,menu);
+	c.setMenu(this);
+	valider.addActionListener((ActionListener) c);
+
+	MenuController c1 = new MenuController(5,menu);
+        c1.setMenu(this);
+	maison.addActionListener((ActionListener) c1);
+	
+	cards.add(jeu, listContent[3]);
     }
     
     public static void main(String[] args) throws IOException {
