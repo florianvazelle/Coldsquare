@@ -136,25 +136,49 @@ public class Niveau extends JPanel{
     public int getVie() {
 	return this.nbVie;
     }
-    
+
+    public void setVie(int v) {
+	this.nbVie = v;
+    }
+	
     public int getCadence() {
         return this.nbCadence;
+    }
+
+    public void setCadence(int c) {
+	this.nbCadence = c;
     }
     
     public int getBalle() {
     	     return this.nbBalle;
     }
+
+    public void setBalle(int b) {
+	this.nbBalle = b;
+    }
     
     public int getDispersion() {
     	     return this.nbDispersion;
+    }
+
+    public void setDispersion(int d)  {
+	this.nbDispersion = d;
     }
     
     public int getEnnemis() {
 	     return this.nbEnnemi;
     }
+
+    public void setEnnemis(int e) {
+	this.nbEnnemi = e;
+    }
     
     public int getLevel() {
     	return this.level;
+    }
+
+    public void setLevel(int l) {
+	this.level = l;
     }
     
     class BoutonListener implements ActionListener{
