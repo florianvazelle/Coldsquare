@@ -49,6 +49,9 @@ public class MenuPause extends JPanel {
 	contraintes.gridx = 1;
 	contraintes.gridy = 2;
 	this.add(quitter,contraintes);
+
+	Sauvegarde s = new Sauvegarde();
+	sauvegarder.addActionListener((ActionListener) s);
     }
 
     @Override
