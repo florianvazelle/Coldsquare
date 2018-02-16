@@ -7,6 +7,10 @@ public class MenuController implements ActionListener {
     Menu menu;
     JPanel p = new JPanel();
     public String nom;
+
+    public MenuController() {
+
+    }
     
     public MenuController(int i, JPanel panneau) {
 	this.id = i;
@@ -33,6 +37,7 @@ public class MenuController implements ActionListener {
 	}
 	else if (id == 6) {
 	    nom = menu.pseudo.getText();
+	    System.out.println(""+nom);
 	    new Jeu();
 	    menu.f.setVisible(false);
 	    menu.f.dispose();
@@ -41,5 +46,9 @@ public class MenuController implements ActionListener {
     public void setMenu(Menu menu) {
 	this.menu = menu;
     }
-}
 
+    public String getNom() {
+	return this.nom;
+    }
+
+}

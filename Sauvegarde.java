@@ -6,8 +6,8 @@ import java.sql.*;
 
 class Sauvegarde implements ActionListener {
 
-    public Niveau n;
-    public MenuController mc;
+    private Niveau n;
+    private MenuController mc;
     public String pseudo;
     public int vie;
     public int cadence;
@@ -15,19 +15,28 @@ class Sauvegarde implements ActionListener {
     public int enemis;
     public int level;
     public int munitions;
+    public int score;
+    private Jeu j;
     
-    public Sauvegarde () {
-	this.pseudo = mc.nom;
-	this.vie = n.getVie();
-	this.cadence = n.getCadence();
-	this.dispersion = n.getDispersion();
-	this.enemis = n.getEnnemis();
-	this.level = n.getLevel();
-	this.munitions = n.getBalle();
+    public Sauvegarde (Jeu jeu) {
+	this.j = jeu;
+	n = this.j.getNiveau();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+	mc = new MenuController();
+	
+	this.pseudo = mc.getNom();
+        this.vie = n.getVie();
+        this.cadence = n.getCadence();
+        this.dispersion = n.getDispersion();
+        this.enemis = n.getEnnemis();
+        this.level = n.getLevel();
+        this.munitions = n.getBalle();
+	this.score = j.getScore();
+	System.out.println(""+pseudo);
 	try {
 	    Class.forName("org.mariadb.jdbc.Driver");
 	}
@@ -36,9 +45,9 @@ class Sauvegarde implements ActionListener {
 	}
 
 	try {
-	    Connection connexion = DriverManager.getConnection("jdbc:mardiadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
+	    Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
 
-	    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+dispersion+","+enemis+","+level);
+	    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+dispersion+","+enemis+","+level+","+score+")");
 	    ResultSet sauvegardeComplete = insertVal.executeQuery();
 	    if (sauvegardeComplete.first()) {
 		JOptionPane jop = new JOptionPane();

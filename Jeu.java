@@ -19,7 +19,7 @@ class Jeu{
     Terrain fond;
     JBalle ba;
     MenuPause mp;
-    
+    Sauvegarde s;
     Personnage p;
     Niveau n;
     JLayeredPane jlp;
@@ -29,6 +29,7 @@ class Jeu{
     
     public Jeu(){
 	this.n= new Niveau(this);
+	this.s = new Sauvegarde(this);
 	this.frame = new MaFenetreJeu();
 
 	jlp = new JLayeredPane();
@@ -38,7 +39,7 @@ class Jeu{
 	this.fond=  new Terrain(frame);
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
-	this.mp = new MenuPause(frame);
+	this.mp = new MenuPause(frame,s);
 	
 	frame.setLayout(null);
 

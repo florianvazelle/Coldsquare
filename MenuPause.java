@@ -17,9 +17,12 @@ public class MenuPause extends JPanel {
     JButton quitter;
     ControlerPause cp;
     MaFenetreJeu frame;
+    Jeu j;
+    Sauvegarde s;
     
-    MenuPause(MaFenetreJeu frame){
+    MenuPause(MaFenetreJeu frame, Sauvegarde save){
 	this.frame = frame;
+	this.s = save;
 	this.enPause = false;
 	this.cp = new ControlerPause(this, frame);
 	
@@ -50,7 +53,6 @@ public class MenuPause extends JPanel {
 	contraintes.gridy = 2;
 	this.add(quitter,contraintes);
 
-	Sauvegarde s = new Sauvegarde();
 	sauvegarder.addActionListener((ActionListener) s);
     }
 
