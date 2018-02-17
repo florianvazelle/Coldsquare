@@ -16,13 +16,13 @@ public class Niveau extends JPanel{
     private int level;
     private int nbEnnemi;
     private int nbCadence;
-    private int nbDispersion;
+    private boolean val_CAC; // Corps a corps
     private int nbBalle;
     private int nbVie;
     private ImageIcon vie;
     private ImageIcon cadence;
     private ImageIcon balle;
-    private ImageIcon dispersion;
+    private ImageIcon cac; // Corps a corps
     private ImageIcon plus;
     private ImageIcon moins;
     private JButton plusjb;
@@ -40,15 +40,15 @@ public class Niveau extends JPanel{
     public Niveau(Jeu j){
     	this.j=j;
     	this.level=1;
-    	this.nbEnnemi=10;
+    	this.nbEnnemi=1;
     	this.nbCadence=1;
+    	this.val_CAC=false;
     	this.nbBalle=5;
     	this.nbVie=5;
-    	this.nbDispersion=1;
     	vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    	dispersion = new ImageIcon(new ImageIcon("./assets/dispersion.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	balle = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+    	cac = new ImageIcon(new ImageIcon("./assets/poing.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	plus = new ImageIcon(new ImageIcon("./assets/plus.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	moins = new ImageIcon(new ImageIcon("./assets/moins.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 
@@ -62,19 +62,19 @@ public class Niveau extends JPanel{
     	moinsjb4= new JButton(moins);
     	suivant= new JButton("suivant");
 
-    	plusjb.setBounds(1050,230,50,50);
-    	plusjb2.setBounds(1050,290,50,50);
-    	plusjb3.setBounds(1050,350,50,50);
-    	plusjb4.setBounds(1050,410,50,50);
-    	moinsjb.setBounds(1120,230,50,50);
-    	moinsjb2.setBounds(1120,290,50,50);
-    	moinsjb3.setBounds(1120,350,50,50);
-    	moinsjb4.setBounds(1120,410,50,50);
+    	plusjb.setBounds(1100,230,50,50);
+    	plusjb2.setBounds(1100,290,50,50);
+    	plusjb3.setBounds(1100,350,50,50);
+    	plusjb4.setBounds(1100,410,50,50);
+    	moinsjb.setBounds(1170,230,50,50);
+    	moinsjb2.setBounds(1170,290,50,50);
+    	moinsjb3.setBounds(1170,350,50,50);
+    	moinsjb4.setBounds(1170,410,50,50);
     	suivant.setBounds(1050,620,250,50);
 
 	BoutonListener b = new BoutonListener(this);
     	plusjb.addActionListener(b);
-	plusjb2.addActionListener(b);
+    	plusjb2.addActionListener(b);
     	plusjb3.addActionListener(b);
     	plusjb4.addActionListener(b);
     	moinsjb.addActionListener(b);
@@ -109,14 +109,21 @@ public class Niveau extends JPanel{
 	g2d.drawImage(vie.getImage(), 800,230, this);      
 	g2d.drawImage(balle.getImage(), 800,290, this);      
 	g2d.drawImage(cadence.getImage(), 800,350, this);      
-	g2d.drawImage(dispersion.getImage(), 800,410, this);      
+	g2d.drawImage(cac.getImage(), 800,410, this);      
 	g2d.setColor(Color.WHITE);
 	g2d.setFont(new Font("Verdana", Font.BOLD , 20)); 
 	g2d.drawString("Level "+level+" Complete", 800, 200);
 	g2d.drawString("Vie : "+nbVie, 870, 255);
 	g2d.drawString("Munitions : "+nbBalle, 870, 315);
 	g2d.drawString("Cadence : "+nbCadence, 870, 375);
-	g2d.drawString("Dispersion : "+nbDispersion, 870, 435);
+	
+
+	if(this.val_CAC==false)
+		g2d.drawString("Corps a Corps : Non", 870, 435);
+	else if(this.val_CAC==true)
+		g2d.drawString("Corps a Corps : Oui", 870, 435);
+
+	
 	//g2d.drawImage(plus.getImage(), 1050,230, this);      
 	//g2d.drawImage(plus.getImage(), 1050,290, this);      
 	//g2d.drawImage(plus.getImage(), 1050,350, this);      
@@ -145,8 +152,8 @@ public class Niveau extends JPanel{
     	     return this.nbBalle;
     }
     
-    public int getDispersion() {
-    	     return this.nbDispersion;
+    public boolean getCac() {
+    	     return this.val_CAC;
     }
     
     public int getEnnemis() {
@@ -183,9 +190,10 @@ public class Niveau extends JPanel{
 	        	n.add(moinsjb3);    
 
 	    	}else if(o == plusjb4) {
-	    		nbDispersion+=1;
+	    		val_CAC=true;
 	    		nbAmelioration-=1;
 	        	n.add(moinsjb4);  
+	        	n.remove(plusjb4);
 
 	    	}
 	    	if(nbAmelioration == 0) {
@@ -219,19 +227,19 @@ public class Niveau extends JPanel{
 
 	    		}
 	    	}else if(o == moinsjb4) {
-	    		if(nbDispersion > perso.getArme().getDispersion()) {
-	    			nbDispersion-=1;
+	    			val_CAC=false;
 	    			nbAmelioration+=1;
-	    			if(nbDispersion==perso.getArme().getDispersion())
 	    	    	n.remove(moinsjb4);  
 
-	    		}
+	    		
 	    	}
 	    	if(nbAmelioration > 0) {
 	    	n.add(plusjb);  
         	n.add(plusjb2);    
-        	n.add(plusjb3);    
+        	n.add(plusjb3);
+        	if(n.val_CAC==false) {
         	n.add(plusjb4);  
+        	}
 	    	}
 	    
 	    if(o == suivant) {
@@ -242,8 +250,9 @@ public class Niveau extends JPanel{
 	    	n.add(plusjb);  
         	n.add(plusjb2);    
         	n.add(plusjb3);    
+        	if(n.val_CAC==false) {
         	n.add(plusjb4); 
-	    	
+        	}
 	    		 
 	    	
 		level+=1;

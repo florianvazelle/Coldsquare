@@ -16,7 +16,7 @@ class Info extends JPanel {
     Personnage perso;    
     ImageIcon vie; 
     ImageIcon cadence;
-    ImageIcon dispersion; 
+    ImageIcon cac; 
     ImageIcon munition;
     Jeu j;
     public Info(Personnage p, Jeu j){
@@ -24,7 +24,7 @@ class Info extends JPanel {
 	this.j=j;
      vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
    cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    dispersion = new ImageIcon(new ImageIcon("./assets/dispersion.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+    cac = new ImageIcon(new ImageIcon("./assets/poing.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     munition = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     }
 
@@ -44,13 +44,19 @@ class Info extends JPanel {
 	g2d.drawImage(vie.getImage(), 10,20, this);      
 	g2d.drawImage(munition.getImage(), 10,90, this);      
 	g2d.drawImage(cadence.getImage(), 10,150, this);      
-	g2d.drawImage(dispersion.getImage(), 10,210, this);      
+	g2d.drawImage(cac.getImage(), 10,210, this);      
 	g2d.setColor(Color.WHITE);
 	g2d.setFont(new Font("Verdana", Font.BOLD , 20)); 
 	g2d.drawString("Vie : "+perso.getVie(), 70, 50);
 	g2d.drawString("Munitions : "+perso.getArme().getMunition(), 70, 120);
 	g2d.drawString("Cadence : "+perso.getArme().getCadence(), 70, 180);
-	g2d.drawString("Dispersion : "+perso.getArme().getDispersion(), 70, 240);
+	
+	if(perso.getCac()==false)
+		g2d.drawString("CAC : Non ", 70, 240);
+	else if(perso.getCac()==true)
+		g2d.drawString("CAC : Oui ", 70, 240);
+	
+	g2d.drawString("Ennemis : "+j.getEnnemisRestants(),70 , 370);
 	g2d.drawString("Score : "+j.getScore(),70 , 400);
 	g2d.drawString("Niveau : "+j.getNiveau().getLevel(), 70, 430);
     }

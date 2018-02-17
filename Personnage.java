@@ -15,6 +15,7 @@ class Personnage {
     private String nom;
     private int vie;
     private Arme arme;
+    private boolean cac;
     private String skin;
     private int coordonneX;
     private int coordonneY;
@@ -82,7 +83,14 @@ class Personnage {
     void setArme(Arme newArme){
         this.arme=newArme;
     }
-
+    
+    public boolean getCac() {
+	    return this.cac;
+    }
+    
+    public void setCac(boolean b) {
+	   this.cac=b;
+    }
     String getSkin(){
         return this.skin;
     }

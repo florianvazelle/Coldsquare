@@ -37,7 +37,7 @@ public class ControlerClique implements MouseListener {
 	if(e.getButton() == MouseEvent.BUTTON1){
 	if(!(mp.getEnPause()))
 	    (new Tirer(perso, frame, af, ba, mp, t)).start();
-	}else if(e.getButton() == MouseEvent.BUTTON3){
+	}else if(e.getButton() == MouseEvent.BUTTON3 && j.getNiveau().getCac()==true){
 	    System.out.println("DROIT");
 	    Personnage Steve = af.personnageVisible.get(0);
 	     for(int i = 1 ; i!=af.personnageVisible.size();i++){

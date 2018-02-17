@@ -32,6 +32,7 @@ public class JBalle extends JPanel {
 		    currentPerso.setVie(currentPerso.getVie()-1);
 		    if(currentPerso.getVie()==0) {
 		    	this.j.setScore(this.j.getScore()+20);
+		    	this.j.setEnnemisRestants(this.j.getEnnemisRestants()-1);
 		    }
 		    Random r = new Random();
 	    	int valeur = 1+r.nextInt(4 - 1);
@@ -47,7 +48,6 @@ public class JBalle extends JPanel {
 		    	Niveau n = this.j.getNiveau();
 		    	Steve.setVie(n.getVie());
 		    	Steve.getArme().setCadence(n.getCadence());
-		    	Steve.getArme().setDispersion(n.getDispersion());
 		    	Steve.getArme().setMunition(n.getBalle());
 		    	this.j.changerNiveau();
 			}

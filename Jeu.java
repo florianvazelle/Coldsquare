@@ -23,14 +23,14 @@ class Jeu{
     Personnage p;
     Niveau n;
     JLayeredPane jlp;
-    private int nombreEnnemi=1;
+    private int ennemisRestants;
     private int enCours=1;
     private int score = 0;
     
     public Jeu(){
 	this.n= new Niveau(this);
 	this.frame = new MaFenetreJeu();
-
+	
 	jlp = new JLayeredPane();
 	frame.setLayeredPane(jlp);
 	
@@ -39,7 +39,7 @@ class Jeu{
 	this.af = new AfficherPersonnage();
 	this.ba = new JBalle(af, frame, this);
 	this.mp = new MenuPause(frame);
-	
+	this.ennemisRestants=this.n.getEnnemis();
 	frame.setLayout(null);
 
 	initFond();
@@ -72,19 +72,19 @@ class Jeu{
 	
     	jlp.repaint();
     	af.boiteMunition.clear();
-	for(int i=af.personnageVisible.size()-1;i>0;i--){
-	    af.personnageVisible.remove(af.personnageVisible.get(i));
-	}
-	Personnage Steve = af.personnageVisible.get(0);
+    	for(int i=af.personnageVisible.size()-1;i>0;i--){
+    		af.personnageVisible.remove(af.personnageVisible.get(i));
+    	}
+    	Personnage Steve = af.personnageVisible.get(0);
     	Steve.setVie(n.getVie());
     	Steve.getArme().setCadence(n.getCadence());
-    	Steve.getArme().setDispersion(n.getDispersion());
     	Steve.getArme().setMunition(n.getBalle());
-	
+    	Steve.setCac(n.getCac());
     	int nbEnnemi=n.getEnnemis();
+    	this.ennemisRestants=nbEnnemi;
     	for(int e=0;e<nbEnnemi;e++) {
 	    initEnnemi();
-	}
+    	}
     }
     
     void initFond(){
@@ -160,7 +160,6 @@ class Jeu{
 	Niveau n = this.getNiveau();
 	Steve.setVie(n.getVie());
 	Steve.getArme().setCadence(n.getCadence());
-	Steve.getArme().setDispersion(n.getDispersion());
 	Steve.getArme().setMunition(n.getBalle());
 	this.changerNiveau();
 	
@@ -203,6 +202,15 @@ class Jeu{
     
     public void setScore(int s) {
     	this.score=s;
+    }
+    
+    public int getEnnemisRestants() {
+    	return this.ennemisRestants;
+    }
+ 
+    public void setEnnemisRestants(int s) {
+    	this.ennemisRestants=s;
+    	i.repaint();
     }
     
 }
