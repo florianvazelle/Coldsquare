@@ -80,6 +80,8 @@ class Jeu{
     	Steve.getArme().setCadence(n.getCadence());
     	Steve.getArme().setMunition(n.getBalle());
     	Steve.setCac(n.getCac());
+    	Steve.setCoordonneX(50);
+    	Steve.setCoordonneY(50);
     	int nbEnnemi=n.getEnnemis();
     	this.ennemisRestants=nbEnnemi;
     	for(int e=0;e<nbEnnemi;e++) {
@@ -114,42 +116,85 @@ class Jeu{
     
       void initEnnemi(){
 	  
-	Random r = new Random();
-	int nb = r.nextInt(1890) + 10 ; 
-	int nb2 = r.nextInt(1000) + 10 ;
+	Random r = new Random();	
+	int nb = r.nextInt(1700); 
+	int nb2 = r.nextInt(810);
+
+	
+	Random r2 = new Random();
+	int nb3= r2.nextInt(2);
+	if(nb3==0) {
+		nb += 200;
+	}else if(nb3==1) {
+		nb2 += 200;
+      }else if(nb3==2) {
+		nb += 200;
+		nb2 += 200;
+	}		
 
 	Personnage Ennemi = new Personnage("Ennemi"+i,1,"./assets/ennemi.png",nb,nb2);
 	Ennemi.addListeDeSprite(new Sprite(Ennemi));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
-
-	for(int i=0;i<fond.getMur().size();i++){
-	    if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
-		System.out.println("collisionMur");
-	         nb = r.nextInt(1890) + 10 ; 
-		 nb2 = r.nextInt(1000) + 10 ;
-		 Ennemi.setCoordonneX(nb);
-		 Ennemi.setCoordonneY(nb2);
-		 i=0;
-	    }
-	    
-	   for(int j = 0 ; j!=af.personnageVisible.size();j++){
-	       System.out.println("collisionPerso1"+af.personnageVisible.size());
-	       if(af.personnageVisible.get(j).getVie()>0){
-		    System.out.println("collisionPerso2");
-		   if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())){
-		    System.out.println("collisionPerso3");
-		    nb = r.nextInt(1890) + 10 ; 
-		    nb2 = r.nextInt(1000) + 10 ;
-		    Ennemi.setCoordonneX(nb);
-		    Ennemi.setCoordonneY(nb2);
-		    i=0; 
-		   }
-	    }   
-	     
-	   }
-	}
 	
+	int distanceX = Ennemi.getCoordonneX()-af.personnageVisible.get(0).getCoordonneX();
+	int distanceY = Ennemi.getCoordonneY()-af.personnageVisible.get(0).getCoordonneY();
+
+	if( distanceY < 100 && distanceX < 100) {
+		System.out.println("trop pres X: "+ distanceX+ " Y: " + distanceY);
+	}
+	boolean bonnePlace = false;
+	while(bonnePlace == false) {
+		for(int i=0;i<fond.getMur().size();i++){
+			if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
+				System.out.println("collisionMur");
+				nb = r.nextInt(1700); 
+				nb2 = r.nextInt(810);
+				nb3= r2.nextInt(2);
+				if(nb3==0) {
+					nb += 200;
+				}else if(nb3==1) {
+					nb2 += 200;
+			      }else if(nb3==2) {
+					nb += 200;
+					nb2 += 200;
+				}
+				Ennemi.setCoordonneX(nb);
+				Ennemi.setCoordonneY(nb2);
+				
+				i=0;
+				bonnePlace=false;
+			}
+		}
+		bonnePlace=true;
+
+	   for(int j = 0 ; j<af.personnageVisible.size();j++){
+		  
+	       if(af.personnageVisible.get(j).getVie()>0){
+	    	   if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())){
+	    		   System.out.println("collisionPerso3");
+	    		   nb = r.nextInt(1700); 
+	    		   nb2 = r.nextInt(810);
+	    		   nb3= r2.nextInt(2);
+					if(nb3==0) {
+						nb += 200;
+					}else if(nb3==1) {
+						nb2 += 200;
+				      }else if(nb3==2) {
+						nb += 200;
+						nb2 += 200;
+					}
+	    		   Ennemi.setCoordonneX(nb);
+	    		   Ennemi.setCoordonneY(nb2);
+	    		   
+	    		   j=af.personnageVisible.size(); 
+					bonnePlace=false;
+	    	   }
+	       }     
+	   }
+	
+	}
 	af.addPersonnageVisible(Ennemi);
+	System.out.println("Ennemi "+ (af.personnageVisible.size()-1)+" bien placé:" +bonnePlace);
 	af.repaint();
 	frame.revalidate();
     }
@@ -212,6 +257,6 @@ class Jeu{
     	this.ennemisRestants=s;
     	i.repaint();
     }
-    
+  
 }
 
