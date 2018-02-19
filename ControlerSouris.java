@@ -33,12 +33,10 @@ public class ControlerSouris implements MouseMotionListener {
 	perso.setRotationX(mX);
 	perso.setRotationY(mY);
 	af.repaint(perso.getCoordonneX()-50,perso.getCoordonneY()-50,120,120);
-	//frame.revalidate();
     }
     
     public void mouseDragged(MouseEvent me) {
 	mouseMoved(me);
 	af.repaint(perso.getCoordonneX()-50,perso.getCoordonneY()-50,120,120);
-        //frame.revalidate();
     }
 }

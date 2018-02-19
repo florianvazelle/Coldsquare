@@ -13,16 +13,17 @@ import java.awt.EventQueue;
 import java.awt.geom.AffineTransform;
 
 class AfficherPersonnage extends JPanel {
-    ArrayList<Personnage> personnageVisible;
+    private Personnage steve;
+    ArrayList<Enemy> personnageVisible;
     ArrayList<Boite> boiteMunition;
 
     public AfficherPersonnage(){
-	this.personnageVisible = new ArrayList<Personnage>();
+	this.personnageVisible = new ArrayList<Enemy>();
 	this.boiteMunition = new ArrayList<Boite>();
 
     }
 
-    void addPersonnageVisible(Personnage perso){
+    void addPersonnageVisible(Enemy perso){
 	this.personnageVisible.add(perso);
     }
     
@@ -39,55 +40,66 @@ class AfficherPersonnage extends JPanel {
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 	
-	//Changement
-	int i = 0;
-
 	// Va garder en memoire la transformation de base c'est a dire aucune
 	AffineTransform originalTransform = g2d.getTransform();
 	
 	// Calcul Vecteur
 	// Coordonnée centre image
-	double Xa = 8 /* personnageVisible.get(i).listeDeSprite.get(0).getCentre().getX() */ +personnageVisible.get(i).getCoordonneX(); 
-	double Ya = 30 /*personnageVisible.get(i).listeDeSprite.get(0).getCentre().getY()*/+personnageVisible.get(i).getCoordonneY();
+	double Xa = 8 + steve.getCoordonneX(); 
+	double Ya = 30 + steve.getCoordonneY();
 
 	// Coordonnée Souris
-	double Xb = personnageVisible.get(i).getRotationX();
-	double Yb = personnageVisible.get(i).getRotationY();
+	double Xb = steve.getRotationX();
+	double Yb = steve.getRotationY();
 
 	double pi = 4* Math.atan(1);
 		
 	double degree = (Math.atan2((Yb-Ya),(Xb-Xa))+pi/2)*(180/pi);
-
+	
 	g2d.rotate(Math.toRadians(degree), Xa, Ya);// a changer en fonction du sprite courant
-		
+	
+	g2d.drawImage(steve.listeDeSprite.get(0).getImage(), steve.getCoordonneX(), steve.getCoordonneY(), this);
+	g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
+
+	//HITBOX
+	g.setColor(Color.BLUE);
+	g.drawRect((int)steve.getHitbox().getX(), (int)steve.getHitbox().getY(), steve.getHitbox().getWidth(), steve.getHitbox().getHeight());
+
+	
 	if(!personnageVisible.isEmpty()){
-	    for(i=0;i< personnageVisible.size();i++){
-		if(personnageVisible.get(i).getVie()<=0){
-		    personnageVisible.get(i).setHitbox(new Hitbox());
-		    int val=-1;
-		    for(int tmp=0;tmp<boiteMunition.size();tmp++) {
-		    	if(i==boiteMunition.get(tmp).getId()) {
-			    val=tmp;
+	    for(int i = 0 ; i < personnageVisible.size() ; i++){
+		Enemy currentEnemy = personnageVisible.get(i);
+		if(currentEnemy.getVie() <= 0){
+		    currentEnemy.setHitbox(new Hitbox());
+		    int val = -1;
+		    for(int tmp=0 ; tmp < boiteMunition.size() ; tmp++) {
+		    	if(i == boiteMunition.get(tmp).getId()) {
+			    val = tmp;
 		    	}
 		    }
 		    if(val != -1) {
-			if(boiteMunition.get(val).getAfficher()== 0) {
-			    System.out.println("BOITE MUNITION:0"+boiteMunition.get(val).getValue());
+			if(boiteMunition.get(val).getAfficher() == 0) {
 			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
 			    boiteMunition.get(val).setAfficher(1);
-			}else if(boiteMunition.get(val).getAfficher()== 1) {
+			}else if(boiteMunition.get(val).getAfficher() == 1) {
 			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
 			}
 		    }
-		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(1).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);
+		    g2d.drawImage(currentEnemy.listeDeSprite.get(1).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);
 		}
 		else
-		    g2d.drawImage(personnageVisible.get(i).listeDeSprite.get(0).getImage(), personnageVisible.get(i).getCoordonneX(), personnageVisible.get(i).getCoordonneY(), this);      
-		g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
+		    g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);      
+                g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
 	    }
 	}
+	
     }
     
-    // Je pense qu'il faudra généraliser la boucle for(i=0;i< personnageVisible.size();i++){ car par la suite il faudra calculer la rotation des ennemie
-    
+    public void setSteve(Personnage steve){
+	this.steve = steve;
+    }
+
+    public Personnage getSteve(){
+	return this.steve;
+    }
 }

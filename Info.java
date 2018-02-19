@@ -13,34 +13,36 @@ import java.awt.EventQueue;
 import java.awt.geom.AffineTransform;
 
 class Info extends JPanel {
+
     Personnage perso;    
     ImageIcon vie; 
     ImageIcon cadence;
     ImageIcon cac; 
     ImageIcon munition;
     Jeu j;
+
     public Info(Personnage p, Jeu j){
 	this.perso = p;
-	this.j=j;
-     vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-   cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    cac = new ImageIcon(new ImageIcon("./assets/poing.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    munition = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+	this.j = j;
+	vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+	cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+	cac = new ImageIcon(new ImageIcon("./assets/poing.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+	munition = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     }
-
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 	drawInfo(g);
         Toolkit.getDefaultToolkit().sync();
     }
-
+    
     private void drawInfo(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
+	
 	//g.fillRect(0,0,250,450);
       //  this.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.5f));
-
+	
 	g2d.drawImage(vie.getImage(), 10,20, this);      
 	g2d.drawImage(munition.getImage(), 10,90, this);      
 	g2d.drawImage(cadence.getImage(), 10,150, this);      

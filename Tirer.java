@@ -28,12 +28,12 @@ public class Tirer extends Thread {
     public void run(){
 	tirer();	
     }
-
+    
     public synchronized void tirer(){
 	int nbMun = this.perso.getArme().getMunition();
 	if(nbMun>0){
 	    this.perso.getArme().setMunition(nbMun-1);
-
+	    
 	    //CHANGEMENT
 	    Point souris = new Point(perso.getRotationX(),perso.getRotationY());
 	    Balle b = new Balle(perso, souris, frame);

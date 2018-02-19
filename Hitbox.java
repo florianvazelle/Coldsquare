@@ -1,7 +1,7 @@
 public class Hitbox {
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int w;
     private int h;
 
@@ -17,10 +17,10 @@ public class Hitbox {
 
     Hitbox(Balle b){
 	Sprite s = b.getSprite();
-	this.h = s.getImageIcon().getIconHeight();
-	this.w = s.getImageIcon().getIconWidth();
-	this.x = b.getX();
-	this.y = b.getY();
+	this.h = s.getImageIcon().getIconHeight()-20;
+	this.w = s.getImageIcon().getIconWidth()-20;
+	this.x = b.getX()+10;
+	this.y = b.getY()+10;
     }
 
     Hitbox(Boite b){
@@ -45,19 +45,19 @@ public class Hitbox {
 	    return true;
     }
 
-    int getX(){
+    double getX(){
 	return this.x;
     }
 
-    void setX(int x){
+    void setX(double x){
 	this.x=x;
     }
     
-    int	getY(){
+    double getY(){
         return this.y;
     }
 
-    void setY(int y){
+    void setY(double y){
 	this.y=y;
     }
 

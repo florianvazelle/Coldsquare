@@ -25,113 +25,50 @@ public class ControlerBalle extends Thread {
 	animationTirer();
     }
     
+    public double avancerX(double length,double angle){
+	return Math.cos(angle)*2;
+    }
+    
+    public double avancerY(double length, double angle){
+	return Math.sin(angle)*2;
+    }
+    
     void animationTirer(){
-	int x = b.getX();
-	int y = b.getY();
-	Point i = new Point(x, y);
+	double x = b.getX();
+	double y = b.getY();
+	MonPoint i = new MonPoint(x, y);
 	
-	/*
-	  if(i.getX() == souris.getX()){
-	    while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0 ){
-		if(i.getY()>souris.getY())
-		    b.setY(y--);
-		if(i.getY()<souris.getY())
-		    b.setY(y++);
-		i = new Point(x,y);
+	double pi = 4* Math.atan(1);
+	double angle = Math.atan2((souris.getY()-i.getY()),(souris.getX()-i.getX()));
+	
+	while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
+	    
+	    x += avancerX(2, angle);
+	    b.setX(x);
+	    y += avancerY(2, angle);
+	    b.setY(y);
+	    
+	    try{
+		TimeUnit.MILLISECONDS.sleep(5);
+	    }catch(InterruptedException e){
+		e.printStackTrace();
+	    }
+	    ba.repaint((int)x-50, (int)y-50, 200, 200);
+	    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
+	      if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
+	      ba.deleteBalle(b);
+	      }
+	      }
+	    */
+	    while(mp.getEnPause()){
 		try{
-		    TimeUnit.SECONDS.sleep(5);
+		    this.sleep(2000);
 		}catch(InterruptedException e){
 		    e.printStackTrace();
 		}
-		//ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
-		ba.repaint();
-                //frame.revalidate();
 	    }
-        }
-	
-        else if(i.getY() == souris.getY()){
-            while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
-                if(i.getX()>souris.getX())
-                    b.setX(x--);
-		if(i.getX()<souris.getX())
-                    b.setX(x++);
-                i = new Point(x,y);
-                try{
-                    TimeUnit.SECONDS.sleep(5);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-                //ba.setBounds(x, y, ba.getImage().getImageIcon().getIconWidth(), ba.getImage().getImageIcon().getIconHeight());
-                ba.repaint();
-                //frame.revalidate();
-	    }
-        }
-	
-        else{
-	*/
-	    // coefficient directeur
-            double m = ((double) (souris.getY() - i.getY()) / (double) (souris.getX() - i.getX()));
-
-            // ordonnée a l'origine
-	    int p = (int) i.getY() - (int) ( m * i.getX() );
-
-            System.out.println("m : "+m+" & p : "+p);
-
-            if(i.getX()<souris.getX()){
-                while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
-		    b.setX(x++);
-                    y = ((int) (m*x) )+  p;
-                    b.setY(y);
-
-		    i = new Point(x,y);
-                    try{
-                        TimeUnit.MILLISECONDS.sleep(5);
-                    }catch(InterruptedException e){
-                        e.printStackTrace();
-                    }
-		    ba.repaint(x-50, y-50, 200, 200);
-		    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
-			if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
-			    ba.deleteBalle(b);
-			}
-			}*/
-		    while(mp.getEnPause()){
-			try{
-			    this.sleep(2000);
-			}catch(InterruptedException e){
-			    e.printStackTrace();
-			}
-		    }
-		}
-	    }
-            if(i.getX()>souris.getX()){
-                while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
-                    b.setX(x--);
-                    y = ((int) (m*x) )+  p;
-                    b.setY(y);
-		    
-                    i = new Point(x,y);
-                    try{
-                         TimeUnit.MILLISECONDS.sleep(5);
-                    }catch(InterruptedException e){
-                        e.printStackTrace();
-		    }
-		    ba.repaint(x-50, y-50, 200, 200);
-		    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
-                        if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
-                            ba.deleteBalle(b);
-                        }
-			}*/
-		    while(mp.getEnPause()){
-			try{
-                            this.sleep(2000);
-                        }catch(InterruptedException e){
-                            e.printStackTrace();
-                        }
-		    }
-		}
-            }
-	    //}
-	    ba.deleteBalle(b);
+	}
+	ba.deleteBalle(b);
     }
 }
+

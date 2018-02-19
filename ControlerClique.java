@@ -29,33 +29,28 @@ public class ControlerClique implements MouseListener {
         this.frame=frame;
 	this.ba = ba;
 	this.mp = mp;
-	this.j=j;
+	this.j = j;
 	this.t = t;
     }
     
     public void mouseClicked(MouseEvent e){
 	if(e.getButton() == MouseEvent.BUTTON1){
-	if(!(mp.getEnPause()))
-	    (new Tirer(perso, frame, af, ba, mp, t)).start();
+	    if(!(mp.getEnPause()))
+		(new Tirer(perso, frame, af, ba, mp, t)).start();
 	}else if(e.getButton() == MouseEvent.BUTTON3 && j.getNiveau().getCac()==true){
-	    System.out.println("DROIT");
-	    Personnage Steve = af.personnageVisible.get(0);
-	     for(int i = 1 ; i!=af.personnageVisible.size();i++){
-		 if(af.personnageVisible.get(i).getVie()>0){
-		     if(Hitbox.collision(Steve.getHitboxCC()/*Forcement Steve*/,af.personnageVisible.get(i).getHitbox())){
-			 System.out.println("DANS LA COLLISION");
-			 af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
-			 af.repaint();
-			 if(this.j.verifWin())
-			     this.j.levelComplete();
-			 
-		     }
-		 }
-	     }
-	     
+	    Personnage Steve = af.getSteve();
+	    for(int i = 0 ; i!=af.personnageVisible.size();i++){
+		if(af.personnageVisible.get(i).getVie()>0){
+		    if(Hitbox.collision(Steve.getHitboxCC(), af.personnageVisible.get(i).getHitbox())){
+			af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
+			af.repaint();
+			if(this.j.verifWin())
+			    this.j.levelComplete();
+			
+		    }
+		}
+	    }
 	}
-	//af.repaint();
-	//frame.revalidate();
     }
     public void mouseEntered(MouseEvent e){}
     public void mouseExited(MouseEvent e){}
