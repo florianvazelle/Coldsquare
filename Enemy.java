@@ -38,7 +38,7 @@ public class Enemy extends Personnage{
 		AStar algo = new AStar(76, 41, map);
 		ArrayList<Node> path = algo.findPath(new Node(super.getCoordonneX(), super.getCoordonneY()),
 			new Node(playerPosX, playerPosY));
-
+		//Soon tm ça change
 		if(!path.isEmpty() && awake){
 			/* Follow the path */
 			int targetX =  	path.get(path.size() - 1).getX();
