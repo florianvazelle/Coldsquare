@@ -39,7 +39,7 @@ public class Enemy extends Personnage{
 		ArrayList<Node> path = algo.findPath(new Node(super.getCoordonneX(), super.getCoordonneY()),
 			new Node(playerPosX, playerPosY));
 
-		if(path && awake){
+		if(!path.isEmpty() && awake){
 			/* Follow the path */
 			int targetX =  	path.get(path.size() - 1).getX();
 			int targetY = path.get(path.size() - 1).getY();
