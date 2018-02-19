@@ -111,7 +111,10 @@ class Personnage {
 
     void setCoordonneY(int newY){
 	this.coordonneY=newY;
-	hb.setY(newY+24);
+	if(this.nom == "Steve")
+	    hb.setY(newY+24);
+	else
+	    hb.setY(newY);
 	hbcc.setY(newY-3);
     }
 

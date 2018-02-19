@@ -23,20 +23,20 @@ class Boite {
     // Faire plusieurs constructeur pour l'arme
     
 
-    public Boite(String path, int x_de_base, int y_de_base,int id) {
+    public Boite(String path, int x_de_base, int y_de_base, int id) {
     	Random r = new Random();
     	int valeur = 1 + r.nextInt(3 - 1);
-    	this.value=valeur;
+    	this.value = valeur;
     	this.s= new Sprite(path);
-	    ImageIcon im_mun = new ImageIcon(s.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-	    s.setImageIcon(im_mun);
-	    s.setImage(im_mun);
+	ImageIcon im_mun = new ImageIcon(s.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+	s.setImageIcon(im_mun);
+	s.setImage(im_mun);
     	this.coordonneX= x_de_base;
     	this.coordonneY= y_de_base;
-    	this.hb= new Hitbox(this);
-    	this.id=id; // Numero du perso tue dans l'arraylist AfficherPersonnage
-    	afficher=0;
-	}
+    	this.hb = new Hitbox(this);
+    	this.id = id; // Numero du perso tue dans l'arraylist AfficherPersonnage
+    	afficher = 0;
+    }
 
     
     Sprite getSprite(){
@@ -62,7 +62,6 @@ class Boite {
     
     void setAfficher(int value){
     	this.afficher=value;
-    	
     }
     
     int getId(){

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Balle {
     
-    private int x, y;
+    private double x, y;
     private Point souris;
     private Personnage tireur;
     private Sprite image;
@@ -26,22 +26,22 @@ public class Balle {
 	return this.tireur;
     }
 
-    public int getX(){
+    public double getX(){
 	return this.x;
     }
 
-    public void setX(int x){
+    public void setX(double x){
 	this.x=x;
-	this.balleHB.setX(x);
+	this.balleHB.setX(x+10);
     }
 
-    public int getY(){
+    public double getY(){
 	return this.y;
     }
 
-    public void setY(int y){
+    public void setY(double y){
 	this.y=y;
-	this.balleHB.setY(y);
+	this.balleHB.setY(y+10);
     }
 
     public Sprite getSprite(){

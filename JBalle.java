@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.geom.AffineTransform;
 
 public class JBalle extends JPanel {
 
@@ -23,35 +24,19 @@ public class JBalle extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 	int tailleInit = listeBalle.size();
 
-        for(int j = 0 ; j < tailleInit ; j++){
+	Personnage Steve = af.getSteve();
+	
+	for(int j = 0 ; j < tailleInit ; j++){
             if(tailleInit != listeBalle.size()) break; 
 	    Balle currentBalle = listeBalle.get(j);
 	    for(int i = 0 ; i != af.personnageVisible.size();i++){
 		Personnage currentPerso = af.personnageVisible.get(i);
-		if(Hitbox.collision(currentBalle.getHitbox(), currentPerso.getHitbox()) && currentBalle.getTireur() != currentPerso){
-		    currentPerso.setVie(currentPerso.getVie()-1);
-		    if(currentPerso.getVie()==0) {
-		    	this.j.setScore(this.j.getScore()+20);
-		    	this.j.setEnnemisRestants(this.j.getEnnemisRestants()-1);
-		    	Random r = new Random();
-		    	int valeur = 1+r.nextInt(4 - 1);
-		    	System.out.println(valeur);
-		    	if(valeur<=2) {
-			    Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50,i);
-			    af.addMunition(b);
-		    	}
-		    }
-		    af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
-		    deleteBalle(currentBalle);
-		    if(this.j.verifWin()){
-		    	Personnage Steve= af.personnageVisible.get(0);
-		    	Niveau n = this.j.getNiveau();
-		    	Steve.setVie(n.getVie());
-		    	Steve.getArme().setCadence(n.getCadence());
-		    	Steve.getArme().setMunition(n.getBalle());
-		    	this.j.changerNiveau();
-			}
+		if(Hitbox.collision(currentBalle.getHitbox(), currentPerso.getHitbox()) && currentBalle.getTireur() != currentPerso ){
+		    balleToucher(currentPerso, currentBalle,  i+1);
 		}
+		else if(Hitbox.collision(currentBalle.getHitbox(), Steve.getHitbox()) && currentBalle.getTireur() != Steve){
+		    balleToucher(Steve, currentBalle, 0);
+		}		
 	    }
 	}
 	
@@ -59,11 +44,40 @@ public class JBalle extends JPanel {
             for(int i = 0 ; i < tailleInit ; i++){
 		if(tailleInit != listeBalle.size()) break;
 		Balle currentBalle = listeBalle.get(i);
-		g2d.drawImage(currentBalle.getSprite().getImage(),currentBalle.getX(),currentBalle.getY(), this);
-            }
+
+		AffineTransform t = new AffineTransform();
+                t.translate(currentBalle.getX(), currentBalle.getY());
+		g2d.drawImage(currentBalle.getSprite().getImage(), t, null);
+	    }
         }
     }
 
+    void balleToucher(Personnage currentPerso, Balle currentBalle, int i){
+	currentPerso.setVie(currentPerso.getVie()-1);
+	if(currentPerso.getVie() == 0) {
+	    this.j.setScore(this.j.getScore()+20);
+	    this.j.setEnnemisRestants(this.j.getEnnemisRestants()-1);
+	    Random r = new Random();
+	    int valeur = 1+r.nextInt(4 - 1);
+	    
+	    if(valeur<=2) {
+		Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50, i);
+		af.addMunition(b);
+	    }
+	}
+	af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
+	deleteBalle(currentBalle);
+	
+	if(this.j.verifWin()){
+	    Personnage Steve= af.getSteve();
+	    Niveau n = this.j.getNiveau();
+	    Steve.setVie(n.getVie());
+	    Steve.getArme().setCadence(n.getCadence());
+	    Steve.getArme().setMunition(n.getBalle());
+	    this.j.changerNiveau();
+	}
+    }
+    
     void deleteBalle(Balle b){
 	listeBalle.remove(b);
     }

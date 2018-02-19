@@ -37,6 +37,7 @@ public class Niveau extends JPanel{
     private Personnage perso;
     private int nbAmelioration;
     private Jeu j;
+
     public Niveau(Jeu j){
     	this.j=j;
     	this.level=1;
@@ -48,7 +49,7 @@ public class Niveau extends JPanel{
     	vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	balle = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-    	cac = new ImageIcon(new ImageIcon("./assets/poing.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+    	cac = new ImageIcon(new ImageIcon("./assets/poing.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	plus = new ImageIcon(new ImageIcon("./assets/plus.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	moins = new ImageIcon(new ImageIcon("./assets/moins.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 
@@ -174,73 +175,78 @@ public class Niveau extends JPanel{
     	 
     	public void actionPerformed(ActionEvent e) {
 	    Object o= e.getSource();
+
 	    if(nbAmelioration >0) {
 	    	if(o == plusjb) {
-	    		nbVie+=1;
-	    		nbAmelioration-=1;  
-	        	n.add(moinsjb);    
-	    	}else if(o == plusjb2) {
-	    		nbBalle+=1;        
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb2);    
-
-	    	}else if(o == plusjb3) {
-	    		nbCadence+=1;
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb3);    
-
-	    	}else if(o == plusjb4) {
-	    		val_CAC=true;
-	    		nbAmelioration-=1;
-	        	n.add(moinsjb4);  
-	        	n.remove(plusjb4);
-
+		    nbVie+=1;
+		    nbAmelioration-=1;  
+		    n.add(moinsjb);    
 	    	}
-	    	if(nbAmelioration == 0) {
-	    	n.remove(plusjb);  
-        	n.remove(plusjb2);    
-        	n.remove(plusjb3);    
-        	n.remove(plusjb4);  
+		else if(o == plusjb2) {
+		    nbBalle+=1;        
+		    nbAmelioration-=1;
+		    n.add(moinsjb2);    
+		}
+		else if(o == plusjb3) {
+		    nbCadence+=1;
+		    nbAmelioration-=1;
+		    n.add(moinsjb3);    
+		}
+		else if(o == plusjb4) {
+		    val_CAC=true;
+		    nbAmelioration-=1;
+		    n.add(moinsjb4);  
+		    n.remove(plusjb4);
+		}
+
+		if(nbAmelioration == 0) {
+		    n.remove(plusjb);  
+		    n.remove(plusjb2);    
+		    n.remove(plusjb3);    
+		    n.remove(plusjb4);  
 	    	}
 	    }
-	    	if(o == moinsjb) {
-	    		if(nbVie > perso.getVie()) {
-	    			nbVie-=1;
-	    			nbAmelioration+=1;
-	    			if(nbVie==perso.getVie())
+
+	    if(o == moinsjb) {
+		if(nbVie > perso.getVie()) {
+		    nbVie-=1;
+		    nbAmelioration+=1;
+		    if(nbVie==perso.getVie())
 	    	    	n.remove(moinsjb);  
-	    		}
-	    	}else if(o == moinsjb2) {
-	    		if(nbBalle > perso.getArme().getMunition()) {
-	    			nbBalle-=1;
-	    			nbAmelioration+=1;
-	    			if(nbBalle==perso.getArme().getMunition())
+		}
+	    }
+	    else if(o == moinsjb2) {
+		if(nbBalle > perso.getArme().getMunition()) {
+		    nbBalle-=1;
+		    nbAmelioration+=1;
+		    if(nbBalle==perso.getArme().getMunition())
 	    	    	n.remove(moinsjb2);  
-
-	    		}
-	    	}else if(o == moinsjb3) {
-	    		if(nbCadence > perso.getArme().getCadence()) {
-	    			nbCadence-=1;
-	    			nbAmelioration+=1;
-	    			if(nbCadence==perso.getArme().getCadence())
+		    
+		}
+	    }
+	    else if(o == moinsjb3) {
+		if(nbCadence > perso.getArme().getCadence()) {
+		    nbCadence-=1;
+		    nbAmelioration+=1;
+		    if(nbCadence==perso.getArme().getCadence())
 	    	    	n.remove(moinsjb3);  
-
-	    		}
-	    	}else if(o == moinsjb4) {
-	    			val_CAC=false;
-	    			nbAmelioration+=1;
-	    	    	n.remove(moinsjb4);  
-
-	    		
+		    
+		}
+	    }else if(o == moinsjb4) {
+		val_CAC=false;
+		nbAmelioration+=1;
+		n.remove(moinsjb4);  
+		
+	    	
 	    	}
-	    	if(nbAmelioration > 0) {
+	    if(nbAmelioration > 0) {
 	    	n.add(plusjb);  
         	n.add(plusjb2);    
         	n.add(plusjb3);
         	if(n.val_CAC==false) {
-        	n.add(plusjb4);  
+		    n.add(plusjb4);  
         	}
-	    	}
+	    }
 	    
 	    if(o == suivant) {
 	    	n.remove(moinsjb);  
@@ -251,9 +257,9 @@ public class Niveau extends JPanel{
         	n.add(plusjb2);    
         	n.add(plusjb3);    
         	if(n.val_CAC==false) {
-        	n.add(plusjb4); 
+		    n.add(plusjb4); 
         	}
-	    		 
+	    	
 	    	
 		level+=1;
 		nbEnnemi+=1;

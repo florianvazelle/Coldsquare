@@ -9,7 +9,7 @@ public class ControlerPause implements ActionListener {
 	this.mp = mp;
 	this.frame = frame;
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e){
 	Object o = e.getSource();
