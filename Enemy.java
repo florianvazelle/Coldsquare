@@ -46,13 +46,13 @@ public class Enemy extends Personnage{
 
 			/* Choosing the direction */
 			if(targetX > super.getCoordonneX())
-				direction = E;
+				direction = 'E';
 			else if(targetX < super.getCoordonneX())
-				direction = W;
+				direction = 'W';
 			else if(targetY > super.getCoordonneY())
-				direction = S;
+				direction = 'S';
 			else if(targetY < super.getCoordonneY())
-				direction = N;
+				direction = 'N';
 
 			super.setCoordonneX(approachValues(super.getCoordonneX(), targetX, this.speed));
 			super.setCoordonneY(approachValues(super.getCoordonneY(), targetY, this.speed));
