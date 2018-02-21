@@ -26,12 +26,13 @@ class Jeu{
     private int nombreEnnemi=1;
     private int enCours=1;
     private int score = 0;
+    public MenuController mc;
     
-    public Jeu(){
+    public Jeu(MenuController mc){
 	this.n= new Niveau(this);
 	this.s = new Sauvegarde(this);
 	this.frame = new MaFenetreJeu();
-
+	this.mc=mc;
 	jlp = new JLayeredPane();
 	frame.setLayeredPane(jlp);
 	
@@ -134,11 +135,8 @@ class Jeu{
 	    }
 	    
 	   for(int j = 0 ; j!=af.personnageVisible.size();j++){
-	       System.out.println("collisionPerso1"+af.personnageVisible.size());
 	       if(af.personnageVisible.get(j).getVie()>0){
-		    System.out.println("collisionPerso2");
 		   if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())){
-		    System.out.println("collisionPerso3");
 		    nb = r.nextInt(1890) + 10 ; 
 		    nb2 = r.nextInt(1000) + 10 ;
 		    Ennemi.setCoordonneX(nb);

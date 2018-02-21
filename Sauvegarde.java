@@ -21,12 +21,13 @@ class Sauvegarde implements ActionListener {
     public Sauvegarde (Jeu jeu) {
 	this.j = jeu;
 	n = this.j.getNiveau();
+	
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-	mc = new MenuController();
+	mc = j.mc;
 	
 	this.pseudo = mc.getNom();
         this.vie = n.getVie();
@@ -45,9 +46,10 @@ class Sauvegarde implements ActionListener {
 	}
 
 	try {
-	    Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
+		System.out.println("Le pseudo arrive a destination :"+ pseudo);
+		Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
 
-	    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+dispersion+","+enemis+","+level+","+score+")");
+		PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+dispersion+","+enemis+","+level+","+score+")");
 	    ResultSet sauvegardeComplete = insertVal.executeQuery();
 	    if (sauvegardeComplete.first()) {
 		JOptionPane jop = new JOptionPane();
@@ -55,7 +57,7 @@ class Sauvegarde implements ActionListener {
 	    }
 	    insertVal.close();
 	    sauvegardeComplete.close();
-	    connexion.close();
+	   connexion.close();
 	} catch (SQLException b) {
 	    System.err.println("Erreur de connexion: "+ b.getMessage());
 
