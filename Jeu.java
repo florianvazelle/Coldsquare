@@ -26,10 +26,12 @@ public class Jeu{
 	private int ennemisRestants;
 	private int enCours=1;
 	private int score = 0;
-
-	public Jeu(){
+	public MenuController mc;
+	
+	public Jeu(MenuController m){
 		this.n = new Niveau(this);
 		this.frame = new MaFenetreJeu();
+		this.mc = m;
 
 		/* Construction du JLayeredPane qui va gerer les differents JPanel */
 		jlp = new JLayeredPane();
