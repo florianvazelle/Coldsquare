@@ -121,7 +121,7 @@ public class Jeu{
 		n.setPerso(Steve);
 		af.setSteve(Steve);
 		Deplacement deplacement = new Deplacement(Steve);
-		frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond));
+		frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond,this));
 	//frame.addMouseListener(new ControlerSouris(Steve));
 		this.i = new Info(Steve, this);
 		i.repaint();
@@ -249,6 +249,7 @@ public class Jeu{
 		//jlp.remove(af);
 		//jlp.remove(i);
 		//jlp.repaint();
+		n.setWin(true);
 		jlp.add(n,  new Integer(4));	
 		n.repaint();
 	

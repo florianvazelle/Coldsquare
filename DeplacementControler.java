@@ -15,13 +15,14 @@ class DeplacementControler extends KeyAdapter {
     MaFenetreJeu frame;
     MenuPause mp;
     Terrain t;
-    
-    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t){
+    Jeu j;
+    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t,Jeu j){
         this.d=d;
         this.af=af;
         this.frame=frame;
 	this.mp = mp;
 	this.t = t;
+	this.j=j;
     }
 
     public void keyTyped(KeyEvent e){    }
@@ -39,7 +40,7 @@ class DeplacementControler extends KeyAdapter {
 	    mp.setEnPause(true);
 	    frame.getLayeredPane().add(mp, new Integer(5));
         }
-	if(!(mp.getEnPause())){
+	if( (!(mp.getEnPause())) && (!(j.n.getWin())) ){
 	    d.keyPressed(e);
 	    
 	    Personnage Steve = af.getSteve();
