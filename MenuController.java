@@ -33,7 +33,7 @@ public class MenuController implements ActionListener {
 	}
 	else if (id == 6) {
 	    nom = menu.pseudo.getText();
-	    new Jeu();
+	    new Jeu(this);
 	    menu.f.setVisible(false);
 	    menu.f.dispose();
 	}
