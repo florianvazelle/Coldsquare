@@ -44,7 +44,7 @@ public class JBalle extends JPanel {
             for(int i = 0 ; i < tailleInit ; i++){
 		if(tailleInit != listeBalle.size()) break;
 		Balle currentBalle = listeBalle.get(i);
-		
+
 		AffineTransform t = new AffineTransform();
                 t.translate(currentBalle.getX(), currentBalle.getY());
 		g2d.drawImage(currentBalle.getSprite().getImage(), t, null);
@@ -63,10 +63,12 @@ public class JBalle extends JPanel {
 	    if(valeur<=2) {
 		Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50, i);
 		af.addMunition(b);
+    	System.out.println("valeur de l'id dans personnageVisible = "+i + (af.boiteMunition.size()-1));
+
 	    }
 	}
-	af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
-	currentBalle.setEnJeu(false);
+	this.j.jlp.repaint();
+	deleteBalle(currentBalle);
 	
 	if(this.j.verifWin()){
 	    Personnage Steve= af.getSteve();
