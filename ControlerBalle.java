@@ -4,14 +4,14 @@ import java.awt.*;
 
 public class ControlerBalle extends Thread {
 
-    Balle b;
-    Point souris;
-    JBalle ba;
-    MaFenetreJeu frame;
-    MenuPause mp;
-    Terrain t;
+    private Balle b;
+    private MonPoint souris;
+    private JBalle ba;
+    private MaFenetreJeu frame;
+    private MenuPause mp;
+    private Terrain t;
     
-    ControlerBalle(Balle b, Point souris, JBalle ba, MaFenetreJeu frame, MenuPause mp, Terrain t){
+    ControlerBalle(Balle b, MonPoint souris, JBalle ba, MaFenetreJeu frame, MenuPause mp, Terrain t){
 	this.b = b;
 	this.souris = souris;
 	this.ba = ba;
@@ -41,7 +41,7 @@ public class ControlerBalle extends Thread {
 	double pi = 4* Math.atan(1);
 	double angle = Math.atan2((souris.getY()-i.getY()),(souris.getX()-i.getX()));
 	
-	while(x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0){
+	while((x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0) && b.getEnJeu() ){
 	    
 	    x += avancerX(2, angle);
 	    b.setX(x);
@@ -54,6 +54,7 @@ public class ControlerBalle extends Thread {
 		e.printStackTrace();
 	    }
 	    ba.repaint((int)x-50, (int)y-50, 200, 200);
+
 	    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
 	      if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
 	      ba.deleteBalle(b);

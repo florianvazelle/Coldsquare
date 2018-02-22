@@ -44,7 +44,7 @@ public class JBalle extends JPanel {
             for(int i = 0 ; i < tailleInit ; i++){
 		if(tailleInit != listeBalle.size()) break;
 		Balle currentBalle = listeBalle.get(i);
-
+		
 		AffineTransform t = new AffineTransform();
                 t.translate(currentBalle.getX(), currentBalle.getY());
 		g2d.drawImage(currentBalle.getSprite().getImage(), t, null);
@@ -66,7 +66,7 @@ public class JBalle extends JPanel {
 	    }
 	}
 	af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
-	deleteBalle(currentBalle);
+	currentBalle.setEnJeu(false);
 	
 	if(this.j.verifWin()){
 	    Personnage Steve= af.getSteve();
