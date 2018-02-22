@@ -41,5 +41,9 @@ public class MenuController implements ActionListener {
     public void setMenu(Menu menu) {
 	this.menu = menu;
     }
+
+    public String getNom() {
+	return this.nom;
+    }
 }
 
