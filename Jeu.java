@@ -19,17 +19,20 @@ public class Jeu{
 	Terrain fond;
 	JBalle ba;
 	MenuPause mp;
-
+    Sauvegarde s;
 	Personnage p;
 	Niveau n;
 	JLayeredPane jlp;
 	private int ennemisRestants;
 	private int enCours=1;
 	private int score = 0;
-
-	public Jeu(){
+	public MenuController mc;
+	
+	public Jeu(MenuController m){
 		this.n = new Niveau(this);
+		this.s = new Sauvegarde(this);
 		this.frame = new MaFenetreJeu();
+		this.mc = m;
 
 		/* Construction du JLayeredPane qui va gerer les differents JPanel */
 		jlp = new JLayeredPane();
@@ -47,7 +50,7 @@ public class Jeu{
 	  this.fond=  new Terrain(frame);
 	  this.af = new AfficherPersonnage();
 	  this.ba = new JBalle(af, frame, this);
-	  this.mp = new MenuPause(frame);
+	  this.mp = new MenuPause(frame,s);
 
 	  this.ennemisRestants = this.n.getEnnemis();
 	  frame.setLayout(null);

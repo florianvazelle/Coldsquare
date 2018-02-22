@@ -19,6 +19,7 @@ public class Menu {
     private static Menu m;
     public ButtonGroup bg = new ButtonGroup();
     public JTextField pseudo = new JTextField();
+    public JTextField recherche = new JTextField();
     
     public Menu() {
 	f.setSize(800,600);
@@ -138,7 +139,6 @@ public class Menu {
     }
     
     public void affichageCharger() {
-	JTextField recherche = new JTextField();
 	JButton chercher = new JButton("Jouer");
 	JLabel aide = new JLabel("Entrez votre pseudo :");
 	charger.setLayout(new GridBagLayout());
@@ -164,6 +164,9 @@ public class Menu {
         contraintes.gridy = 2;
 	contraintes.insets = new Insets(350,0,0,500);
 	charger.add(home,contraintes);
+
+	Charger c = new Charger(this);
+	chercher.addActionListener((ActionListener) c);
 	
 	MenuController c1 = new MenuController(5,menu);
 	c1.setMenu(this);
