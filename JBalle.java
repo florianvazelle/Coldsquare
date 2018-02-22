@@ -63,12 +63,11 @@ public class JBalle extends JPanel {
 	    if(valeur<=2) {
 		Boite b = new Boite("./assets/boite_munition.png",currentPerso.getCoordonneX(), currentPerso.getCoordonneY()-50, i);
 		af.addMunition(b);
-    	System.out.println("valeur de l'id dans personnageVisible = "+i + (af.boiteMunition.size()-1));
-
 	    }
 	}
 	this.j.jlp.repaint();
-	deleteBalle(currentBalle);
+	currentBalle.setEnJeu(false);
+
 	
 	if(this.j.verifWin()){
 	    Personnage Steve= af.getSteve();
