@@ -22,9 +22,9 @@ public class Enemy extends Personnage{
 		this.speed = 2;
 	}
 
-	private int distance(int ax, int ay, int bx, int by){
-		return Math.sqrt((float) Math.pow((float) (bx - ax), 2.0) + Math.pow((float) (by - ay), 2.0));
-	}
+    private int distance(int ax, int ay, int bx, int by){
+	return (int) Math.sqrt((float) Math.pow((bx - ax), 2.0) + (float) Math.pow((by - ay), 2.0));
+    }
 
 	private int approachValues(int start, int end, int shift){
 		if(start < end)
@@ -36,7 +36,7 @@ public class Enemy extends Personnage{
 			if(start - shift > end)
 				return start - shift;
 			else
-				return end
+			    return end;
 	}
 
 	public void update(int playerPosX, int playerPosY){

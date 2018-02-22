@@ -26,17 +26,29 @@ public class Terrain extends JPanel {
 	listeMur.add(bas);
 	
 	this.map = new boolean[frame.getWidth()/25][frame.getHeight()/25];
-	
-	for(int i = 0 ; i!=frame.getWidth()/25 ; i++){
-	    for(int j = 0 ; j!=frame.getHeight()/25 ; j++){
-		this.map[i][j] = (Math.random() > 0.95) ? true : false;
-		if(this.map[i][j])
-		    listeMur.add(new Mur(i*25, j*25, 25, 25));
-	    }
-	}
+
+	initMap();
 	
 	this.arbre = new ImageIcon(new ImageIcon("./assets/arbre.png").getImage().getScaledInstance(25,25,Image.SCALE_DEFAULT));
 	this.fond = new ImageIcon(new ImageIcon("./assets/fond.png").getImage().getScaledInstance(1920,1920,Image.SCALE_DEFAULT));
+    }
+
+    void initMap(){
+	if(listeMur.size() > 4 ){
+	    for(int k = 4 ; k <= listeMur.size()-1 ; k++ ){
+		listeMur.remove(k);
+	    }
+	}
+	for(int i = 0 ; i!=frame.getWidth()/25 ; i++){
+            for(int j = 0 ; j!=frame.getHeight()/25 ; j++){
+		if(i >= 2 && i <= 4 && j >= 2 && j <= 4 )
+		    this.map[i][j] = false;
+		else
+		    this.map[i][j] = (Math.random() > 0.97) ? true : false;
+                if(this.map[i][j])
+                    listeMur.add(new Mur(i*25, j*25, 25, 25));
+            }
+        }
     }
     
     @Override

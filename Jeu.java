@@ -28,17 +28,19 @@ public class Jeu{
 	private int score = 0;
 	public MenuController mc;
 	
-	public Jeu(MenuController m){
-		this.n = new Niveau(this);
-		this.s = new Sauvegarde(this);
-		this.frame = new MaFenetreJeu();
-		this.mc = m;
 
-		/* Construction du JLayeredPane qui va gerer les differents JPanel */
-		jlp = new JLayeredPane();
-		frame.setLayeredPane(jlp);
-		jlp.setOpaque(true);
-
+    
+    public Jeu(MenuController m){
+	this.n = new Niveau(this);
+	this.s = new Sauvegarde(this);
+	this.frame = new MaFenetreJeu();
+	this.mc = m;
+	
+	/* Construction du JLayeredPane qui va gerer les differents JPanel */
+	jlp = new JLayeredPane();
+	frame.setLayeredPane(jlp);
+	jlp.setOpaque(true);
+	
 	/*
 	  Ajout au JLayeredPane de :
 	  fond -> JPanel qui gerer le fond d'ecran ainsi que le spawn des arbres (obstacles)
@@ -46,45 +48,45 @@ public class Jeu{
 	  ba -> JPanel qui gerer l'affichage des Balles
 	  mp -> JPanel qui correspond au Menu de pause
 	*/
-
-	  this.fond=  new Terrain(frame);
-	  this.af = new AfficherPersonnage();
-	  this.ba = new JBalle(af, frame, this);
-	  this.mp = new MenuPause(frame,s);
-
-	  this.ennemisRestants = this.n.getEnnemis();
-	  frame.setLayout(null);
-
-	  initFond();
-	  initSteve();
-	  for(int e = 0 ; e < n.getEnnemis() ; e++) {
-	  	initEnnemi();
-	  }
-
-	  fond.setBounds(0,0,1920,1040);
-
-	  af.setBounds(0,0,1920,1040);
-	  ba.setBounds(0,0,1920,1040);
-	  mp.setBounds(0,0,1920,1040);
-	  i.setBounds(0,500,250,450);
-	  n.setBounds(150, 150, 1600, 700);
-
-	  af.setOpaque(false);
-	  ba.setOpaque(false);
-	  mp.setOpaque(false);
-
-	  i.setBackground(new Color(0, 0, 0, 50));
-
-	  jlp.add(fond, new Integer(0));
-	  jlp.add(af, new Integer(1));
-	  jlp.add(i, new Integer(2));
-	  jlp.add(ba, new Integer(3));
-
-	  frame.revalidate();
+	
+	this.fond=  new Terrain(frame);
+	this.af = new AfficherPersonnage();
+	this.ba = new JBalle(af, frame, this);
+	this.mp = new MenuPause(frame,s);
+	
+	this.ennemisRestants = this.n.getEnnemis();
+	frame.setLayout(null);
+	
+	fond.repaint();
+	initSteve();
+	for(int e = 0 ; e < n.getEnnemis() ; e++) {
+	    initEnnemi();
 	}
-
-	void jouer() {
-
+	
+	fond.setBounds(0,0,1920,1040);
+	
+	af.setBounds(0,0,1920,1040);
+	ba.setBounds(0,0,1920,1040);
+	mp.setBounds(0,0,1920,1040);
+	i.setBounds(0,500,250,450);
+	n.setBounds(150, 150, 1600, 700);
+	
+	af.setOpaque(false);
+	ba.setOpaque(false);
+	mp.setOpaque(false);
+	
+	i.setBackground(new Color(0, 0, 0, 50));
+	
+	jlp.add(fond, new Integer(0));
+	jlp.add(af, new Integer(1));
+	jlp.add(i, new Integer(2));
+	jlp.add(ba, new Integer(3));
+	
+	frame.revalidate();
+    }
+    
+    void jouer() {
+	
 		jlp.repaint();
 		af.boiteMunition.clear();
 		for(int i = af.personnageVisible.size()-1 ; i >= 0 ; i--){
@@ -99,17 +101,15 @@ public class Jeu{
 		Steve.setCoordonneX(50);
 		Steve.setCoordonneY(50);
 
+		fond.initMap();
+		
 		int nbEnnemi = n.getEnnemis();
 		this.ennemisRestants = nbEnnemi;
 		for(int e = 0 ; e < nbEnnemi ; e++) {
 			initEnnemi();
 		}
 	}
-
-	void initFond(){
-		fond.repaint();
-	}
-
+    
 	void initSteve(){
 
 		Arme gunSteve = new Arme();
