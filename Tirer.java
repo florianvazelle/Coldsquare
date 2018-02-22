@@ -35,7 +35,7 @@ public class Tirer extends Thread {
 	    this.perso.getArme().setMunition(nbMun-1);
 	    
 	    //CHANGEMENT
-	    Point souris = new Point(perso.getRotationX(),perso.getRotationY());
+	    MonPoint souris = new MonPoint(perso.getRotationX(),perso.getRotationY());
 	    Balle b = new Balle(perso, souris, frame);
 	    frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
 	    ba.listeBalle.add(b);
