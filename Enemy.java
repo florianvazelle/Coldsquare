@@ -23,11 +23,20 @@ public class Enemy extends Personnage{
 	}
 
 	private int distance(int ax, int ay, int bx, int by){
-		return (ax - bx) + (ay - by);
+		return Math.sqrt((float) Math.pow((float) (bx - ax), 2.0) + Math.pow((float) (by - ay), 2.0));
 	}
 
-	private int approachValues(int ax, int bx, int speed){
-		return ax + (bx - ax + speed);
+	private int approachValues(int start, int end, int shift){
+		if(start < end)
+			if(start + shift < end)
+				return start + shift;
+			else
+				return end;
+		else
+			if(start - shift > end)
+				return start - shift;
+			else
+				return end
 	}
 
 	public void update(int playerPosX, int playerPosY){
@@ -46,13 +55,13 @@ public class Enemy extends Personnage{
 
 			/* Choosing the direction */
 			if(targetX > super.getCoordonneX())
-				direction = 'E';
+				direction = '1';
 			else if(targetX < super.getCoordonneX())
-				direction = 'W';
+				direction = '3';
 			else if(targetY > super.getCoordonneY())
-				direction = 'S';
+				direction = '2';
 			else if(targetY < super.getCoordonneY())
-				direction = 'N';
+				direction = '0';
 
 			super.setCoordonneX(approachValues(super.getCoordonneX(), targetX, this.speed));
 			super.setCoordonneY(approachValues(super.getCoordonneY(), targetY, this.speed));
