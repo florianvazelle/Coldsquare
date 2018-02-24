@@ -10,19 +10,19 @@ import java.awt.event.KeyEvent;
 
 class DeplacementControler extends KeyAdapter {
 
-    private int toucheAppuye;
     Deplacement d;
     AfficherPersonnage af;
     MaFenetreJeu frame;
     MenuPause mp;
     Terrain t;
-    
-    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t){
+    Jeu j;
+    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t,Jeu j){
         this.d=d;
         this.af=af;
         this.frame=frame;
 	this.mp = mp;
 	this.t = t;
+	this.j=j;
     }
 
     public void keyTyped(KeyEvent e){    }
@@ -34,49 +34,49 @@ class DeplacementControler extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-	    int key = e.getKeyCode();
+	int key = e.getKeyCode();
+	
+	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+	    mp.setEnPause(true);
+	    frame.getLayeredPane().add(mp, new Integer(5));
+        }
+	if( (!(mp.getEnPause())) && (!(j.n.getWin())) ){
+	    d.keyPressed(e);
 	    
-	    if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-		mp.setEnPause(true);
-		frame.getLayeredPane().add(mp, new Integer(5));
-	    }
-	    if(!(mp.getEnPause())){
-		d.keyPressed(e);
-		
-		Personnage Steve = af.getSteve();
-		Point p = new Point(Steve.getCoordonneX(), Steve.getCoordonneY());
-		d.move();
-		for(int i = 0 ; i!=af.personnageVisible.size();i++){
-		    if(af.personnageVisible.get(i).getVie()>0)
-			if(Hitbox.collision(Steve.getHitbox(), af.personnageVisible.get(i).getHitbox())){
-			    d.annulerMove(p);
-			}
-		}
-		
-		for(int i = 0 ; i != t.listeMur.size() ; i++){
-		    if(Hitbox.collision(Steve.getHitbox(), t.listeMur.get(i).getHitbox())){
+	    Personnage Steve = af.getSteve();
+	    Point p = new Point(Steve.getCoordonneX(), Steve.getCoordonneY());
+	    d.move();
+	    for(int i = 0 ; i!=af.personnageVisible.size();i++){
+		if(af.personnageVisible.get(i).getVie()>0)
+		    if(Hitbox.collision(Steve.getHitbox(), af.personnageVisible.get(i).getHitbox())){
 			d.annulerMove(p);
 		    }
-		}
-		
-		for(int i = 0 ; i != af.boiteMunition.size() ; i++){
-		    if(Hitbox.collision(Steve.getHitbox(), af.boiteMunition.get(i).getHitbox())){
-			Steve.getArme().setMunition(Steve.getArme().getMunition()+af.boiteMunition.get(i).getValue());
-			af.boiteMunition.get(i).setHitbox(new Hitbox());
-			af.boiteMunition.get(i).setAfficher(2);
-		    }
-		} 
-		
-		for(int i = 0 ; i != af.personnageVisible.size();i++){
-		    if(af.personnageVisible.get(i).getVie()>0){
-			
-			//Incrmenter IA
-			Enemy currentEnemy = af.personnageVisible.get(i);
-			currentEnemy.update(Steve.getCoordonneX(), Steve.getCoordonneY());
-			
-		    }
-		}
-		af.repaint();
 	    }
+	    
+	    for(int i = 0 ; i != t.listeMur.size() ; i++){
+		if(Hitbox.collision(Steve.getHitbox(), t.listeMur.get(i).getHitbox())){
+		    d.annulerMove(p);
+		}
+	    }
+	    
+	    for(int i = 0 ; i != af.boiteMunition.size() ; i++){
+		if(Hitbox.collision(Steve.getHitbox(), af.boiteMunition.get(i).getHitbox())){
+		    Steve.getArme().setMunition(Steve.getArme().getMunition()+af.boiteMunition.get(i).getValue());
+		    af.boiteMunition.get(i).setHitbox(new Hitbox());
+		    af.boiteMunition.get(i).setAfficher(2);
+		}
+	    } 
+
+	    for(int i = 0 ; i != af.personnageVisible.size();i++){
+        	if(af.personnageVisible.get(i).getVie()>0){
+		    
+		    //Incrmenter IA
+		      Enemy currentEnemy = af.personnageVisible.get(i);
+		      currentEnemy.update(Steve.getCoordonneX(), Steve.getCoordonneY());
+		      
+		}
+            }
+	    af.repaint();
 	}
+    }
 }
