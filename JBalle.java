@@ -65,8 +65,9 @@ public class JBalle extends JPanel {
 		af.addMunition(b);
 	    }
 	}
-	af.repaint(currentPerso.getCoordonneX()-50,currentPerso.getCoordonneY()-50,120,120);
-	deleteBalle(currentBalle);
+	this.j.jlp.repaint();
+	currentBalle.setEnJeu(false);
+
 	
 	if(this.j.verifWin()){
 	    Personnage Steve= af.getSteve();
