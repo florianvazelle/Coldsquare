@@ -73,7 +73,7 @@ class AfficherPersonnage extends JPanel {
 				currentEnemy.setHitbox(new Hitbox());
 				int val = -1;
 				for(int tmp=0 ; tmp < boiteMunition.size() ; tmp++) {
-					if(i+1 == boiteMunition.get(tmp).getId()) {
+					if(i == boiteMunition.get(tmp).getId()) {
 						val = tmp;
 					}
 				}

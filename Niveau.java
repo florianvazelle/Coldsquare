@@ -25,7 +25,6 @@ public class Niveau extends JPanel{
     private ImageIcon cac; // Corps a corps
     private ImageIcon plus;
     private ImageIcon moins;
-    private boolean lvlWin;
     private JButton plusjb;
     private JButton plusjb2;
     private JButton plusjb3;
@@ -38,7 +37,7 @@ public class Niveau extends JPanel{
     private Personnage perso;
     private int nbAmelioration;
     private Jeu j;
-    
+
     public Niveau(Jeu j){
     	this.j=j;
     	this.level=1;
@@ -47,7 +46,6 @@ public class Niveau extends JPanel{
     	this.val_CAC=false;
     	this.nbBalle=5;
     	this.nbVie=5;
-    	this.lvlWin=false;
     	vie = new ImageIcon(new ImageIcon("./assets/vie.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	cadence = new ImageIcon(new ImageIcon("./assets/sonic.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
     	balle = new ImageIcon(new ImageIcon("./assets/munition.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
@@ -191,13 +189,6 @@ public class Niveau extends JPanel{
 	this.level = l;
     }
     
-    public boolean getWin() {
-    	return this.lvlWin;
-    }
-    
-    public void setWin(boolean etat) {
-	this.lvlWin = etat;
-    }
     class BoutonListener implements ActionListener{
 	
     	Niveau n;
@@ -298,7 +289,6 @@ public class Niveau extends JPanel{
 		nbEnnemi+=1;
 		n.j.setNext();
 		nbAmelioration++;
-		n.lvlWin=false;
 		n.j.jouer();
 	    }
 	    n.repaint();

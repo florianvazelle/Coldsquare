@@ -6,6 +6,13 @@ public class Hitbox {
     private int h;
 
     Hitbox(){} //Hitbox null
+
+    Hitbox(double x, double y, int w, int h){
+        this.h = h;
+        this.w = w;
+        this.x = x;
+        this.y = y;
+    }
     
     Hitbox(Personnage p){
 	Sprite s = p.listeDeSprite.get(0);
