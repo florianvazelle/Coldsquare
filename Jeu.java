@@ -12,23 +12,23 @@ import java.awt.event.KeyEvent;
 import java.awt.EventQueue;
 
 public class Jeu{
-
-	AfficherPersonnage af;
-	MaFenetreJeu frame;
-	Info i;
-	Terrain fond;
-	JBalle ba;
-	MenuPause mp;
+    
+    AfficherPersonnage af;
+    MaFenetreJeu frame;
+    Info i;
+    Terrain fond;
+    JBalle ba;
+    MenuPause mp;
     Sauvegarde s;
-	Personnage p;
-	Niveau n;
-	JLayeredPane jlp;
-	private int ennemisRestants;
-	private int enCours=1;
-	private int score = 0;
-	public MenuController mc;
-	
-
+    Personnage p;
+    Niveau n;
+    JLayeredPane jlp;
+    private int ennemisRestants;
+    private int enCours=1;
+    private int score = 0;
+    public MenuController mc;
+    
+    
     
     public Jeu(MenuController m){
 	this.n = new Niveau(this);
@@ -87,199 +87,201 @@ public class Jeu{
     
     void jouer() {
 	
-		jlp.repaint();
-		af.boiteMunition.clear();
-		for(int i = af.personnageVisible.size()-1 ; i >= 0 ; i--){
-			af.personnageVisible.remove(af.personnageVisible.get(i));
-		}
-
-		Personnage Steve = af.getSteve();
-		Steve.setVie(n.getVie());
-		Steve.getArme().setCadence(n.getCadence());
-		Steve.getArme().setMunition(n.getBalle());
-		Steve.setCac(n.getCac());
-		Steve.setCoordonneX(50);
-		Steve.setCoordonneY(50);
-
-		fond.initMap();
-		
-		int nbEnnemi = n.getEnnemis();
-		this.ennemisRestants = nbEnnemi;
-		for(int e = 0 ; e < nbEnnemi ; e++) {
-			initEnnemi();
-		}
+	jlp.repaint();
+	af.boiteMunition.clear();
+	for(int i = af.personnageVisible.size()-1 ; i >= 0 ; i--){
+	    af.personnageVisible.remove(af.personnageVisible.get(i));
 	}
+	
+	Personnage Steve = af.getSteve();
+	Steve.setVie(n.getVie());
+	Steve.getArme().setCadence(n.getCadence());
+	Steve.getArme().setMunition(n.getBalle());
+	Steve.setCac(n.getCac());
+	Steve.setCoordonneX(50);
+	Steve.setCoordonneY(50);
+	
+	fond.initMap();
+	
+	int nbEnnemi = n.getEnnemis();
+	this.ennemisRestants = nbEnnemi;
+	for(int e = 0 ; e < nbEnnemi ; e++) {
+	    initEnnemi();
+	}
+    }
     
-	void initSteve(){
-
-		Arme gunSteve = new Arme();
-		Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
-		Steve.addListeDeSprite(new Sprite(Steve));
-		Steve.addListeDeSprite(new Sprite("./assets/ennemi.png"));
-		Steve.getHitbox().setHeight(Steve.getHitbox().getHeight()-24);
-
-		n.setPerso(Steve);
-		af.setSteve(Steve);
-		Deplacement deplacement = new Deplacement(Steve);
-		frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond,this));
+    void initSteve(){
+	
+	Arme gunSteve = new Arme();
+	Personnage Steve = new Personnage("Steve",5,"./assets/sprite.png",50,50,gunSteve);
+	Steve.addListeDeSprite(new Sprite(Steve));
+	Steve.addListeDeSprite(new Sprite("./assets/ennemi.png"));
+	Steve.getHitbox().setHeight(Steve.getHitbox().getHeight()-24);
+	
+	n.setPerso(Steve);
+	af.setSteve(Steve);
+	Deplacement deplacement = new Deplacement(Steve);
+	frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond, this));
 	//frame.addMouseListener(new ControlerSouris(Steve));
-		this.i = new Info(Steve, this);
-		i.repaint();
-		af.repaint();
-		frame.revalidate();
-		frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
-		frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp,this, fond));	   
+	this.i = new Info(Steve, this);
+	i.repaint();
+	af.repaint();
+	frame.revalidate();
+	frame.addMouseMotionListener(new ControlerSouris(Steve, af,frame));
+	frame.addMouseListener(new ControlerClique(Steve, af, frame, ba, mp,this, fond));	   
+    }
+    
+    void initEnnemi(){
+	Random r = new Random();	
+	int nb = r.nextInt(1700); 
+	int nb2 = r.nextInt(810);
+
+	Random r2 = new Random();
+	int nb3 = r2.nextInt(2);
+	
+	if(nb3 == 0) {
+	    nb += 200;
+	}else if(nb3 == 1) {
+	    nb2 += 200;
+	}else if(nb3 == 2) {
+	    nb += 200;
+	    nb2 += 200;
+	}		
+	
+	Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2, fond.getMap(), fond);
+	Ennemi.addListeDeSprite(new Sprite(Ennemi));
+	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
+	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort2.png"));
+	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort3.png"));
+
+	ControlerEnemy ce = new ControlerEnemy(Ennemi, frame, af, ba, mp, fond);
+	Ennemi.setCe(ce);
+	
+	int distanceX = Ennemi.getCoordonneX()- af.getSteve().getCoordonneX();
+	int distanceY = Ennemi.getCoordonneY()- af.getSteve().getCoordonneY();
+	
+	if( distanceY < 100 && distanceX < 100) {
+	    System.out.println("trop pres X: "+ distanceX+ " Y: " + distanceY);
 	}
-
-	void initEnnemi(){
-		Random r = new Random();	
-		int nb = r.nextInt(1700); 
-		int nb2 = r.nextInt(810);
-
-		Random r2 = new Random();
-		int nb3 = r2.nextInt(2);
-
-		if(nb3 == 0) {
+	
+	boolean bonnePlace = false;
+	while(bonnePlace == false) {
+	    for(int i=0;i<fond.getMur().size();i++){
+		if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
+		    System.out.println("collisionMur");
+		    nb = r.nextInt(1700); 
+		    nb2 = r.nextInt(810);
+		    nb3= r2.nextInt(2);
+		    if(nb3==0) {
 			nb += 200;
-		}else if(nb3 == 1) {
+		    }else if(nb3==1) {
 			nb2 += 200;
-		}else if(nb3 == 2) {
+		    }else if(nb3==2) {
 			nb += 200;
 			nb2 += 200;
-		}		
-
-		Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2, fond.getMap());
-		Ennemi.addListeDeSprite(new Sprite(Ennemi));
-		Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
-		Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort2.png"));
-		Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort3.png"));
-
-		int distanceX = Ennemi.getCoordonneX()- af.getSteve().getCoordonneX();
-		int distanceY = Ennemi.getCoordonneY()- af.getSteve().getCoordonneY();
-
-		if( distanceY < 100 && distanceX < 100) {
-			System.out.println("trop pres X: "+ distanceX+ " Y: " + distanceY);
+		    }
+		    Ennemi.setCoordonneX(nb);
+		    Ennemi.setCoordonneY(nb2);
+		    
+		    i=0;
+		    bonnePlace=false;
 		}
-
-		boolean bonnePlace = false;
-		while(bonnePlace == false) {
-			for(int i=0;i<fond.getMur().size();i++){
-				if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
-					System.out.println("collisionMur");
-					nb = r.nextInt(1700); 
-					nb2 = r.nextInt(810);
-					nb3= r2.nextInt(2);
-					if(nb3==0) {
-						nb += 200;
-					}else if(nb3==1) {
-						nb2 += 200;
-					}else if(nb3==2) {
-						nb += 200;
-						nb2 += 200;
-					}
-					Ennemi.setCoordonneX(nb);
-					Ennemi.setCoordonneY(nb2);
-
-					i=0;
-					bonnePlace=false;
-				}
+	    }
+	    bonnePlace = true;
+	    
+	    for(int j = 0 ; j < af.personnageVisible.size();j++){
+		
+		if(af.personnageVisible.get(j).getVie()>0){
+		    if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())
+		       || (j == 0 && Hitbox.collision(Ennemi.getHitbox(), af.getSteve().getHitbox()))){
+			nb = r.nextInt(1700); 
+			nb2 = r.nextInt(810);
+			nb3 = r2.nextInt(2);
+			if(nb3==0) {
+			    nb += 200;
 			}
-			bonnePlace = true;
-
-			for(int j = 0 ; j < af.personnageVisible.size();j++){
-
-				if(af.personnageVisible.get(j).getVie()>0){
-					if(Hitbox.collision(Ennemi.getHitbox(),af.personnageVisible.get(j).getHitbox())
-						|| (j == 0 && Hitbox.collision(Ennemi.getHitbox(), af.getSteve().getHitbox()))){
-						nb = r.nextInt(1700); 
-					nb2 = r.nextInt(810);
-					nb3 = r2.nextInt(2);
-					if(nb3==0) {
-						nb += 200;
-					}
-					else if(nb3==1) {
-						nb2 += 200;
-					}
-					else if(nb3==2) {
-						nb += 200;
-						nb2 += 200;
-					}
-
-					Ennemi.setCoordonneX(nb);
-					Ennemi.setCoordonneY(nb2);
-
-					j = af.personnageVisible.size();
-					bonnePlace = false;
-				}
-			}     
-		}
+			else if(nb3==1) {
+			    nb2 += 200;
+			}
+			else if(nb3==2) {
+			    nb += 200;
+			    nb2 += 200;
+			}
+			
+			Ennemi.setCoordonneX(nb);
+			Ennemi.setCoordonneY(nb2);
+			
+			j = af.personnageVisible.size();
+			bonnePlace = false;
+		    }
+		}     
+	    }
 	}
-
+	
 	af.addPersonnageVisible(Ennemi);
 	System.out.println("Ennemi "+ (af.personnageVisible.size()-1)+" bien place:" +bonnePlace);
 	//af.repaint(Ennemi.getCoordonneX()-50, Ennemi.getCoordonneY()-50, Ennemi.getHitbox().getWidth()+100, Ennemi.getHitbox().getHeight()+100);
 	af.repaint();
 	frame.revalidate();
-}
+    }
+    
+    public void levelComplete(){
+	Personnage Steve = af.getSteve();
+	Niveau n = this.getNiveau();
+	Steve.setVie(n.getVie());
+	Steve.getArme().setCadence(n.getCadence());
+	Steve.getArme().setMunition(n.getBalle());
+	this.changerNiveau();
+    }
 
-	public void levelComplete(){
-		Personnage Steve = af.getSteve();
-		Niveau n = this.getNiveau();
-		Steve.setVie(n.getVie());
-		Steve.getArme().setCadence(n.getCadence());
-		Steve.getArme().setMunition(n.getBalle());
-		this.changerNiveau();
+    boolean verifWin() {
+	int nbMort = 0;
+	for(int i = 0; i < af.personnageVisible.size() ; i++) {
+	    if(af.personnageVisible.get(i).getVie() <= 0) {
+		nbMort++;
+	    }
+	}
+	if(nbMort == af.personnageVisible.size()) {
+	    return true;
+	}
+	return false;
+    }
+    
+    void changerNiveau() {
+	//jlp.remove(af);
+	//jlp.remove(i);
+	//jlp.repaint();
+	n.setWin(true);
+	jlp.add(n,  new Integer(4));	
+	n.repaint();
 	
-	}
-
-	boolean verifWin() {
-		int nbMort = 0;
-		for(int i = 0; i < af.personnageVisible.size() ; i++) {
-			if(af.personnageVisible.get(i).getVie() <= 0) {
-				nbMort++;
-			}
-		}
-		if(nbMort == af.personnageVisible.size()) {
-			return true;
-		}
-		return false;
-	}
-
-	void changerNiveau() {
-		//jlp.remove(af);
-		//jlp.remove(i);
-		//jlp.repaint();
-		n.setWin(true);
-		jlp.add(n,  new Integer(4));	
-		n.repaint();
-	
-	}
-
-	void setNext() {
-		this.enCours=1;
-		jlp.remove(n);
-	}
-
-	public Niveau getNiveau() {
-		return this.n;
-	}
-
-	public int getScore() {
-		return this.score;
-	}
-
-	public void setScore(int s) {
-		this.score=s;
-	}
-
-	public int getEnnemisRestants() {
-		return this.ennemisRestants;
-	}
-
-	public void setEnnemisRestants(int s) {
-		this.ennemisRestants=s;
-		i.repaint();
-	}
-
+    }
+    
+    void setNext() {
+	this.enCours=1;
+	jlp.remove(n);
+    }
+    
+    public Niveau getNiveau() {
+	return this.n;
+    }
+    
+    public int getScore() {
+	return this.score;
+    }
+    
+    public void setScore(int s) {
+	this.score=s;
+    }
+    
+    public int getEnnemisRestants() {
+	return this.ennemisRestants;
+    }
+    
+    public void setEnnemisRestants(int s) {
+	this.ennemisRestants=s;
+	i.repaint();
+    }
+    
 }
 

@@ -69,11 +69,11 @@ class DeplacementControler extends KeyAdapter {
 
 	    for(int i = 0 ; i != af.personnageVisible.size();i++){
         	if(af.personnageVisible.get(i).getVie()>0){
-		    /*
-		      Incrmenter IA
+		    
+		    //Incrmenter IA
 		      Enemy currentEnemy = af.personnageVisible.get(i);
 		      currentEnemy.update(Steve.getCoordonneX(), Steve.getCoordonneY());
-		    */
+		      
 		}
             }
 	    af.repaint();
