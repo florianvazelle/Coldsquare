@@ -121,7 +121,7 @@ public class Jeu{
 	n.setPerso(Steve);
 	af.setSteve(Steve);
 	Deplacement deplacement = new Deplacement(Steve);
-	frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond));
+	frame.addKeyListener(new DeplacementControler(deplacement,af,frame, mp, fond, this));
 	//frame.addMouseListener(new ControlerSouris(Steve));
 	this.i = new Info(Steve, this);
 	i.repaint();
@@ -223,65 +223,65 @@ public class Jeu{
 	//af.repaint(Ennemi.getCoordonneX()-50, Ennemi.getCoordonneY()-50, Ennemi.getHitbox().getWidth()+100, Ennemi.getHitbox().getHeight()+100);
 	af.repaint();
 	frame.revalidate();
-}
+    }
+    
+    public void levelComplete(){
+	Personnage Steve = af.getSteve();
+	Niveau n = this.getNiveau();
+	Steve.setVie(n.getVie());
+	Steve.getArme().setCadence(n.getCadence());
+	Steve.getArme().setMunition(n.getBalle());
+	this.changerNiveau();
+    }
 
-	public void levelComplete(){
-		Personnage Steve = af.getSteve();
-		Niveau n = this.getNiveau();
-		Steve.setVie(n.getVie());
-		Steve.getArme().setCadence(n.getCadence());
-		Steve.getArme().setMunition(n.getBalle());
-		this.changerNiveau();
+    boolean verifWin() {
+	int nbMort = 0;
+	for(int i = 0; i < af.personnageVisible.size() ; i++) {
+	    if(af.personnageVisible.get(i).getVie() <= 0) {
+		nbMort++;
+	    }
+	}
+	if(nbMort == af.personnageVisible.size()) {
+	    return true;
+	}
+	return false;
+    }
+    
+    void changerNiveau() {
+	//jlp.remove(af);
+	//jlp.remove(i);
+	//jlp.repaint();
+	n.setWin(true);
+	jlp.add(n,  new Integer(4));	
+	n.repaint();
 	
-	}
-
-	boolean verifWin() {
-		int nbMort = 0;
-		for(int i = 0; i < af.personnageVisible.size() ; i++) {
-			if(af.personnageVisible.get(i).getVie() <= 0) {
-				nbMort++;
-			}
-		}
-		if(nbMort == af.personnageVisible.size()) {
-			return true;
-		}
-		return false;
-	}
-
-	void changerNiveau() {
-		//jlp.remove(af);
-		//jlp.remove(i);
-		//jlp.repaint();
-		jlp.add(n,  new Integer(4));	
-		n.repaint();
-	
-	}
-
-	void setNext() {
-		this.enCours=1;
-		jlp.remove(n);
-	}
-
-	public Niveau getNiveau() {
-		return this.n;
-	}
-
-	public int getScore() {
-		return this.score;
-	}
-
-	public void setScore(int s) {
-		this.score=s;
-	}
-
-	public int getEnnemisRestants() {
-		return this.ennemisRestants;
-	}
-
-	public void setEnnemisRestants(int s) {
-		this.ennemisRestants=s;
-		i.repaint();
-	}
-
+    }
+    
+    void setNext() {
+	this.enCours=1;
+	jlp.remove(n);
+    }
+    
+    public Niveau getNiveau() {
+	return this.n;
+    }
+    
+    public int getScore() {
+	return this.score;
+    }
+    
+    public void setScore(int s) {
+	this.score=s;
+    }
+    
+    public int getEnnemisRestants() {
+	return this.ennemisRestants;
+    }
+    
+    public void setEnnemisRestants(int s) {
+	this.ennemisRestants=s;
+	i.repaint();
+    }
+    
 }
 

@@ -1,22 +1,21 @@
 import java.util.ArrayList;
 
 public class Enemy extends Personnage{
+    private ArrayList<Node> path;
+    private AStar algo;
     private boolean awake;
     private boolean[][] map;
-    private int direction;
     private int speed;
+    private int[][] ancienPos;
+
     Terrain t;
     ControlerEnemy ce;
-    ArrayList<Node> path;
-    AStar algo;
-    int[][] ancienPos;
     
     public Enemy(String nom, int vie, String skin, int x_de_base, int y_de_base, boolean[][] map, Terrain t){
 	super(nom, vie, skin, x_de_base, y_de_base);
 	this.awake = false;
 	this.map = map;
-	this.direction = 2;
-	this.speed = 2;
+	this.speed = 3;
 	this.t = t;
 	this.algo = new AStar(76, 41, map, this, t);
 
@@ -49,7 +48,6 @@ public class Enemy extends Personnage{
     }
     
     public void update(int playerPosX, int playerPosY){
-	System.out.println("--------------------------------NEW UPDATE--------------------------------");
 	if(!awake 
 	   && distance(super.getCoordonneX(), super.getCoordonneY(), playerPosX, playerPosY) < 250){
 	    awake = true;
@@ -63,7 +61,6 @@ public class Enemy extends Personnage{
 	  ce.tirer();
 	*/
 	if(awake){
-	    System.out.println("ancienPos[0][0] "+ancienPos[0][0]+" | ancienPos[0][1]"+ancienPos[0][1]+" | ancienPos[1][0]"+ancienPos[1][0]+" | ancienPos[1][1]"+ancienPos[1][1]);
 	    if(distance(varX, varY, playerPosX, playerPosY) > 100 && !(ancienPos[0][0] == varX/25 && ancienPos[0][1] == varY/25 && ancienPos[1][0] == playerPosX/25 && ancienPos[1][1] == playerPosY/25) ){
 		System.out.println("here");
 		path = algo.findPath(new Node(super.getCoordonneX()/25, super.getCoordonneY()/25), new Node(playerPosX/25, playerPosY/25));
@@ -77,9 +74,9 @@ public class Enemy extends Personnage{
 		
 		int targetX = path.get(path.size() - 1).getX();
 		int targetY = path.get(path.size() - 1).getY();
-	
-		super.setCoordonneX(approachValues(varX, targetX*25, 3));
-		super.setCoordonneY(approachValues(varY, targetY*25, 3));
+		
+		super.setCoordonneX(approachValues(varX, targetX*25, speed));
+		super.setCoordonneY(approachValues(varY, targetY*25, speed));
 	    }
 	}
     }

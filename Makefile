@@ -1,6 +1,6 @@
 edit:
 	javac *.java
 run:
-	java Menu
+	java -cp "./mariadb/mariadb-client.jar:." Menu
 clean:
 	rm *~ *.class
