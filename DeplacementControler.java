@@ -36,6 +36,11 @@ class DeplacementControler extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
 	int key = e.getKeyCode();
 	
+	if(key == KeyEvent.VK_M) {
+		MenuMort mm = new MenuMort(this.j);
+	    mp.setEnPause(true);
+	}
+	
 	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 	    mp.setEnPause(true);
 	    frame.getLayeredPane().add(mp, new Integer(5));
