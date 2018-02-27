@@ -27,8 +27,76 @@ public class Jeu{
     private int enCours=1;
     private int score = 0;
     public MenuController mc;
+
+    int vie;
+    int cadence;
+    int enemis;
+    String pseudo;
+    int munitions;
+    int level;
+    boolean cac;
     
-    
+    public Jeu(int v, int c, int m, int e, int l, int sc, boolean ca, String p) {
+	this.vie = v;
+	this.cadence = c;
+	this.munitions = m;
+	this.enemis = e;
+	this.level = l;
+	this.score = sc;
+	this.cac = ca;
+	this.pseudo = p;
+	this.n = new Niveau(this);
+	this.s = new Sauvegarde(this);
+	this.frame = new MaFenetreJeu();
+
+	jlp = new JLayeredPane();
+	frame.setLayeredPane(jlp);
+	jlp.setOpaque(true);
+
+	this.fond =  new Terrain(frame);
+	this.af = new AfficherPersonnage();
+	this.ba = new JBalle(af, frame, this);
+	this.mp = new MenuPause(frame,s);
+
+	n.setVie(vie);
+	n.setCadence(cadence);
+	n.setBalle(munitions);
+	n.setEnemis(enemis);
+	n.setLevel(level);
+	n.setCac(cac);
+	setScore(score);
+
+	this.ennemisRestants = n.getEnnemis();
+	frame.setLayout(null);
+
+	fond.repaint();
+	initSteve();
+	for(int ep = 0 ; ep < n.getEnnemis() ; ep++) {
+	    initEnnemi();
+	}
+		
+	fond.setBounds(0,0,1920,1040);
+
+	af.setBounds(0,0,1920,1040);
+	ba.setBounds(0,0,1920,1040);
+	mp.setBounds(0,0,1920,1040);
+	i.setBounds(0,500,250,450);
+	n.setBounds(150, 150, 1600, 700);
+
+	af.setOpaque(false);
+	ba.setOpaque(false);
+	mp.setOpaque(false);
+
+	i.setBackground(new Color(0, 0, 0, 50));
+
+	jlp.add(fond, new Integer(0));
+	jlp.add(af, new Integer(1));
+	jlp.add(i, new Integer(2));
+	jlp.add(ba, new Integer(3));
+
+	frame.revalidate();
+	
+    }
     
     public Jeu(MenuController m){
 	this.n = new Niveau(this);

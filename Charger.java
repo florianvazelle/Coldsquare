@@ -17,7 +17,6 @@ class Charger implements ActionListener {
     private Menu m;
     private Niveau n;
     private Jeu j;
-    private MenuController mc;
     
     public Charger(Menu menu) {
 	this.m = menu;
@@ -48,15 +47,18 @@ class Charger implements ActionListener {
 		score = rs.getInt(7);
 		cac = rs.getBoolean(8);
 	    }
-	    j.n.setVie(vie);
-	    j.n.setCadence(cadence);
-	    j.n.setBalle(munitions);
-	    j.n.setEnemis(enemis);
-	    j.n.setLevel(level);
-	    j.n.setCac(cac);
+	    j = new Jeu(vie,cadence,munitions,enemis,level,score,cac,pseudo);
+	    /*
+	    n.setVie(vie);
+	    n.setCadence(cadence);
+	    n.setBalle(munitions);
+	    n.setEnemis(enemis);
+	    n.setLevel(level);
+	    n.setCac(cac);
 	    j.setScore(score);
-	    j = new Jeu(mc);
-
+	    */
+	    j.jouer();
+	    
 	    insertVal.close();
 	    rs.close();
 	    connexion.close();
