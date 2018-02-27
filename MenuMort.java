@@ -19,13 +19,13 @@ import java.awt.event.KeyEvent;
 public class MenuMort extends JPanel{
 
 	private Jeu j;
-    private JButton recommencer;
-    private JButton menu;
-    private ArrayList<String> tabPseudo;
-    private ArrayList<String> tabLevel;
-    private ArrayList<String> tabScore;
+	private JButton recommencer;
+	private JButton menu;
+	private ArrayList<String> tabPseudo;
+	private ArrayList<String> tabLevel;
+	private ArrayList<String> tabScore;
 
-    private boolean connecte=false;
+	private boolean connecte=false;
 	
 	public MenuMort(Jeu j){
 		System.out.println("ici1");
@@ -35,68 +35,68 @@ public class MenuMort extends JPanel{
 		this.tabScore= new ArrayList<String>();
 		this.tabLevel= new ArrayList<String>();
 
-    	recommencer= new JButton("Recommencer une partie");
-    	menu= new JButton("Menu");
-    	recommencer.setBounds(750,850,200,70);
-    	menu.setBounds(1050,850,200,70);
-    	BoutonListener b = new BoutonListener(this);
-    	recommencer.addActionListener(b);
-    	menu.addActionListener(b);
-    	this.add(recommencer);
-    	this.add(menu);
-    	this.setBounds(0,0,1920,1040);
+		recommencer= new JButton("Recommencer une partie");
+		menu= new JButton("Menu");
+		recommencer.setBounds(750,850,200,70);
+		menu.setBounds(1050,850,200,70);
+		BoutonListener b = new BoutonListener(this);
+		recommencer.addActionListener(b);
+		menu.addActionListener(b);
+		this.add(recommencer);
+		this.add(menu);
+		this.setBounds(0,0,1920,1040);
 		j.jlp.add(this, new Integer(6));
-    	try {
-		    Class.forName("org.mariadb.jdbc.Driver");
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
 		}
 		catch (ClassNotFoundException b1) {
-		    System.err.println("Pilote indisponible!");
+			System.err.println("Pilote indisponible!");
 		}
 
 		try {
-		    	    if(connecte == false) {
-		    Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
-		    	    connecte=true;
-		    	    
-		    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
-		    ResultSet resScore = insertVal.executeQuery();
-		    String sql= "SELECT * FROM `Score` ORDER BY `Score`.`Score` DESC";
-		    Statement selectVal = connexion.createStatement();
-		    ResultSet tabScore = selectVal.executeQuery(sql);
-		    tabScore.last();
-		    int nbRow = tabScore.getRow();
-	    	System.out.println(""+nbRow);
-		    tabScore.beforeFirst();
-		    
-		    while( tabScore.next() != false) {
-		    	String pseudo = tabScore.getString(1);
-		    	int lvl = tabScore.getInt(2);
-		    	int score = tabScore.getInt(3);
-		    	
-			    this.tabPseudo.add(pseudo);
-			    this.tabScore.add(Integer.toString(lvl));
-			    this.tabLevel.add(Integer.toString(score));
+			if(connecte == false) {
+				Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
+				connecte=true;
+				
+				PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
+				ResultSet resScore = insertVal.executeQuery();
+				String sql= "SELECT * FROM `Score` ORDER BY `Score`.`Score` DESC";
+				Statement selectVal = connexion.createStatement();
+				ResultSet tabScore = selectVal.executeQuery(sql);
+				tabScore.last();
+				int nbRow = tabScore.getRow();
+				System.out.println(""+nbRow);
+				tabScore.beforeFirst();
+				
+				while( tabScore.next() != false) {
+					String pseudo = tabScore.getString(1);
+					int lvl = tabScore.getInt(2);
+					int score = tabScore.getInt(3);
+					
+					this.tabPseudo.add(pseudo);
+					this.tabScore.add(Integer.toString(lvl));
+					this.tabLevel.add(Integer.toString(score));
 
-			
-		    }
-		    
-		    insertVal.close();
-		    resScore.close();
-		    selectVal.close();
-		    tabScore.close();
-		   connexion.close();
-		    	    }
+					
+				}
+				
+				insertVal.close();
+				resScore.close();
+				selectVal.close();
+				tabScore.close();
+				connexion.close();
+			}
 		} catch (SQLException b2) {
-		    System.err.println("Erreur de connexion: "+ b2.getMessage());
+			System.err.println("Erreur de connexion: "+ b2.getMessage());
 
 		}
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-    	super.paintComponent(g);
-    	drawFond(g);
-    	Toolkit.getDefaultToolkit().sync();
+		super.paintComponent(g);
+		drawFond(g);
+		Toolkit.getDefaultToolkit().sync();
 	}
 
 	public void drawFond(Graphics g){
@@ -141,26 +141,26 @@ public class MenuMort extends JPanel{
 	}
 	
 	
-	 class BoutonListener implements ActionListener{
+	class BoutonListener implements ActionListener{
+		
+		MenuMort m;
+		
+		public BoutonListener(MenuMort m) {
+			this.m=m;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			Object o= e.getSource();
 			
-	    	MenuMort m;
-	    	
-	    	public BoutonListener(MenuMort m) {
-		    this.m=m;
-	    	}
-	    	 
-	    	public void actionPerformed(ActionEvent e) {
-	    		 Object o= e.getSource();
-	    		 
-	    		 if(o==recommencer){
-	    			 m.j= new Jeu(m.j.mc);
-	    		 }else if(o==menu) {
-	    			 new Menu();
-	    			 m.j.frame.dispose();
-	    		 }
-	    	}
-	    	
-	 }
+			if(o==recommencer){
+				m.j= new Jeu(m.j.mc);
+			}else if(o==menu) {
+				new Menu();
+				m.j.frame.dispose();
+			}
+		}
+		
+	}
 	
 
 }
