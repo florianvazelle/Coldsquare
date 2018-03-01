@@ -37,7 +37,7 @@ public class Tirer extends Thread {
 	    //CHANGEMENT
 	    MonPoint souris = new MonPoint(perso.getRotationX(),perso.getRotationY());
 	    Balle b = new Balle(perso, souris, frame);
-	    //frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
+	    frame.getLayeredPane().add(ba, JLayeredPane.MODAL_LAYER);
 	    ba.listeBalle.add(b);
 	    controlerBalle = new ControlerBalle(b, souris, ba, frame, mp, t);
 	    controlerBalle.start();
