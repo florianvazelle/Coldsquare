@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.io.*;
 
 public class AStar {
     private static Node [][] grid = new Node[5][5];
@@ -108,26 +109,15 @@ public class AStar {
 	
 	while(current.getX() != start.getX() || current.getY() != start.getY()){
 	    path.add(current);
-	    System.out.println("X : "+current.getX()+" | Y : "+current.getY());
+	    //System.out.println("X : "+current.getX()+" | Y : "+current.getY());
 	    if(current.getParent() == null) break;
 	    current = current.getParent();
 	    
 	    
 	}
-	System.out.println("retracePath");
 	return path;
     }
-    /*
-    private int getDistance(Node current, Node target){
-	int distX = current.getX() - target.getX();
-	int distY = current.getY() - target.getY();
-	
-	if(distX > distY)
-	    return 14*distY + 10*(distX - distY);
-	else
-	    return 14*distX + 10*(distY - distX);
-    }
-    */
+
     public void initAStar(Node start, Node target){
 	grid = new Node[xLimit][yLimit];
 	closedList = new boolean[xLimit][yLimit];
@@ -141,7 +131,11 @@ public class AStar {
 		grid[i][j].heuristic = Math.abs(i-endI)+Math.abs(j-endJ);
 	    }
 	}
-	grid[start.getX()][start.getY()].finalCost = 0;
+	try{
+	    grid[start.getX()][start.getY()].finalCost = 0;
+	}catch(NullPointerException e){
+	    System.out.println("start.getX() "+start.getX()+" | start.getY() "+start.getY()+" xlimit "+xLimit+" yLimit "+yLimit);
+	}
 	for(int i=0;i< xLimit;i++){
 	    for(int j=0;j<yLimit;j++)
 		if(map[i][j])

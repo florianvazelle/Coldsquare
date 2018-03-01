@@ -9,14 +9,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 class DeplacementControler extends KeyAdapter {
-
     Deplacement d;
     AfficherPersonnage af;
     MaFenetreJeu frame;
     MenuPause mp;
     Terrain t;
     Jeu j;
-    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t,Jeu j){
+    DeplacementControler(Deplacement d, AfficherPersonnage af, MaFenetreJeu frame, MenuPause mp, Terrain t, Jeu j){
         this.d=d;
         this.af=af;
         this.frame=frame;
@@ -35,12 +34,7 @@ class DeplacementControler extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
 	int key = e.getKeyCode();
-	
-	if(key == KeyEvent.VK_M) {
-		MenuMort mm = new MenuMort(this.j);
-	    mp.setEnPause(true);
-	}
-	
+		
 	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 	    mp.setEnPause(true);
 	    frame.getLayeredPane().add(mp, new Integer(5));
@@ -75,13 +69,16 @@ class DeplacementControler extends KeyAdapter {
 	    for(int i = 0 ; i != af.personnageVisible.size();i++){
         	if(af.personnageVisible.get(i).getVie()>0){
 		    
-		    //Incrmenter IA
-		      Enemy currentEnemy = af.personnageVisible.get(i);
-		      currentEnemy.update(Steve.getCoordonneX(), Steve.getCoordonneY());
-		      
+		    //Incrementer IA
+		    Enemy currentEnemy = af.personnageVisible.get(i);
+		    currentEnemy.update(Steve.getCoordonneX(), Steve.getCoordonneY());
+		    if(currentEnemy.getAwake() && !currentEnemy.getControlerEnemyAwake()){
+			(new ControlerEnemy(currentEnemy, frame, af, j.ba, mp, t)).start();
+			currentEnemy.setControlerEnemyAwake(true);
+		    }
 		}
-            }
-	    af.repaint();
+	    }
+	    af.repaint(Steve.getCoordonneX()-50, Steve.getCoordonneY()-50, Steve.getHitbox().getWidth()+100, Steve.getHitbox().getWidth()+100);
 	}
     }
 }

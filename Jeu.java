@@ -54,10 +54,10 @@ public class Jeu{
 	jlp.setOpaque(true);
 
 	this.fond =  new Terrain(frame);
-	this.af = new AfficherPersonnage();
-	this.ba = new JBalle(af, frame, this);
 	this.mp = new MenuPause(frame,s);
-
+	this.af = new AfficherPersonnage(this, mp);
+	this.ba = new JBalle(af, frame, this);
+	
 	n.setVie(vie);
 	n.setCadence(cadence);
 	n.setBalle(munitions);
@@ -118,9 +118,9 @@ public class Jeu{
 	*/
 	
 	this.fond=  new Terrain(frame);
-	this.af = new AfficherPersonnage();
-	this.ba = new JBalle(af, frame, this);
 	this.mp = new MenuPause(frame,s);
+	this.af = new AfficherPersonnage(this, mp);
+	this.ba = new JBalle(af, frame, this);
 	
 	this.ennemisRestants = this.n.getEnnemis();
 	frame.setLayout(null);
@@ -216,14 +216,11 @@ public class Jeu{
 	    nb2 += 200;
 	}		
 	
-	Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2, fond.getMap(), fond);
+	Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2);
 	Ennemi.addListeDeSprite(new Sprite(Ennemi));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort2.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort3.png"));
-
-	ControlerEnemy ce = new ControlerEnemy(Ennemi, frame, af, ba, mp, fond);
-	Ennemi.setCe(ce);
 	
 	int distanceX = Ennemi.getCoordonneX()- af.getSteve().getCoordonneX();
 	int distanceY = Ennemi.getCoordonneY()- af.getSteve().getCoordonneY();

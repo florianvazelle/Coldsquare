@@ -39,7 +39,6 @@ public class Son {
     
     
     public void play(InputStream source){
-	// 100 ms buffer for real time change to the sound stream
 	int bufferSize = format.getFrameSize() * Math.round(format.getSampleRate() / 10);
 	byte[] buffer = new byte[bufferSize];
 	SourceDataLine line;

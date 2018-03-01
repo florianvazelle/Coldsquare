@@ -13,15 +13,20 @@ import java.awt.EventQueue;
 import java.awt.geom.AffineTransform;
 
 class AfficherPersonnage extends JPanel {
-	private Personnage steve;
-	ArrayList<Enemy> personnageVisible;
-	ArrayList<Boite> boiteMunition;
+    private Personnage steve;
+    ArrayList<Enemy> personnageVisible;
+    ArrayList<Boite> boiteMunition;
 
-	public AfficherPersonnage(){
-		this.personnageVisible = new ArrayList<Enemy>();
-		this.boiteMunition = new ArrayList<Boite>();
+    Jeu j;
+    MenuPause mp;
+    
+    public AfficherPersonnage(Jeu j, MenuPause mp){
+	this.personnageVisible = new ArrayList<Enemy>();
+	this.boiteMunition = new ArrayList<Boite>();
 
-	}
+	this.j = j;
+	this.mp = mp;
+    }
 
 	void addPersonnageVisible(Enemy perso){
 		this.personnageVisible.add(perso);
@@ -36,70 +41,77 @@ class AfficherPersonnage extends JPanel {
 		doDrawing(g);
 		Toolkit.getDefaultToolkit().sync();
 	}
-
-	private void doDrawing(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-
-	// Va garder en memoire la transformation de base c'est a dire aucune
-		AffineTransform originalTransform = g2d.getTransform();
-
-	// Calcul Vecteur
-	// Coordonnée centre image
-		double Xa = 8 + steve.getCoordonneX(); 
-		double Ya = 30 + steve.getCoordonneY();
-
-	// Coordonnée Souris
-		double Xb = steve.getRotationX();
-		double Yb = steve.getRotationY();
-
-		double pi = 4* Math.atan(1);
-		
-		double degree = (Math.atan2((Yb-Ya),(Xb-Xa))+pi/2)*(180/pi);
-
-	g2d.rotate(Math.toRadians(degree), Xa, Ya);// a changer en fonction du sprite courant
+    
+    private void doDrawing(Graphics g) {
+	Graphics2D g2d = (Graphics2D) g;
 	
-	g2d.drawImage(steve.listeDeSprite.get(0).getImage(), steve.getCoordonneX(), steve.getCoordonneY(), this);
-	g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
+	// Va garder en memoire la transformation de base c'est a dire aucune
+	AffineTransform originalTransform = g2d.getTransform();
 
+	
+	if(steve.getVie()<=0){
+	    g2d.drawImage(steve.listeDeSprite.get(1).getImage(), steve.getCoordonneX(), steve.getCoordonneY(), this);
+	    MenuMort mm = new MenuMort(this.j);
+            mp.setEnPause(true);
+	}
+	else{
+	    double degree = orientation(8 + steve.getCoordonneX(), 30 + steve.getCoordonneY(), steve.getRotationX(), steve.getRotationY());
+	    g2d.rotate(Math.toRadians(degree), 8 + steve.getCoordonneX(), 30 + steve.getCoordonneY());
+	    g2d.drawImage(steve.listeDeSprite.get(0).getImage(), steve.getCoordonneX(), steve.getCoordonneY(), this);
+	}
+	g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
+	
 	//HITBOX
 	g.setColor(Color.BLUE);
 	g.drawRect((int)steve.getHitbox().getX(), (int)steve.getHitbox().getY(), steve.getHitbox().getWidth(), steve.getHitbox().getHeight());
-
+	
 	
 	if(!personnageVisible.isEmpty()){
-		for(int i = 0 ; i < personnageVisible.size() ; i++){
-			Enemy currentEnemy = personnageVisible.get(i);
-			if(currentEnemy.getVie() <= 0){
-				currentEnemy.setHitbox(new Hitbox());
-				int val = -1;
-				for(int tmp=0 ; tmp < boiteMunition.size() ; tmp++) {
-					if(i+1 == boiteMunition.get(tmp).getId()) {
-						val = tmp;
-					}
-				}
-				if(val != -1) {
-					if(boiteMunition.get(val).getAfficher() == 0) {
-						g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
-						boiteMunition.get(val).setAfficher(1);
-					}else if(boiteMunition.get(val).getAfficher() == 1) {
-						g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
-					}
-				}
-				g2d.drawImage(currentEnemy.listeDeSprite.get(1).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);
+	    for(int i = 0 ; i < personnageVisible.size() ; i++){
+		Enemy currentEnemy = personnageVisible.get(i);
+		if(currentEnemy.getVie() <= 0){
+		    currentEnemy.setHitbox(new Hitbox());
+		    int val = -1;
+		    for(int tmp=0 ; tmp < boiteMunition.size() ; tmp++) {
+			if(i+1 == boiteMunition.get(tmp).getId()) {
+			    val = tmp;
 			}
-			else
-				g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);      
-			g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
+		    }
+		    if(val != -1) {
+			if(boiteMunition.get(val).getAfficher() == 0) {
+			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
+			    boiteMunition.get(val).setAfficher(1);
+			}else if(boiteMunition.get(val).getAfficher() == 1) {
+			    g2d.drawImage(boiteMunition.get(val).getImage(),boiteMunition.get(val).getCoordonneX(),boiteMunition.get(val).getCoordonneY() , this);
+			}
+		    }
+		    g2d.drawImage(currentEnemy.listeDeSprite.get(1).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);
 		}
+		else {
+		    if(currentEnemy.getAwake()){
+			double degreeEnemy = orientation(8+currentEnemy.getCoordonneX(), 15+currentEnemy.getCoordonneY(), steve.getCoordonneX(), steve.getCoordonneY());
+		    	g2d.rotate(Math.toRadians(degreeEnemy), 8+currentEnemy.getCoordonneX(), 15+currentEnemy.getCoordonneY());
+		    }
+		    g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);      
+		}
+		g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
+	    }
 	}
 	
-}
+    }
 
-	public void setSteve(Personnage steve){
-		this.steve = steve;
-	}
-
-	public Personnage getSteve(){
-		return this.steve;
-	}
+    private double orientation(double Xa, double Ya, double Xb, double Yb){
+	// Calcul Vecteur
+	double pi = 4* Math.atan(1);
+	double degree = (Math.atan2((Yb-Ya),(Xb-Xa))+pi/2)*(180/pi);
+	return degree;
+    }
+	
+    public void setSteve(Personnage steve){
+	this.steve = steve;
+    }
+    
+    public Personnage getSteve(){
+	return this.steve;
+    }
 }

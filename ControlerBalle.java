@@ -55,12 +55,12 @@ public class ControlerBalle extends Thread {
 	    }
 	    ba.repaint((int)x-50, (int)y-50, 200, 200);
 
-	    /*for(int j = 0 ; j!=t.listeMur.size() ; j++){
-	      if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
-	      ba.deleteBalle(b);
-	      }
-	      }
-	    */
+	    for(int j = 0 ; j!=t.listeMur.size() ; j++){
+		if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
+		    b.setEnJeu(false);
+		}
+	    }
+
 	    while(mp.getEnPause()){
 		try{
 		    this.sleep(2000);
