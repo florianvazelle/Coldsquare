@@ -57,12 +57,22 @@ public class MenuMort extends JPanel{
 			if(connecte == false) {
 				Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
 				connecte=true;
-				
-				PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
-				ResultSet resScore = insertVal.executeQuery();
-				String sql= "SELECT * FROM `Score` ORDER BY `Score`.`Score` DESC";
+				String sql= "SELECT EXISTS(SELECT Pseudo FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"')";
+				Statement verifNomSt = connexion.createStatement();
+				ResultSet verifNomRs = verifNomSt.executeQuery(sql);
+				PreparedStatement insertVal;
+				ResultSet resScore;
+				verifNomRs.next();
+				if(verifNomRs.getBoolean(1)==false) {
+					insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
+					resScore = insertVal.executeQuery();
+				}else {
+					insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
+					resScore = insertVal.executeQuery();
+				}
+				String sql2= "SELECT * FROM `Score` ORDER BY `Score`.`Score` DESC, `Score`.`Niveau` DESC";
 				Statement selectVal = connexion.createStatement();
-				ResultSet tabScore = selectVal.executeQuery(sql);
+				ResultSet tabScore = selectVal.executeQuery(sql2);
 				tabScore.last();
 				int nbRow = tabScore.getRow();
 				System.out.println(""+nbRow);
@@ -74,8 +84,8 @@ public class MenuMort extends JPanel{
 					int score = tabScore.getInt(3);
 					
 					this.tabPseudo.add(pseudo);
-					this.tabScore.add(Integer.toString(lvl));
-					this.tabLevel.add(Integer.toString(score));
+					this.tabScore.add(Integer.toString(score));
+					this.tabLevel.add(Integer.toString(lvl));
 
 					
 				}
@@ -85,6 +95,7 @@ public class MenuMort extends JPanel{
 				selectVal.close();
 				tabScore.close();
 				connexion.close();
+				
 			}
 		} catch (SQLException b2) {
 			System.err.println("Erreur de connexion: "+ b2.getMessage());
@@ -112,7 +123,9 @@ public class MenuMort extends JPanel{
 		g2d.drawString("Pseudo : "+j.mc.getNom(), 200, 300);
 		g2d.drawString("Niveau : "+j.getNiveau().getLevel(), 200, 350);
 		g2d.drawString("Score : "+j.getScore(), 200 , 400);
-		
+		g2d.drawString("Pseudo", 870, 150);
+		g2d.drawString("Niveau", 1150, 150);
+		g2d.drawString("Score ", 1450 , 150);
 		if(tabPseudo.size()<10) {
 			for(int i=0; i< tabPseudo.size() ; i++) {
 
@@ -121,9 +134,10 @@ public class MenuMort extends JPanel{
 				}else {
 					g2d.setColor(Color.WHITE);
 				}
-				g2d.drawString((i+1)+". "+tabPseudo.get(i),850,(150+50*i));
-				g2d.drawString(tabLevel.get(i),1150,(150+50*i));
-				g2d.drawString(tabScore.get(i),1450,(150+50*i));
+				g2d.drawString((i+1)+". ",820,(210+50*i));
+				g2d.drawString(tabPseudo.get(i),870,(210+50*i));
+				g2d.drawString(tabLevel.get(i),1150,(210+50*i));
+				g2d.drawString(tabScore.get(i),1450,(210+50*i));
 			}	
 		}else {
 			for(int i=0; i< 10 ; i++) {
@@ -132,9 +146,10 @@ public class MenuMort extends JPanel{
 				}else {
 					g2d.setColor(Color.WHITE);
 				}
-				g2d.drawString((i+1)+". "+tabPseudo.get(i),850,(150+50*i));
-				g2d.drawString(tabLevel.get(i),1150,(150+50*i));
-				g2d.drawString(tabScore.get(i),1450,(150+50*i));
+				g2d.drawString((i+1)+". ",820,(210+50*i));
+				g2d.drawString(tabPseudo.get(i),870,(210+50*i));
+				g2d.drawString(tabLevel.get(i),1150,(210+50*i));
+				g2d.drawString(tabScore.get(i),1450,(210+50*i));
 
 			}
 		}
@@ -153,6 +168,7 @@ public class MenuMort extends JPanel{
 			Object o= e.getSource();
 			
 			if(o==recommencer){
+				m.j.frame.dispose();
 				m.j= new Jeu(m.j.mc);
 			}else if(o==menu) {
 				new Menu();
