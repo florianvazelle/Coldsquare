@@ -20,6 +20,7 @@ public class Jeu{
     JBalle ba;
     MenuPause mp;
     Sauvegarde s;
+    Recommencer r;
     Personnage p;
     Niveau n;
     JLayeredPane jlp;
@@ -47,6 +48,7 @@ public class Jeu{
 	this.pseudo = p;
 	this.n = new Niveau(this);
 	this.s = new Sauvegarde(this);
+	this.r = new Recommencer(this);
 	this.frame = new MaFenetreJeu();
 
 	jlp = new JLayeredPane();
@@ -54,7 +56,7 @@ public class Jeu{
 	jlp.setOpaque(true);
 
 	this.fond =  new Terrain(frame);
-	this.mp = new MenuPause(frame,s);
+	this.mp = new MenuPause(frame,s,r);
 	this.af = new AfficherPersonnage(this, mp);
 	this.ba = new JBalle(af, frame, this);
 	
@@ -101,6 +103,7 @@ public class Jeu{
     public Jeu(MenuController m){
 	this.n = new Niveau(this);
 	this.s = new Sauvegarde(this);
+	this.r = new Recommencer(this);
 	this.frame = new MaFenetreJeu();
 	this.mc = m;
 	
@@ -118,7 +121,7 @@ public class Jeu{
 	*/
 	
 	this.fond=  new Terrain(frame);
-	this.mp = new MenuPause(frame,s);
+	this.mp = new MenuPause(frame,s,r);
 	this.af = new AfficherPersonnage(this, mp);
 	this.ba = new JBalle(af, frame, this);
 	

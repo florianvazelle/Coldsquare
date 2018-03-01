@@ -15,22 +15,28 @@ public class MenuPause extends JPanel {
     JButton reprendre;
     JButton sauvegarder;
     JButton quitter;
+    JButton recommencer;
     ControlerPause cp;
     MaFenetreJeu frame;
     Sauvegarde s;
-
+    Recommencer r;
+    Quitter q;
     
-    MenuPause(MaFenetreJeu frame, Sauvegarde save){
+    MenuPause(MaFenetreJeu frame, Sauvegarde save, Recommencer recomm){
 	this.frame = frame;
 	this.s = save;
+	this.r = recomm;
+	this.q = new Quitter(frame);
 	this.enPause = false;
 	this.cp = new ControlerPause(this, frame);
 	
 	this.reprendre = new JButton("Reprendre");
+	this.recommencer = new JButton("Recommencer");
 	this.sauvegarder = new JButton("Sauvegarder");
 	this.quitter = new JButton("Quitter");
 
 	this.reprendre.addActionListener(cp);
+	this.recommencer.addActionListener(cp);
 	this.sauvegarder.addActionListener(cp);
 	this.quitter.addActionListener(cp);
 	
@@ -47,13 +53,19 @@ public class MenuPause extends JPanel {
 	
 	contraintes.gridx = 1;
 	contraintes.gridy = 1;
-	this.add(sauvegarder,contraintes);
+	this.add(recommencer,contraintes);
 	
 	contraintes.gridx = 1;
 	contraintes.gridy = 2;
+	this.add(sauvegarder,contraintes);
+
+	contraintes.gridx = 1;
+	contraintes.gridy = 3;
 	this.add(quitter,contraintes);
 
+	recommencer.addActionListener((ActionListener) r);
 	sauvegarder.addActionListener((ActionListener) s);
+	quitter.addActionListener((ActionListener) q);
     }
 
     @Override
