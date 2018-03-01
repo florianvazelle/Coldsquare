@@ -57,18 +57,31 @@ public class MenuMort extends JPanel{
 			if(connecte == false) {
 				Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
 				connecte=true;
-				String sql= "SELECT EXISTS(SELECT Pseudo FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"')";
+				String sql= "SELECT EXISTS(SELECT * FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"')";
 				Statement verifNomSt = connexion.createStatement();
 				ResultSet verifNomRs = verifNomSt.executeQuery(sql);
-				PreparedStatement insertVal;
-				ResultSet resScore;
+				PreparedStatement insertVal=null;
+				ResultSet resScore=null;
+				Statement ResSt;
+				ResultSet ResSet;
 				verifNomRs.next();
 				if(verifNomRs.getBoolean(1)==false) {
 					insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
 					resScore = insertVal.executeQuery();
 				}else {
-					insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
-					resScore = insertVal.executeQuery();
+					String sqltmp= "SELECT * FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"'";
+					ResSt = connexion.createStatement();
+					ResSet = ResSt.executeQuery(sqltmp);
+					ResSet.next();
+					if(j.getScore()>ResSet.getInt(3)) {
+						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
+						resScore = insertVal.executeQuery();
+					}else if(j.getScore() == ResSet.getInt(3) && j.getNiveau().getLevel() > ResSet.getInt(2)) {
+						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
+						resScore = insertVal.executeQuery();
+					}
+					ResSt.close();
+					ResSet.close();
 				}
 				String sql2= "SELECT * FROM `Score` ORDER BY `Score`.`Score` DESC, `Score`.`Niveau` DESC";
 				Statement selectVal = connexion.createStatement();
@@ -86,12 +99,15 @@ public class MenuMort extends JPanel{
 					this.tabPseudo.add(pseudo);
 					this.tabScore.add(Integer.toString(score));
 					this.tabLevel.add(Integer.toString(lvl));
-
-					
+				
 				}
 				
+				if(insertVal != null)
 				insertVal.close();
+				
+				if(resScore != null)
 				resScore.close();
+				
 				selectVal.close();
 				tabScore.close();
 				connexion.close();
