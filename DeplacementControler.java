@@ -78,7 +78,7 @@ class DeplacementControler extends KeyAdapter {
 		    }
 		}
 	    }
-	    af.repaint(Steve.getCoordonneX()-50, Steve.getCoordonneY()-50, Steve.getHitbox().getWidth()+100, Steve.getHitbox().getWidth()+100);
+	    af.repaint();
 	}
     }
 }
