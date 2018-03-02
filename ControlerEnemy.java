@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class ControlerEnemy extends Thread {
     private int[][] ancienPos;
@@ -60,7 +61,7 @@ public class ControlerEnemy extends Thread {
 		
 		int targetX = path.get(path.size() - 1).getX();
 		int targetY = path.get(path.size() - 1).getY();
-		//System.out.println(" Xbase : "+perso.getCoordonneX()+" | Ybase : "+perso.getCoordonneY()+" | targetX : "+targetX+" | targetY : "+targetY); 
+		System.out.println(" Xbase : "+perso.getCoordonneX()+" | Ybase : "+perso.getCoordonneY()+" | targetX : "+targetX+" | targetY : "+targetY+" | approachValues(varX "+perso.approachValues(varX, targetX*25, perso.getSpeed())+" | approachValues(varY "+perso.approachValues(varY, targetY*25, perso.getSpeed())); 
 		perso.setCoordonneX(perso.approachValues(varX, targetX*25, perso.getSpeed()));
 		perso.setCoordonneY(perso.approachValues(varY, targetY*25, perso.getSpeed()));
 		
@@ -71,16 +72,22 @@ public class ControlerEnemy extends Thread {
 		vieInit = af.getSteve().getVie();
 		tirer();
 	    }
-	    
+
 	    if(perso.getVie() <=0)
 		perso.setAwake(false);
+
+	    try{
+		TimeUnit.MILLISECONDS.sleep(1);
+	    }catch(InterruptedException e){
+		e.printStackTrace();
+	    }
 	}
     }
     
     public void tirer(){
-	perso.setRotationX(af.getSteve().getCoordonneX());
-	perso.setRotationY(af.getSteve().getCoordonneY());
-	if(perso.getArme().getMunition()>0)
+	this.perso.setRotationX(af.getSteve().getCoordonneX());
+	this.perso.setRotationY(af.getSteve().getCoordonneY());
+	if(this.perso.getArme().getMunition()>0 && !this.perso.getATirer())
 	    (new Tirer(perso, frame, af, ba, mp, t)).start();
     }
 

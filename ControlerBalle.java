@@ -25,12 +25,12 @@ public class ControlerBalle extends Thread {
 	animationTirer();
     }
     
-    public double avancerX(double length,double angle){
-	return Math.cos(angle)*2;
+    private double avancerX(int speed, double angle){
+	return Math.cos(angle)*speed;
     }
     
-    public double avancerY(double length, double angle){
-	return Math.sin(angle)*2;
+    private double avancerY(int speed, double angle){
+	return Math.sin(angle)*speed;
     }
     
     void animationTirer(){
@@ -43,9 +43,9 @@ public class ControlerBalle extends Thread {
 	
 	while((x < frame.getWidth() && y < frame.getHeight() && x > 0 && y > 0) && b.getEnJeu() ){
 	    
-	    x += avancerX(2, angle);
+	    x += avancerX(b.getSpeed(), angle);
 	    b.setX(x);
-	    y += avancerY(2, angle);
+	    y += avancerY(b.getSpeed(), angle);
 	    b.setY(y);
 	    
 	    try{

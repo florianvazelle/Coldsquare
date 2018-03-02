@@ -26,10 +26,12 @@ public class Tirer extends Thread {
     }
 
     public void run(){
+	this.perso.setATirer(true);
 	tirer();	
+	this.perso.setATirer(false);
     }
     
-    public synchronized void tirer(){
+    public void tirer(){	
 	int nbMun = this.perso.getArme().getMunition();
 	if(nbMun>0){
 	    this.perso.getArme().setMunition(nbMun-1);
@@ -50,7 +52,7 @@ public class Tirer extends Thread {
 	    System.out.println("Munition : "+this.perso.getArme().getMunition());	
 	    
 	    try{
-		TimeUnit.SECONDS.sleep(this.perso.getArme().getCadence());
+		TimeUnit.MILLISECONDS.sleep(1000-(this.perso.getArme().getCadence()-1)*2);
 	    }catch(InterruptedException e){
 		e.printStackTrace();
 	    }

@@ -6,6 +6,7 @@ public class Balle {
     
     private boolean enJeu;
     private double x, y;
+    private int speed;
     private MonPoint souris;
     private Personnage tireur;
     private Sprite image;
@@ -14,13 +15,14 @@ public class Balle {
     
     public Balle(Personnage tireur, MonPoint souris, MaFenetreJeu frame){
 	this.enJeu = true;
+	this.speed = 2;
 	this.tireur = tireur;
 	this.x = tireur.getCoordonneX();
 	this.y = tireur.getCoordonneY();
 	this.souris = souris;
 	this.frame = frame;
 	this.image = new Sprite("./assets/balle.png");
-	this.image.redimensionnerSprite(frame.getHeight(), frame.getWidth(), 283, 283, 20, 20);
+	this.image.redimensionnerSprite(frame.getHeight(), frame.getWidth(), 283, 283, 10, 10);
 	this.balleHB = new Hitbox(this);
     }
     
@@ -53,6 +55,10 @@ public class Balle {
 	this.y=y;
 	this.balleHB.setY(y+10);
     }
+
+    public int getSpeed(){
+	return this.speed;
+    }
     
     public Sprite getSprite(){
 	return this.image;
@@ -60,6 +66,10 @@ public class Balle {
     
     public Hitbox getHitbox(){
 	return this.balleHB;
+    }
+
+    public void setHitbox(Hitbox h){
+	this.balleHB = h;
     }
 }
 

@@ -54,7 +54,7 @@ public class AStar {
     }
     
     public void checkAndUpdateCost(Node current, Node t, int cost){
-	if(t == null || closedList[t.getX()][t.getY()]) return;
+	if(t == null || closedList[t.getX()][t.getY()] || grid[t.getX()][t.getY()] == null) return;
 	int t_final_cost = t.heuristic+cost;
 	
 	boolean inOpen = openList.contains(t);

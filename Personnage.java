@@ -23,6 +23,7 @@ class Personnage {
     private int rotationY;
     private Hitbox hb;
     private Hitbox hbcc; // Corps a corps
+    private boolean aTirer;
     ArrayList<Sprite> listeDeSprite;
 
     // Faire plusieurs constructeurs pour l'arme
@@ -37,6 +38,7 @@ class Personnage {
         this.listeDeSprite = new ArrayList<Sprite>();
 	this.rotationX = 0;
         this.rotationY = 0;
+	this.aTirer = false;
     }
 
     public Personnage(String nom, int vie, String skin, int x_de_base, int y_de_base, Arme arme){
@@ -49,9 +51,10 @@ class Personnage {
         this.listeDeSprite = new ArrayList<Sprite>();
 	this.rotationX = 0;
         this.rotationY = 0;
+	this.aTirer = false;
     }
     
-    void addListeDeSprite(Sprite sp){
+    public void addListeDeSprite(Sprite sp){
         this.listeDeSprite.add(sp);
 	if(this.listeDeSprite.size() == 1){
 	    this.hb = new Hitbox(this);
@@ -63,24 +66,24 @@ class Personnage {
 	}
     }
 
-    String getNom(){
+    public String getNom(){
         return this.nom;
     }
 
-    int getVie(){
+    public int getVie(){
         return this.vie;
     }
 
-    void setVie(int newVie){
+    public void setVie(int newVie){
         this.vie=newVie;
 	System.out.println("here1 "+newVie);
     }
 
-    Arme getArme(){
+    public Arme getArme(){
         return this.arme;
     }
 
-    void setArme(Arme newArme){
+    public void setArme(Arme newArme){
         this.arme=newArme;
     }
     
@@ -91,25 +94,26 @@ class Personnage {
     public void setCac(boolean b) {
 	   this.cac=b;
     }
-    String getSkin(){
+
+    public String getSkin(){
         return this.skin;
     }
 
-    int getCoordonneX(){
+    public int getCoordonneX(){
 	return this.coordonneX;
     }
 
-    void setCoordonneX(int newX){
+    public void setCoordonneX(int newX){
 	this.coordonneX=newX;
 	hb.setX(newX);
 	hbcc.setX(newX-3);
     }
 
-    int getCoordonneY(){
+    public int getCoordonneY(){
 	return this.coordonneY;
     }
 
-    void setCoordonneY(int newY){
+    public void setCoordonneY(int newY){
 	this.coordonneY=newY;
 	if(this.nom == "Steve")
 	    hb.setY(newY+24);
@@ -118,35 +122,44 @@ class Personnage {
 	hbcc.setY(newY-3);
     }
 
-    int getRotationX(){
+    public int getRotationX(){
         return this.rotationX;
     }
 
-    void setRotationX(int rotationX){
+    public void setRotationX(int rotationX){
         this.rotationX = rotationX;
     }
 
-    int getRotationY(){
+    public int getRotationY(){
         return this.rotationY;
     }
 
-    void setRotationY(int rotationY){
+    public void setRotationY(int rotationY){
         this.rotationY = rotationY;
     }
 
-    Hitbox getHitbox(){
+    public Hitbox getHitbox(){
 	return this.hb;
     }
 
-    void setHitbox(Hitbox h){
+    public void setHitbox(Hitbox h){
 	this.hb = h;
     }
     
-    Hitbox getHitboxCC(){
+    public Hitbox getHitboxCC(){
 	return this.hbcc;
     }
 
-    void setHitboxCC(Hitbox h){
+    public void setHitboxCC(Hitbox h){
 	this.hbcc = h;
     }
+
+    public boolean getATirer(){
+	return this.aTirer;
+    }
+
+    public void setATirer(boolean aTirer){
+	this.aTirer = aTirer;
+    }
+
 }

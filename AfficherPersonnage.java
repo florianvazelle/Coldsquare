@@ -92,7 +92,8 @@ class AfficherPersonnage extends JPanel {
 			double degreeEnemy = orientation(8+currentEnemy.getCoordonneX(), 15+currentEnemy.getCoordonneY(), steve.getCoordonneX(), steve.getCoordonneY());
 		    	g2d.rotate(Math.toRadians(degreeEnemy), 8+currentEnemy.getCoordonneX(), 15+currentEnemy.getCoordonneY());
 		    }
-		    g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);      
+		    g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);
+		    g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
 		}
 		g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
 	    }

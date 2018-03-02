@@ -18,6 +18,7 @@ public class ControlerPause implements ActionListener {
 	    frame.getLayeredPane().remove(mp);
 	    frame.setFocusable(true);                                                                                                                                                      
             frame.requestFocus();
+	    frame.getLayeredPane().repaint();
 	}
     }
 }

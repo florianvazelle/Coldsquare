@@ -48,6 +48,9 @@ public class JBalle extends JPanel {
 		AffineTransform t = new AffineTransform();
                 t.translate(currentBalle.getX(), currentBalle.getY());
 		g2d.drawImage(currentBalle.getSprite().getImage(), t, null);
+		
+		g.drawRect((int)currentBalle.getHitbox().getX(), (int)currentBalle.getHitbox().getY(), currentBalle.getHitbox().getWidth(), currentBalle.getHitbox().getHeight());
+		
 	    }
         }
     }
@@ -67,7 +70,7 @@ public class JBalle extends JPanel {
 	}
 	this.j.jlp.repaint();
 	currentBalle.setEnJeu(false);
-
+	currentBalle.setHitbox(new Hitbox());
 	
 	if(this.j.verifWin()){
 	    Personnage Steve= af.getSteve();
