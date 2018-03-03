@@ -17,7 +17,6 @@ public class Menu {
     private JLabel title;
     private JLabel test;
     private static Menu m;
-    public ButtonGroup bg = new ButtonGroup();
     public JTextField pseudo = new JTextField();
     public JTextField recherche = new JTextField();
     
@@ -32,11 +31,11 @@ public class Menu {
     }
     
     public void ecranMenu() {
-	JLabel titre = new JLabel("ColdSquare");
-	JButton jouer = new JButton("Nouvelle Partie");
-	JButton charger = new JButton("Charger Partie");
-	JButton options = new JButton("Options");
-	JButton quitter = new JButton("Quitter");
+	JLabel titre = new JLabel();
+	titre.setIcon(new ImageIcon("./assets/Colsquare.png"));
+	JButton jouer = new JButton(new ImageIcon("./assets/Nouvelle.png"));
+	JButton charger = new JButton(new ImageIcon("./assets/Charger.png"));
+	JButton quitter = new JButton(new ImageIcon("./assets/Quitter.png"));
 	menu.setLayout(new GridBagLayout());
 	GridBagConstraints contraintes = new GridBagConstraints();
 	
@@ -67,75 +66,24 @@ public class Menu {
 	contraintes.gridx = 1;
 	contraintes.gridy = 2;
 	menu.add(charger,contraintes);
-	
-	contraintes.gridx = 1;
-	contraintes.gridy = 3;
-	menu.add(options, contraintes);
 		
 	contraintes.gridx = 1;
-	contraintes.gridy = 4;
+	contraintes.gridy = 3;
 	menu.add(quitter, contraintes);
 	
 	cards.add(menu,listContent[0]);
 	
 	MenuController c1 = new MenuController(1,menu);
 	MenuController c2 = new MenuController(2,menu);
-	MenuController c3 = new MenuController(3,menu);
 	MenuController c4 = new MenuController(4,menu);
 	c1.setMenu(this);
 	c2.setMenu(this);
-	c3.setMenu(this);
 	c4.setMenu(this);
 	jouer.addActionListener((ActionListener) c1);
 	charger.addActionListener((ActionListener) c2);
-	options.addActionListener((ActionListener) c3);
 	quitter.addActionListener((ActionListener) c4);
 	affichageCharger();
-	affichageOptions();
 	affichagePseudo();
-    }
-    
-    public void affichageOptions() {
-	
-	JRadioButton easy = new JRadioButton("Facile");
-	JRadioButton medium = new JRadioButton("Moyen");
-	JRadioButton hard = new JRadioButton("Difficile");
-	options.setLayout(new GridBagLayout());
-	GridBagConstraints contrainte = new GridBagConstraints();
-	JButton retour = new JButton(new ImageIcon("./assets/maison.png"));
-
-	
-	easy.setSelected(true);
-	
-	bg.add(easy);
-	bg.add(medium);
-	bg.add(hard);
-	
-	contrainte.gridx = 0;
-        contrainte.gridy = 0;
-        contrainte.fill = GridBagConstraints.HORIZONTAL;
-        contrainte.anchor = GridBagConstraints.CENTER;
-	contrainte.insets = new Insets(10,30,30,10);
-	options.add(easy, contrainte);
-
-	contrainte.gridx = 1;
-	contrainte.gridy = 0;
-	options.add(medium, contrainte);
-
-	contrainte.gridx = 2;
-	contrainte.gridy = 0;
-	options.add(hard, contrainte);
-      
-	contrainte.gridx = 2;
-	contrainte.gridy = 1;
-	contrainte.insets = new Insets(350,0,0,500);
-	options.add(retour, contrainte);
-	
-	MenuController c1 = new MenuController(5,menu);
-	c1.setMenu(this);
-	retour.addActionListener((ActionListener) c1);
-
-	cards.add(options,listContent[1]);
     }
     
     public void affichageCharger() {
