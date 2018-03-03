@@ -30,10 +30,10 @@ public class MenuPause extends JPanel {
 	this.enPause = false;
 	this.cp = new ControlerPause(this, frame);
 	
-	this.reprendre = new JButton("Reprendre");
-	this.recommencer = new JButton("Recommencer");
-	this.sauvegarder = new JButton("Sauvegarder");
-	this.quitter = new JButton("Quitter");
+	this.reprendre = new JButton(new ImageIcon("./assets/Reprendre.png"));
+	this.recommencer = new JButton(new ImageIcon("./assets/Recommencer.png"));
+	this.sauvegarder = new JButton(new ImageIcon("./assets/Sauvegarder.png"));
+	this.quitter = new JButton(new ImageIcon("./assets/Quitter.png"));
 
 	this.reprendre.addActionListener(cp);
 	this.recommencer.addActionListener(cp);
