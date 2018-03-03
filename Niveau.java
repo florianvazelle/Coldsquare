@@ -38,6 +38,7 @@ public class Niveau extends JPanel{
     private Personnage perso;
     private int nbAmelioration;
     private Jeu j;
+	private int score;
     
     public Niveau(Jeu j){
     	this.j=j;
@@ -191,6 +192,14 @@ public class Niveau extends JPanel{
 	this.level = l;
     }
     
+	public void setScore(int ss) {
+		this.score = ss;
+	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
     public boolean getWin() {
     	return this.lvlWin;
     }
