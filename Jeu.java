@@ -158,6 +158,10 @@ public class Jeu{
     
     void jouer() {
 	
+	 this.n = this.getNiveau();
+	 this.scoreN = this.getScore();
+	 n.setScore(scoreN);
+	    
 	jlp.repaint();
 	af.boiteMunition.clear();
 	for(int i = af.personnageVisible.size()-1 ; i >= 0 ; i--){
