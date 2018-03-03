@@ -229,6 +229,7 @@ public class Jeu{
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort2.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort3.png"));
+	Ennemi.getHitbox().setHeight(Ennemi.getHitbox().getHeight()-13);
 	
 	int distanceX = Ennemi.getCoordonneX()- af.getSteve().getCoordonneX();
 	int distanceY = Ennemi.getCoordonneY()- af.getSteve().getCoordonneY();
