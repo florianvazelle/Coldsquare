@@ -57,7 +57,8 @@ public class JBalle extends JPanel {
 
     void balleToucher(Personnage currentPerso, Balle currentBalle, int i){
 	currentPerso.setVie(currentPerso.getVie()-1);
-	if(currentPerso.getVie() == 0) {
+	Personnage Steve= af.getSteve();
+	if(currentPerso.getVie() == 0 && currentPerso != Steve) {
 	    this.j.setScore(this.j.getScore()+20);
 	    this.j.setEnnemisRestants(this.j.getEnnemisRestants()-1);
 	    Random r = new Random();
@@ -73,7 +74,6 @@ public class JBalle extends JPanel {
 	currentBalle.setHitbox(new Hitbox());
 	
 	if(this.j.verifWin()){
-	    Personnage Steve= af.getSteve();
 	    Niveau n = this.j.getNiveau();
 	    Steve.setVie(n.getVie());
 	    Steve.getArme().setCadence(n.getCadence());
