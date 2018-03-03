@@ -131,7 +131,7 @@ public class MenuMort extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.fillRect(0,0,1920,1040);
 		g2d.setColor(new Color(250,250,250));
-		g2d.drawRect(800,100,900,600);
+		g2d.drawRect(800,100,900,700);
 		g2d.setColor(Color.RED);
 		g2d.setFont(new Font("Verdana", Font.BOLD , 20)); 
 		g2d.drawString("GAME OVER", 200, 200);
@@ -142,11 +142,12 @@ public class MenuMort extends JPanel{
 		g2d.drawString("Pseudo", 870, 150);
 		g2d.drawString("Niveau", 1150, 150);
 		g2d.drawString("Score ", 1450 , 150);
+		int posTab=-1;
 		if(tabPseudo.size()<10) {
 			for(int i=0; i< tabPseudo.size() ; i++) {
 
 				if(j.mc.getNom().equals(tabPseudo.get(i))) {
-					g2d.setColor(new Color(219,169,1));	
+					g2d.setColor(new Color(219,169,1));
 				}else {
 					g2d.setColor(Color.WHITE);
 				}
@@ -159,6 +160,7 @@ public class MenuMort extends JPanel{
 			for(int i=0; i< 10 ; i++) {
 				if(j.mc.getNom().equals(tabPseudo.get(i))) {
 					g2d.setColor(new Color(219,169,1));	
+					posTab=i;
 				}else {
 					g2d.setColor(Color.WHITE);
 				}
@@ -168,7 +170,25 @@ public class MenuMort extends JPanel{
 				g2d.drawString(tabScore.get(i),1450,(210+50*i));
 
 			}
+			if(posTab==-1) {
+			for(int i=0;i<tabPseudo.size();i++) {
+				if(j.mc.getNom().equals(tabPseudo.get(i))) {
+					g2d.setColor(new Color(219,169,1));	
+					posTab=i;
+				}
+			}
+				g2d.drawString((posTab+1)+". ",820,(210+50*11));
+				g2d.drawString(tabPseudo.get(posTab),870,(210+50*11));
+				g2d.drawString(tabLevel.get(posTab),1150,(210+50*11));
+				g2d.drawString(tabScore.get(posTab),1450,(210+50*11));
+			
+			}
 		}
+		
+		
+		
+		
+		
 	}
 	
 	
