@@ -118,7 +118,7 @@ class Personnage {
 	if(this.nom == "Steve")
 	    hb.setY(newY+24);
 	else
-	    hb.setY(newY);
+	    hb.setY(newY+13);
 	hbcc.setY(newY-3);
     }
 
