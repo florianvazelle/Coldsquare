@@ -36,7 +36,8 @@ public class Jeu{
     int munitions;
     int level;
     boolean cac;
-    
+    int scoreN;
+	
     public Jeu(int v, int c, int m, int e, int l, int sc, boolean ca, String p) {
 	this.vie = v;
 	this.cadence = c;
