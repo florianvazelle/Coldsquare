@@ -53,7 +53,7 @@ public class ControlerBalle extends Thread {
 	    }catch(InterruptedException e){
 		e.printStackTrace();
 	    }
-	    ba.repaint((int)x-50, (int)y-50, 200, 200);
+	    ba.repaint((int)x-100, (int)y-100, 400, 400);
 
 	    for(int j = 0 ; j!=t.listeMur.size() ; j++){
 		if(Hitbox.collision(b.getHitbox(), t.listeMur.get(j).getHitbox())){
