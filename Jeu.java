@@ -84,7 +84,7 @@ public class Jeu{
 	ba.setBounds(0,0,1920,1040);
 	mp.setBounds(0,0,1920,1040);
 	i.setBounds(0,500,250,450);
-	n.setBounds(150, 150, 1600, 700);
+	n.setBounds(0, 0, 1920, 1040);
 
 	af.setOpaque(false);
 	ba.setOpaque(false);
@@ -141,7 +141,7 @@ public class Jeu{
 	ba.setBounds(0,0,1920,1040);
 	mp.setBounds(0,0,1920,1040);
 	i.setBounds(0,500,250,450);
-	n.setBounds(150, 150, 1600, 700);
+	n.setBounds(0, 0, 1920, 1040);
 	
 	af.setOpaque(false);
 	ba.setOpaque(false);
