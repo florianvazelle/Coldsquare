@@ -66,15 +66,15 @@ public class Niveau extends JPanel{
     	moinsjb4= new JButton(moins);
     	suivant= new JButton("suivant");
 
-    	plusjb.setBounds(1100,230,50,50);
-    	plusjb2.setBounds(1100,290,50,50);
-    	plusjb3.setBounds(1100,350,50,50);
-    	plusjb4.setBounds(1100,410,50,50);
-    	moinsjb.setBounds(1170,230,50,50);
-    	moinsjb2.setBounds(1170,290,50,50);
-    	moinsjb3.setBounds(1170,350,50,50);
-    	moinsjb4.setBounds(1170,410,50,50);
-    	suivant.setBounds(1050,620,250,50);
+    	plusjb.setBounds(1150,230,50,50);
+    	plusjb2.setBounds(1150,290,50,50);
+    	plusjb3.setBounds(1150,350,50,50);
+    	plusjb4.setBounds(1150,410,50,50);
+    	moinsjb.setBounds(1220,230,50,50);
+    	moinsjb2.setBounds(1220,290,50,50);
+    	moinsjb3.setBounds(1220,350,50,50);
+    	moinsjb4.setBounds(1220,410,50,50);
+    	suivant.setBounds(890,720,250,50);
 
 	BoutonListener b = new BoutonListener(this);
     	plusjb.addActionListener(b);
@@ -110,29 +110,30 @@ public class Niveau extends JPanel{
 	Graphics2D g2d = (Graphics2D) g;
    	g.fillRect(0,0,1920,1040);
  
-	g2d.drawImage(vie.getImage(), 800,230, this);      
-	g2d.drawImage(balle.getImage(), 800,290, this);      
-	g2d.drawImage(cadence.getImage(), 800,350, this);      
-	g2d.drawImage(cac.getImage(), 800,410, this);      
+	g2d.drawImage(vie.getImage(), 750,230, this);      
+	g2d.drawImage(balle.getImage(), 750,290, this);      
+	g2d.drawImage(cadence.getImage(), 750,350, this);      
+	g2d.drawImage(cac.getImage(), 750,410, this);      
 	g2d.setColor(Color.WHITE);
+	g2d.setFont(new Font("Verdana", Font.BOLD , 40)); 
+	g2d.drawString("LEVEL "+level+" COMPLETE", 760, 200);
 	g2d.setFont(new Font("Verdana", Font.BOLD , 20)); 
-	g2d.drawString("Level "+level+" Complete", 800, 200);
-	g2d.drawString("Vie : "+nbVie, 870, 255);
-	g2d.drawString("Munitions : "+nbBalle, 870, 315);
-	g2d.drawString("Cadence : "+nbCadence, 870, 375);
+	g2d.drawString("Vie : "+nbVie, 820, 255);
+	g2d.drawString("Munitions : "+nbBalle, 820, 315);
+	g2d.drawString("Cadence : "+nbCadence, 820, 375);
 	
 
 	if(this.val_CAC==false)
-		g2d.drawString("Corps a Corps : Non", 870, 435);
+		g2d.drawString("Corps a Corps : Non", 820, 435);
 	else if(this.val_CAC==true)
-		g2d.drawString("Corps a Corps : Oui", 870, 435);
+		g2d.drawString("Corps a Corps : Oui", 820, 435);
 
 	
 	//g2d.drawImage(plus.getImage(), 1050,230, this);      
 	//g2d.drawImage(plus.getImage(), 1050,290, this);      
 	//g2d.drawImage(plus.getImage(), 1050,350, this);      
 	//g2d.drawImage(plus.getImage(), 1050,410, this);  
-	g2d.drawString("Amelioration possible : "+nbAmelioration, 800, 550);
+	g2d.drawString("Amelioration possible : "+nbAmelioration, 750, 550);
 
     }
  
