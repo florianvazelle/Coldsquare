@@ -27,9 +27,7 @@ class Sauvegarde implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 	
-	mc = j.mc;
-	
-	this.pseudo = mc.getNom();
+	this.pseudo = j.getPseudo();
         this.vie = n.getVie();
         this.cadence = n.getCadence();
 	this.enemis = n.getEnnemis();
