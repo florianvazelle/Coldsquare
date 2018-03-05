@@ -204,7 +204,9 @@ public class MenuMort extends JPanel{
 			
 			if(o==recommencer){
 				m.j.frame.dispose();
+				String s= m.j.getPseudo();
 				m.j= new Jeu(m.j.mc);
+				m.j.setPseudo(s);
 			}else if(o==menu) {
 				new Menu();
 				m.j.frame.dispose();
