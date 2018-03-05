@@ -5,8 +5,8 @@ import java.io.*;
 
 public class AStar {
     private static Node [][] grid = new Node[5][5];
-    private PriorityQueue<Node> openList;
-    private boolean closedList[][];
+    private PriorityQueue<Node> openList; // Contains all nodes to be sorted
+    private boolean closedList[][]; // Contains nodes sorted by their heuristic
     private final boolean[][] map;
 
     private Enemy enemy;
@@ -54,13 +54,19 @@ public class AStar {
     }
     
     public void checkAndUpdateCost(Node current, Node t, int cost){
+	/* If the neighbour is walkable and in the waiting list */
 	if(t == null || closedList[t.getX()][t.getY()] || grid[t.getX()][t.getY()] == null) return;
 	int t_final_cost = t.heuristic+cost;
 	
 	boolean inOpen = openList.contains(t);
+	/* If the new way to this neighbour is shorter */
 	if(!inOpen || t_final_cost<t.finalCost){
+	    /* Update heuristic and moving costs */
 	    t.finalCost = t_final_cost;
+	    
+	    /* Assign current node as neighbour's parent */
 	    t.setParent(current);
+	    
 	    if(!inOpen)
 		openList.add(t);
 	}
@@ -75,7 +81,8 @@ public class AStar {
             checkX = current.getX() + n.getX();
             checkY = current.getY() + n.getY();
             if((checkX < xLimit && checkY < yLimit && checkX > 0 && checkY > 0) && !(checkX == current.getX() && checkY == current.getY())){
-                neighbours.add(new Node(checkX, checkY));
+		/* If so, then the node is added to the list of neighbours */
+		neighbours.add(new Node(checkX, checkY));
             }
         }
         return neighbours;
@@ -84,6 +91,7 @@ public class AStar {
     private ArrayList<Node> getNeighboursVH(Node current){
 	ArrayList<Node> directions = new ArrayList<Node>(); // Contains every node adjacent to the current position
 
+	// Preparing horizontal and vertical directions
 	directions.add(new Node(-1, 0));
 	directions.add(new Node(1, 0));
 	directions.add(new Node(0, -1));
@@ -94,7 +102,8 @@ public class AStar {
 
     private ArrayList<Node> getNeighboursDIA(Node current){
 	ArrayList<Node> directions = new ArrayList<Node>(); // Contains every node adjacent to the current position
-	
+
+	// Preparing all diagonal directions
 	directions.add(new Node(1, 1));
 	directions.add(new Node(-1, -1));
 	directions.add(new Node(-1, 1));
@@ -156,12 +165,14 @@ public class AStar {
 	    
 	    if(current.getX()  == target.getX() && current.getY() == target.getY())
 		return retracePath(start, current);
-	    
+
+	    /* Retrieve horizontal and vertical node's neighbours */
 	    neighbours = getNeighboursVH(current);
 	    for(Node neighbour : neighbours){
 		checkAndUpdateCost(current, neighbour, current.finalCost+V_H_COST);
 	    }
-	    
+
+	    /* Retrieve diagonal node's neighbours */
 	    neighbours = getNeighboursDIA(current);
 	    for(Node neighbour : neighbours){
 		checkAndUpdateCost(current, neighbour, current.finalCost+DIAGONAL_COST);

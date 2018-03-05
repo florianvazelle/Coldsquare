@@ -66,8 +66,10 @@ public class Terrain extends JPanel {
 	    Mur currentMur = listeMur.get(i);
 
 	    //HITBOX
-	    g.setColor(Color.BLUE);
-	    g.drawRect((int)currentMur.getHitbox().getX(), (int)currentMur.getHitbox().getY(), currentMur.getHitbox().getWidth(), currentMur.getHitbox().getHeight());
+	    /*
+	      g.setColor(Color.BLUE);
+	      g.drawRect((int)currentMur.getHitbox().getX(), (int)currentMur.getHitbox().getY(), currentMur.getHitbox().getWidth(), currentMur.getHitbox().getHeight());
+	    */
 	    
 	    if(currentMur.getLongueur() >= currentMur.getLargeur()){
 		for(int j = 0 ; j<currentMur.getLongueur() ; j+=25)

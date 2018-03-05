@@ -62,9 +62,10 @@ class AfficherPersonnage extends JPanel {
 	g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
 	
 	//HITBOX
-	g.setColor(Color.BLUE);
-	g.drawRect((int)steve.getHitbox().getX(), (int)steve.getHitbox().getY(), steve.getHitbox().getWidth(), steve.getHitbox().getHeight());
-	
+	/*
+	  g.setColor(Color.BLUE);
+	  g.drawRect((int)steve.getHitbox().getX(), (int)steve.getHitbox().getY(), steve.getHitbox().getWidth(), steve.getHitbox().getHeight());
+	*/
 	
 	if(!personnageVisible.isEmpty()){
 	    for(int i = 0 ; i < personnageVisible.size() ; i++){
@@ -95,7 +96,8 @@ class AfficherPersonnage extends JPanel {
 		    g2d.drawImage(currentEnemy.listeDeSprite.get(0).getImage(), currentEnemy.getCoordonneX(), currentEnemy.getCoordonneY(), this);
 		    g2d.setTransform(originalTransform); // Reinitialise la transformation comme sauvegarder ulterierement
 		}
-		g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
+		//HITBOX
+		//g.drawRect((int)currentEnemy.getHitbox().getX(), (int)currentEnemy.getHitbox().getY(), currentEnemy.getHitbox().getWidth(), currentEnemy.getHitbox().getHeight());
 	    }
 	}
 	

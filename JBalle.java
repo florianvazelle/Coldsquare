@@ -49,8 +49,8 @@ public class JBalle extends JPanel {
                 t.translate(currentBalle.getX(), currentBalle.getY());
 		g2d.drawImage(currentBalle.getSprite().getImage(), t, null);
 		
-		g.drawRect((int)currentBalle.getHitbox().getX(), (int)currentBalle.getHitbox().getY(), currentBalle.getHitbox().getWidth(), currentBalle.getHitbox().getHeight());
-		
+		//HITBOX
+		//g.drawRect((int)currentBalle.getHitbox().getX(), (int)currentBalle.getHitbox().getY(), currentBalle.getHitbox().getWidth(), currentBalle.getHitbox().getHeight());
 	    }
         }
     }
