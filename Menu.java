@@ -21,7 +21,7 @@ public class Menu {
     public JTextField recherche = new JTextField();
     
     public Menu() {
-	f.setSize(800,600);
+	f.setSize(800,800);
 	f.setLocationRelativeTo(null);
 	f.setTitle("ColdSquare");
 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
