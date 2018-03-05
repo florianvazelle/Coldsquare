@@ -349,6 +349,14 @@ public class Jeu{
 	this.score=s;
     }
     
+	public void setPseudo(String nom) {
+		this.pseudo = nom;
+	}
+	
+	public String getPseudo() {
+		return this.pseudo;
+	}
+	
     public int getEnnemisRestants() {
 	return this.ennemisRestants;
     }
