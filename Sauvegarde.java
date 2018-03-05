@@ -51,10 +51,8 @@ class Sauvegarde implements ActionListener {
 	    
 	    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+enemis+","+level+","+score+","+cac+")");
 	    ResultSet sauvegardeComplete = insertVal.executeQuery();
-	    if (sauvegardeComplete.first()) {
-		JOptionPane jop = new JOptionPane();
-		jop.showMessageDialog(null,"Sauvegarde réussie!","Information",JOptionPane.INFORMATION_MESSAGE);
-	    }
+	JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Sauvegarde réussie!","Information",JOptionPane.INFORMATION_MESSAGE);
 	    insertVal.close();
 	    sauvegardeComplete.close();
 	   connexion.close();
