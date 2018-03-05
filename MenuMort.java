@@ -56,7 +56,7 @@ public class MenuMort extends JPanel{
 			if(connecte == false) {
 				Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
 				connecte=true;
-				String sql= "SELECT EXISTS(SELECT * FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"')";
+				String sql= "SELECT EXISTS(SELECT * FROM `Score` WHERE Pseudo='"+j.getPseudo()+"')";
 				Statement verifNomSt = connexion.createStatement();
 				ResultSet verifNomRs = verifNomSt.executeQuery(sql);
 				PreparedStatement insertVal=null;
@@ -65,18 +65,18 @@ public class MenuMort extends JPanel{
 				ResultSet ResSet;
 				verifNomRs.next();
 				if(verifNomRs.getBoolean(1)==false) {
-					insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.mc.getNom()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
+					insertVal = connexion.prepareStatement("INSERT INTO Score VALUES('"+j.getPseudo()+"',"+j.getNiveau().getLevel()+","+j.getScore()+")");
 					resScore = insertVal.executeQuery();
 				}else {
-					String sqltmp= "SELECT * FROM `Score` WHERE Pseudo='"+j.mc.getNom()+"'";
+					String sqltmp= "SELECT * FROM `Score` WHERE Pseudo='"+j.getPseudo()+"'";
 					ResSt = connexion.createStatement();
 					ResSet = ResSt.executeQuery(sqltmp);
 					ResSet.next();
 					if(j.getScore()>ResSet.getInt(3)) {
-						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
+						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.getPseudo()+"';");
 						resScore = insertVal.executeQuery();
 					}else if(j.getScore() == ResSet.getInt(3) && j.getNiveau().getLevel() > ResSet.getInt(2)) {
-						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.mc.getNom()+"';");
+						insertVal = connexion.prepareStatement("UPDATE `Score` SET `Niveau` = '"+j.getNiveau().getLevel()+"', `Score` = '"+j.getScore()+"' WHERE `Score`.`Pseudo` = '"+j.getPseudo()+"';");
 						resScore = insertVal.executeQuery();
 					}
 					ResSt.close();
@@ -135,7 +135,7 @@ public class MenuMort extends JPanel{
 		g2d.setFont(new Font("Verdana", Font.BOLD , 20)); 
 		g2d.drawString("GAME OVER", 200, 200);
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Pseudo : "+j.mc.getNom(), 200, 300);
+		g2d.drawString("Pseudo : "+j.getPseudo(), 200, 300);
 		g2d.drawString("Niveau : "+j.getNiveau().getLevel(), 200, 350);
 		g2d.drawString("Score : "+j.getScore(), 200 , 400);
 		g2d.drawString("Pseudo", 870, 150);
@@ -145,7 +145,7 @@ public class MenuMort extends JPanel{
 		if(tabPseudo.size()<10) {
 			for(int i=0; i< tabPseudo.size() ; i++) {
 
-				if(j.mc.getNom().equals(tabPseudo.get(i))) {
+				if(j.getPseudo().equals(tabPseudo.get(i))) {
 					g2d.setColor(new Color(219,169,1));
 				}else {
 					g2d.setColor(Color.WHITE);
@@ -157,7 +157,7 @@ public class MenuMort extends JPanel{
 			}	
 		}else {
 			for(int i=0; i< 10 ; i++) {
-				if(j.mc.getNom().equals(tabPseudo.get(i))) {
+				if(j.getPseudo().equals(tabPseudo.get(i))) {
 					g2d.setColor(new Color(219,169,1));	
 					posTab=i;
 				}else {
@@ -171,7 +171,7 @@ public class MenuMort extends JPanel{
 			}
 			if(posTab==-1) {
 			for(int i=0;i<tabPseudo.size();i++) {
-				if(j.mc.getNom().equals(tabPseudo.get(i))) {
+				if(j.getPseudo().equals(tabPseudo.get(i))) {
 					g2d.setColor(new Color(219,169,1));	
 					posTab=i;
 				}
