@@ -36,17 +36,28 @@ class Charger implements ActionListener {
 
 	try {
 	    Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
-	    PreparedStatement insertVal = connexion.prepareStatement("SELECT * FROM Sauvegarde WHERE pseudo = '"+pseudo+"'");
-	    ResultSet rs = insertVal.executeQuery();
-	    while (rs.next()) {
-		vie = rs.getInt(2);
-		cadence = rs.getInt(3);
-		munitions = rs.getInt(4);
-		enemis = rs.getInt(5);
-		level = rs.getInt(6);
-		score = rs.getInt(7);
-		cac = rs.getBoolean(8);
-	    }
+
+	    PreparedStatement verifPseudo = connexion.prepareStatement("SELECT EXISTS(SELECT * FROM Sauvegarde WHERE Pseudo='"+pseudo+"')");
+	    ResultSet verif = verifPseudo.executeQuery();
+	    verif.next();
+	    if (verif.getBoolean(1) == false) {
+		JOptionPane jop = new JOptionPane();
+		jop.showMessageDialog(null,"Pseudo inexistant!","Error",JOptionPane.ERROR_MESSAGE);
+	    } else {
+		PreparedStatement insertVal = connexion.prepareStatement("SELECT * FROM Sauvegarde WHERE pseudo = '"+pseudo+"'");
+		ResultSet rs = insertVal.executeQuery();
+		while (rs.next()) {
+		    vie = rs.getInt(2);
+		    cadence = rs.getInt(3);
+		    munitions = rs.getInt(4);
+		    enemis = rs.getInt(5);
+		    level = rs.getInt(6);
+		    score = rs.getInt(7);
+		    cac = rs.getBoolean(8);
+		}
+		insertVal.close();
+		rs.close();
+	    
 	    j = new Jeu(vie,cadence,munitions,enemis,level,score,cac,pseudo);
 	    /*
 	    n.setVie(vie);
@@ -58,14 +69,14 @@ class Charger implements ActionListener {
 	    j.setScore(score);
 	    */
 	    j.jouer();
-	    
-	    insertVal.close();
-	    rs.close();
+
+	    verifPseudo.close();
+	    verif.close();
 	    connexion.close();
 
 	    m.f.setVisible(false);
 	    m.f.dispose();
-	    
+	    }
 	} catch (SQLException b) {
 	    System.err.println("Erreur de connexion :"+b.getMessage());
 	}

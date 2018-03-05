@@ -46,16 +46,32 @@ class Sauvegarde implements ActionListener {
 	}
 
 	try {
-	    System.out.println("Le pseudo arrive a destination :"+ pseudo);
 	    Connection connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/simonr","simonr","Azertyuiop");
-	    
-	    PreparedStatement insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+enemis+","+level+","+score+","+cac+")");
-	    ResultSet sauvegardeComplete = insertVal.executeQuery();
-	JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Sauvegarde réussie!","Information",JOptionPane.INFORMATION_MESSAGE);
-	    insertVal.close();
-	    sauvegardeComplete.close();
-	   connexion.close();
+
+	    PreparedStatement verifVal = connexion.prepareStatement("SELECT EXISTS(SELECT * FROM Sauvegarde WHERE Pseudo = '"+pseudo+"')");
+	    ResultSet verif = verifVal.executeQuery();
+	    PreparedStatement insertVal = null;
+	    ResultSet sauvegardeComplete = null;
+	    PreparedStatement updateVal = null;
+	    ResultSet update = null;
+	    verif.next();
+	    if (verif.getBoolean(1)==true) {
+		updateVal = connexion.prepareStatement("UPDATE Sauvegarde SET Vie="+vie+", Cadence="+cadence+",Munitions="+munitions+",Enemis="+enemis+",Level="+level+",Score="+score+",Corps="+cac+" WHERE Pseudo='"+pseudo+"'");
+		update = updateVal.executeQuery();
+		updateVal.close();
+		update.close();
+	    } else {
+		insertVal = connexion.prepareStatement("INSERT INTO Sauvegarde VALUES('"+pseudo+"',"+vie+","+cadence+","+munitions+","+enemis+","+level+","+score+","+cac+")");
+		sauvegardeComplete = insertVal.executeQuery();
+		insertVal.close();
+		sauvegardeComplete.close();
+	    }
+	    JOptionPane jop = new JOptionPane();
+	    jop.showMessageDialog(null,"Sauvegarde réussie!","Information",JOptionPane.INFORMATION_MESSAGE);
+	    verifVal.close();
+	    verif.close();
+	    connexion.close();
+
 	} catch (SQLException b) {
 	    System.err.println("Erreur de connexion: "+ b.getMessage());
 
