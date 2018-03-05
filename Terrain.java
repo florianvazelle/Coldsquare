@@ -13,18 +13,7 @@ public class Terrain extends JPanel {
     public Terrain(MaFenetreJeu frame){
 	this.frame = frame;
 	listeMur = new ArrayList<Mur>();
-	Mur haut = new Mur(0, 0, frame.getWidth(), 25);
-	Mur gauche = new Mur(0, 0, 25, frame.getHeight());
-        //Mur info = new Mur(-1, 475, 275, 525);
-	Mur droit = new	Mur(frame.getWidth()-25, 0, 25, frame.getHeight());
-	Mur bas	= new Mur(0, frame.getHeight()-55, frame.getWidth(), 25);
-	
-	listeMur.add(haut);
-	listeMur.add(gauche);
-	//listeMur.add(info);
-	listeMur.add(droit);
-	listeMur.add(bas);
-	
+
 	this.map = new boolean[frame.getWidth()/25][frame.getHeight()/25];
 
 	initMap();
@@ -34,13 +23,27 @@ public class Terrain extends JPanel {
     }
 
     void initMap(){
-	if(listeMur.size() > 4 ){
-	    for(int k = 4 ; k <= listeMur.size()-1 ; k++ ){
-		listeMur.remove(k);
-	    }
-	}
-	for(int i = 0 ; i!=frame.getWidth()/25 ; i++){
-            for(int j = 0 ; j!=frame.getHeight()/25 ; j++){
+	this.listeMur.clear();
+
+	Mur haut = new Mur(0, 0, frame.getWidth(), 25);
+	Mur gauche = new Mur(0, 0, 25, frame.getHeight());
+	Mur droit = new	Mur(frame.getWidth()-25, 0, 25, frame.getHeight());
+	/* Trois bas cae visuellement la frame arrive a la taille de la frame moins 55, je ne sais pas pourquoi et les ennemies ayant une hitbox plus
+	   petite qu'au debut il peuvent spawner en dessou, donc au cas ou
+	*/
+	Mur bas	= new Mur(0, frame.getHeight()-55, frame.getWidth(), 25);
+	Mur bas2 = new Mur(0, frame.getHeight()-30, frame.getWidth(), 25);
+	Mur bas3 = new Mur(0, frame.getHeight()-5, frame.getWidth(), 25);
+	
+	listeMur.add(haut);
+	listeMur.add(gauche);
+	listeMur.add(droit);
+	listeMur.add(bas);
+	listeMur.add(bas2);
+	listeMur.add(bas3);
+	
+	for(int i = 0 ; i!=1920/25 ; i++){
+            for(int j = 0 ; j!=1040/25 ; j++){
 		if(i >= 2 && i <= 4 && j >= 2 && j <= 4 )
 		    this.map[i][j] = false;
 		else
