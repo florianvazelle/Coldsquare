@@ -222,28 +222,28 @@ public class Jeu{
 	}else if(nb3 == 2) {
 	    nb += 200;
 	    nb2 += 200;
-	}		
+	}	
 	
-	Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2);
+	Enemy Ennemi = new Enemy("Ennemi", 1, "./assets/ennemi.png", nb, nb2, new Arme(100, 1));
 	Ennemi.addListeDeSprite(new Sprite(Ennemi));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort1.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort2.png"));
 	Ennemi.addListeDeSprite(new Sprite("./assets/ennemi_mort3.png"));
-	    Ennemi.getHitbox().setY(Ennemi.getHitbox().getY()+13);
+	Ennemi.getHitbox().setY(Ennemi.getHitbox().getY()+13);
 	Ennemi.getHitbox().setHeight(Ennemi.getHitbox().getHeight()-13);
 	
 	int distanceX = Ennemi.getCoordonneX()- af.getSteve().getCoordonneX();
 	int distanceY = Ennemi.getCoordonneY()- af.getSteve().getCoordonneY();
 	
-	if( distanceY < 100 && distanceX < 100) {
+	/*	if( distanceY < 100 && distanceX < 100) {
 	    System.out.println("trop pres X: "+ distanceX+ " Y: " + distanceY);
-	}
+	    }*/
 	
 	boolean bonnePlace = false;
 	while(bonnePlace == false) {
 	    for(int i=0;i<fond.getMur().size();i++){
 		if(Hitbox.collision(Ennemi.getHitbox(),this.fond.getMur().get(i).getHitbox())){
-		    System.out.println("collisionMur");
+		    //System.out.println("collisionMur");
 		    nb = r.nextInt(1700); 
 		    nb2 = r.nextInt(810);
 		    nb3= r2.nextInt(2);
@@ -294,7 +294,7 @@ public class Jeu{
 	}
 	
 	af.addPersonnageVisible(Ennemi);
-	System.out.println("Ennemi "+ (af.personnageVisible.size()-1)+" bien place:" +bonnePlace);
+	//System.out.println("Ennemi "+ (af.personnageVisible.size()-1)+" bien place:" +bonnePlace);
 	//af.repaint(Ennemi.getCoordonneX()-50, Ennemi.getCoordonneY()-50, Ennemi.getHitbox().getWidth()+100, Ennemi.getHitbox().getHeight()+100);
 	af.repaint();
 	frame.revalidate();

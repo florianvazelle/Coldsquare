@@ -35,7 +35,6 @@ public class ControlerClique implements MouseListener {
     
     public void mouseClicked(MouseEvent e){
 	if(e.getButton() == MouseEvent.BUTTON1){
-	    System.out.println("here1Clique "+this.perso.getATirer());
 	    if(!(mp.getEnPause()) && !(j.n.getWin()) && !this.perso.getATirer())
 		(new Tirer(perso, frame, af, ba, mp, t)).start();
 	}else if(e.getButton() == MouseEvent.BUTTON3 && j.getNiveau().getCac()==true){

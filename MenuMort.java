@@ -28,8 +28,7 @@ public class MenuMort extends JPanel{
 	private boolean connecte=false;
 	
 	public MenuMort(Jeu j){
-		System.out.println("ici1");
-		this.j=j;
+	        this.j=j;
 		this.setLayout(null);
 		this.tabPseudo= new ArrayList<String>();
 		this.tabScore= new ArrayList<String>();
@@ -88,7 +87,7 @@ public class MenuMort extends JPanel{
 				ResultSet tabScore = selectVal.executeQuery(sql2);
 				tabScore.last();
 				int nbRow = tabScore.getRow();
-				System.out.println(""+nbRow);
+				//System.out.println(""+nbRow);
 				tabScore.beforeFirst();
 				
 				while( tabScore.next() != false) {

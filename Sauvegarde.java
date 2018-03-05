@@ -37,7 +37,7 @@ class Sauvegarde implements ActionListener {
         this.munitions = n.getBalle();
 	this.cac = n.getCac();
 	this.score = j.getScore();
-	System.out.println(""+pseudo);
+	//System.out.println(""+pseudo);
 	try {
 	    Class.forName("org.mariadb.jdbc.Driver");
 	}

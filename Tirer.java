@@ -49,8 +49,6 @@ public class Tirer extends Thread {
 	    InputStream stream = new ByteArrayInputStream(fusil.getSamples());
 	    fusil.play(stream);
 	    
-	    System.out.println("Munition : "+this.perso.getArme().getMunition());	
-	    
 	    try{
 		TimeUnit.MILLISECONDS.sleep(1000-(this.perso.getArme().getCadence()-1)*2);
 	    }catch(InterruptedException e){

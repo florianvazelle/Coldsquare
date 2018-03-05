@@ -76,7 +76,6 @@ class Personnage {
 
     public void setVie(int newVie){
         this.vie=newVie;
-	System.out.println("here1 "+newVie);
     }
 
     public Arme getArme(){
