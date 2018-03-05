@@ -7,6 +7,7 @@ public class MenuController implements ActionListener {
     Menu menu;
     JPanel p = new JPanel();
     public String nom;
+	Jeu j;
     
     public MenuController(int i, JPanel panneau) {
 	this.id = i;
@@ -32,8 +33,8 @@ public class MenuController implements ActionListener {
 	    menu.card.show(menu.cards, menu.listContent[0]);
 	}
 	else if (id == 6) {
-	    nom = menu.pseudo.getText();
-	    new Jeu(this);
+	    j = new Jeu(this);
+		j.setPseudo(menu.pseudo.getText());
 	    menu.f.setVisible(false);
 	    menu.f.dispose();
 	}
