@@ -76,7 +76,7 @@ public class ControlerEnemy extends Thread {
 		perso.setAwake(false);
 
 	    try{
-		TimeUnit.MILLISECONDS.sleep(1);
+		TimeUnit.MILLISECONDS.sleep(5);
 	    }catch(InterruptedException e){
 		e.printStackTrace();
 	    }
