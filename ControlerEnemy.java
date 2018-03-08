@@ -38,9 +38,9 @@ public class ControlerEnemy extends Thread {
     
     void action(){
 	int vieInit = af.getSteve().getVie()+1;
-
+	
 	while(perso.getAwake()){
-
+	    
 	    int varX = perso.getCoordonneX();
 	    int varY = perso.getCoordonneY();
 	    
@@ -60,21 +60,21 @@ public class ControlerEnemy extends Thread {
 		
 		int targetX = path.get(path.size() - 1).getX();
 		int targetY = path.get(path.size() - 1).getY();
-
+		
 		perso.setCoordonneX(perso.approachValues(varX, targetX*25, perso.getSpeed()));
 		perso.setCoordonneY(perso.approachValues(varY, targetY*25, perso.getSpeed()));
 		
 		af.repaint(perso.getCoordonneX()-50, perso.getCoordonneY()-50, perso.getHitbox().getWidth()+100, perso.getHitbox().getHeight()+100);
 	    }
 	    
-	    if(perso.getAwake() && perso.distance(perso.getCoordonneX(), perso.getCoordonneY(), playerPosX, playerPosY) < 250 && vieInit>af.getSteve().getVie() || (vieInit==af.getSteve().getVie() && ancienPos[0][1] != varY/25 && ancienPos[1][0] != playerPosX/25)){
+	    if((perso.getAwake() && perso.distance(perso.getCoordonneX(), perso.getCoordonneY(), playerPosX, playerPosY) < 250 && vieInit>af.getSteve().getVie() || (vieInit==af.getSteve().getVie() && ancienPos[0][1] != varY/25 && ancienPos[1][0] != playerPosX/25)) && !(mp.getEnPause())){
 		vieInit = af.getSteve().getVie();
 		tirer();
 	    }
-
-	    if(perso.getVie() <=0 || af.getSteve().getVie() <=0 || !(mp.getEnPause()))
+	    
+	    if(perso.getVie() <=0 || af.getSteve().getVie() <=0 )
 		perso.setAwake(false);
-
+	    
 	    try{
 		TimeUnit.MILLISECONDS.sleep(5);
 	    }catch(InterruptedException e){
@@ -89,7 +89,7 @@ public class ControlerEnemy extends Thread {
 	if(this.perso.getArme().getMunition()>0 && !this.perso.getATirer())
 	    (new Tirer(perso, frame, af, ba, mp, t)).start();
     }
-
+    
 }
 
 

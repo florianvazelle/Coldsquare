@@ -157,13 +157,15 @@ public class AStar {
 	openList.add(start);
 	Node current;
 	ArrayList<Node> neighbours;
+
+	long millis = System.currentTimeMillis();
 	
 	while(true){
 	    current = openList.poll();
 	    if(current==null)break;
             closedList[current.getX()][current.getY()]=true;
-	    
-	    if(current.getX()  == target.getX() && current.getY() == target.getY())
+	    //System.out.println("millis "+(System.currentTimeMillis()-millis));
+	    if((current.getX()  == target.getX() && current.getY() == target.getY()) || System.currentTimeMillis()-millis > 3000)
 		return retracePath(start, current);
 
 	    /* Retrieve horizontal and vertical node's neighbours */
