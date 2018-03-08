@@ -72,7 +72,7 @@ public class ControlerEnemy extends Thread {
 		tirer();
 	    }
 
-	    if(perso.getVie() <=0 || af.getSteve().getVie() <=0)
+	    if(perso.getVie() <=0 || af.getSteve().getVie() <=0 || !(mp.getEnPause()))
 		perso.setAwake(false);
 
 	    try{
