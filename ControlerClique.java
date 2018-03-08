@@ -43,6 +43,7 @@ public class ControlerClique implements MouseListener {
 		if(af.personnageVisible.get(i).getVie()>0){
 		    if(Hitbox.collision(Steve.getHitboxCC(), af.personnageVisible.get(i).getHitbox())){
 			af.personnageVisible.get(i).setVie(af.personnageVisible.get(i).getVie()-1);
+			j.setEnnemisRestants(j.getEnnemisRestants()-1);
 			af.repaint();
 			if(this.j.verifWin())
 			    this.j.levelComplete();
